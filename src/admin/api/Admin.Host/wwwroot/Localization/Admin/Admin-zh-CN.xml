@@ -1,0 +1,1872 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="zh-CN">
+  <texts>
+    <text name="HomePage" value="主页" />
+    <text name="AboutUs" value="关于我们" />
+    <text name="Administration" value="管理" />
+    <text name="Roles" value="角色" />
+    <text name="Users" value="用户" />
+    <text name="InvalidFormMessage" value="部分输入信息不符合要求，请检查并改正." />
+    <text name="InvalidUserNameOrPassword" value="用户名或密码无效" />
+    <text name="ThereIsNoTenantDefinedWithName{0}" value="租户 {0}不存在" />
+    <text name="TenantIsNotActive" value="租户 {0} 未激活." />
+    <text name="UserIsNotActiveAndCanNotLogin" value="用户 {0} 未激活，不能登录." />
+    <text name="PleaseEnterLoginInformation" value="请输入登录信息" />
+    <text name="TenancyName" value="租户名称" />
+    <text name="UserNameOrEmail" value="用户名或邮箱地址" />
+    <text name="Password" value="密码" />
+    <text name="RememberMe" value="记住我" />
+    <text name="LogIn" value="登录" />
+    <text name="ForgotPassword" value="不记得密码了?" />
+    <text name="DontYouHaveAnAccount" value="还不是系统用户?" />
+    <text name="CreateAnAccount" value="注册" />
+    <text name="Pages" value="页面" />
+    <text name="RoleName" value="角色名称" />
+    <text name="EditRole" value="修改角色" />
+    <text name="CreateNewRole" value="添加角色" />
+    <text name="RoleProperties" value="角色属性" />
+    <text name="Permissions" value="权限" />
+    <text name="Save" value="保存" />
+
+
+    <!--add by zhaoyw-->
+    <!--FTP舱单传输下载的设置-->
+    <text name="FTPAddress" value="FTP地址" />
+    <text name="FTPUserName" value="FTP用户名" />
+    <text name="FTPUserPWD" value="FTP密码" />
+    <text name="StartTask" value="开始下载任务" />
+    <text name="FtpSettings" value="Ftp舱单服务器配置" />
+    <text name="FTPMessageBackupPath" value="FTP报文备份路径" />
+    <text name="FTPERRORMessagePath" value="FTP错误报文存储路径" />
+    <text name="MessageReadPath" value="FTP读取报文路径" />
+    <text name="Loading" value="加载中" />
+
+    <text name="RolesHeaderInfo" value="使用角色进行权限分组." />
+    <text name="Static" value="系统" />
+    <text name="Actions" value="操作" />
+    <text name="Delete" value="删除" />
+    <text name="SavedSuccessfully" value="保存成功." />
+    <text name="AreYouSure" value="您确定吗?" />
+    <text name="YesDelete" value="是, 执行删除!" />
+    <text name="DeletingUser" value="删除用户" />
+    <text name="UsersHeaderInfo" value="管理用户及权限." />
+    <text name="CreateNewUser" value="添加" />
+    <text name="UserName" value="用户名" />
+    <text name="Name" value="名字" />
+    <text name="Surname" value="姓氏" />
+    <text name="EmailAddress" value="邮箱地址" />
+    <text name="LastLoginTime" value="上次登录时间" />
+    <text name="EditUser" value="修改用户" />
+    <text name="UserInformations" value="用户信息" />
+    <text name="PasswordRepeat" value="密码 (核对)" />
+    <text name="SuccessfullyDeleted" value="删除成功." />
+    <text name="RoleDeleteWarningMessage" value="角色 {0} 将被删除，拥有此角色的用户将取消此角色." />
+    <text name="UserDeleteWarningMessage" value="用户 {0} 将被删除." />
+    <text name="Active" value="激活" />
+    <text name="EmailConfirm" value="邮箱地址验认" />
+
+    <text name="MySettings" value="我" />
+    <text name="Logout" value="注销" />
+    <text name="Reset" value="重置" />
+    <text name="ResetPermissionsTooltip" value="重置用户权限后，用户仅拥有所属角色包含的权限，为用户直接指定的权限将取消." />
+    <text name="ResetSuccessfully" value="重置成功" />
+    <text name="Tenants" value="租户" />
+    <text name="TenantsHeaderInfo" value="管理租户." />
+    <text name="CreateNewTenant" value="添加租户" />
+    <text name="TenancyCodeName" value="租户编码" />
+    <text name="TenantName" value="租户名称" />
+    <text name="TenantDeleteWarningMessage" value="租户 {0} 将被删除." />
+    <text name="AdminEmailAddress" value="管理员邮箱" />
+    <text name="AdminPassword" value="管理员密码" />
+    <text name="AdminPasswordRepeat" value="管理员密码(核对)" />
+    <text name="EditTenant" value="修改租户" />
+    <text name="ChangingPermissions" value="更改权限" />
+    <text name="EditingUser" value="修改用户" />
+    <text name="CreatingNewUser" value="添加用户" />
+    <text name="Edit" value="修改" />
+    <text name="EditingTenant" value="修改租户" />
+    <text name="CreatingNewTenant" value="添加租户" />
+    <text name="DeletingTenant" value="删除租户" />
+    <text name="EditingRole" value="修改角色" />
+    <text name="CreatingNewRole" value="添加角色" />
+    <text name="DeletingRole" value="删除角色" />
+    <text name="CreationTime" value="创建时间" />
+    <text name="SearchWithThreeDot" value="搜索..." />
+    <text name="ResetSpecialPermissions" value="重置直接指定权限" />
+    <text name="SavingWithThreeDot" value="保存中..." />
+    <text name="Settings" value="设置" />
+    <text name="SaveAll" value="保存全部" />
+    <text name="SettingsHeaderInfo" value="显示和修改程序设置." />
+    <text name="EmailSmtp" value="邮箱 (SMTP)" />
+    <text name="DefaultFromAddress" value="默认发送邮箱地址" />
+    <text name="DefaultFromDisplayName" value="默认发送人名字" />
+    <text name="SmtpHost" value="SMTP服务器" />
+    <text name="SmtpPort" value="SMTP端口" />
+    <text name="UseDefaultCredentials" value="默认身份验证" />
+    <text name="DomainName" value="域名" />
+    <text name="UseSsl" value="使用SSL" />
+    <text name="ThisWebSiteRootAddress" value="网站http根路径" />
+    <text name="ThisWebSiteRootAddress_Hint" value="示例： http://mydomain.com/ ，用于外部链接本系统，如密码重置链接" />
+    <text name="General" value="基本信息" />
+    <text name="SendPasswordResetLink_Information" value="系统在几十秒内向您发送一封密码重置邮件，如果在3分钟内还没收到这封邮件，请重试." />
+    <text name="Send" value="发送" />
+    <text name="PasswordReset" value="重置密码" />
+    <text name="InvalidUserNameOrEmailAddress" value="用户名或Email地址无效" />
+    <text name="PasswordResetEmail_Subject" value="重置密码" />
+    <text name="PasswordResetEmail_Title" value="重置密码." />
+    <text name="PasswordResetEmail_SubTitle" value="进行密码重置." />
+    <text name="PasswordResetEmail_ClickTheLinkBelowToResetYourPassword" value="请点击以下链接重置密码:" />
+    <text name="EmailActivation_Subject" value="激活您的用户账号" />
+    <text name="EmailActivation_Title" value="欢迎使用系统." />
+    <text name="EmailActivation_SubTitle" value="系统发送此邮件验证您的邮箱地址,并激活您的用户账号." />
+    <text name="EmailActivation_ClickTheLinkBelowToVerifyYourEmail" value="请点击以下链接确认您的邮箱地址,并激活您的用户账号:" />
+    <text name="InvalidEmailAddress" value="邮箱地址无效" />
+    <text name="InvalidPasswordResetCode" value="密码重置已失效" />
+    <text name="InvalidPasswordResetCode_Detail" value="请您务必通过点击邮件中的重置链接进入本页面.如果已经这样做了,还存在问题,请重试一遍密码重置操作!" />
+    <text name="PleaseEnterYourNewPassword" value="请输入新密码." />
+    <text name="UserEmailIsNotConfirmedAndCanNotLogin" value="您的邮箱未通过验证.请检查您的邮箱地址是否正确,查收邮件并点击邮件内容中的验证链接进行验证和激活.如果没有收到邮件,请点击[邮箱验证],系统会重新发送一封邮件." />
+    <text name="LoginFailed" value="登录失败!" />
+    <text name="InvalidEmailConfirmationCode" value="邮箱验证已失效" />
+    <text name="InvalidEmailConfirmationCode_Detail" value="请您务必通过点击邮件中的重置链接进入本页面.如果已经这样做了,还存在问题,请重试一遍邮箱验证操作!" />
+    <text name="YourEmailIsConfirmedMessage" value="您的邮箱已通过验证." />
+    <text name="ShouldChangePasswordOnNextLogin" value="下次登录需要修改密码." />
+    <text name="SetRandomPassword" value="使用随机密码." />
+    <text name="EmailActivation" value="发送激活邮件" />
+    <text name="SendEmailActivationLink_Information" value="系统在几十秒内向您发送一封邮件,用于激活您的用户账号，请接收并点击邮件内容中的激活链接。如果在2分钟内还没收到这封邮件，请重试." />
+    <text name="SendActivationEmail" value="发送激活邮件." />
+    <text name="ChangePassword" value="修改密码" />
+    <text name="CurrentPassword" value="当前密码" />
+    <text name="NewPassword" value="新密码" />
+    <text name="NewPasswordRepeat" value="新密码 (核对)" />
+    <text name="YourPasswordHasChangedSuccessfully" value="密码修改成功." />
+    <text name="SelfUserRegistrationIsDisabledMessage" value="您不能注册!" />
+    <text name="SelfUserRegistrationIsDisabledMessage_Detail" value="注册功能被禁用，请联系您的系统管理员为您建立用户账号." />
+    <text name="SuccessfullyRegistered" value="注册成功" />
+    <text name="ConfirmationMailSentPleaseClickLinkInTheEmail" value="已往您的{0}邮箱发送了一封邮件，请点击邮件中的链接，验证您的邮箱地址." />
+    <text name="YourAccountIsWaitingToBeActivatedByAdmin" value="您的用户账号尚未激活，待系统管理员激活后方能登录使用系统." />
+    <text name="NameSurname" value="姓名" />
+    <text name="UserManagement" value="用户管理" />
+    <text name="AllowUsersToRegisterThemselves" value="允许用户注册." />
+    <text name="AllowUsersToRegisterThemselves_Hint" value="如果此项被禁用，只能由管理员通过用户管理页面添加用户." />
+    <text name="NewRegisteredUsersIsActiveByDefault" value="注册用户默认激活." />
+    <text name="NewRegisteredUsersIsActiveByDefault_Hint" value="如果此项被禁用，新用户需要通过邮件激活后才能登录." />
+    <text name="Default" value="默认" />
+    <text name="DefaultRole_Description" value="新用户将默认拥有此角色." />
+    <text name="StaticRole_Tooltip" value="不能删除系统角色." />
+    <text name="EmailConfirmationRequiredForLogin" value="必须验证邮箱地址后才能登录." />
+    <text name="{0}UserCannotBeDeleted" value="{不能删除0}用户." />
+    <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />
+    <text name="ExportToExcel" value="导出到Excel" />
+    <text name="ChangeProfilePicture" value="修改头像" />
+    <text name="TenantName_Regex_Description" value="租户名称必须由2个以上字母、数字、-、_组成,以字母开头" />
+    <text name="ProfilePicture_Change_Info" value="只能选择{0}mb内的JPG/JPEG/PNG图片." />
+    <text name="ProfilePicture_Change_Error" value="头像修改错误." />
+    <text name="ProfilePicture_Warn_SizeLimit" value="只能选择{0}mb内的JPG/JPEG图片，请重新选择头像文件." />
+    <text name="ProfilePicture_Warn_FileType" value="只能选择1mb内的JPG/JPEG图片，请重新选择头像文件." />
+    <text name="Dashboard" value="工作台" />
+    <text name="DashboardHeaderInfo" value="分析与报告" />
+    <text name="GoToApplication" value="登录系统" />
+    <text name="TenantInformations" value="租户信息" />
+    <text name="PersonalInformations" value="个人信息" />
+    <text name="AccountSettings" value="账号设置" />
+    <text name="Captha_Hint" value="输入图片中的验证码:" />
+    <text name="Back" value="返回" />
+    <text name="Submit" value="提交" />
+    <text name="SignUp" value="登录" />
+    <text name="CaptchaCanNotBeEmpty" value="验证码不能为空." />
+    <text name="IncorrectCaptchaAnswer" value="验证码无效." />
+    <text name="FormIsNotValidMessage" value="部分输入信息不符合要求，请检查并改正.." />
+    <text name="CanNotChangeAdminUserName" value="管理用户，不能修改用户名." />
+    <text name="Error" value="错误!" />
+    <text name="OopsYouAreLost" value="噢! 失踪了." />
+    <text name="WeCanNotFindThePage" value="我们无法提供您想要访问的页面." />
+    <text name="DashboardDemo_Note_Title" value="欢迎使用ASP.NET Zero启动项目!" />
+    <text name="DashboardDemo_Note_Info">
+      在这个演示系统，您可以使用左边的菜单功能，测试和了解以下模块的全部功能：用户管理、角色管理、系统设置。
+      主面板(Dashboard)页面只是用于演示目的，文本和数据没有什么含义(所有数据都是硬编码在浏览器客户端程序；
+      其中的MEMBER ACTIVITY图表，向服务器端请求简单随机数据用于展示，当您点击刷新按钮时，可以看到变化。)
+    </text>
+    <text name="WelcomePage_Title" value="欢迎!" />
+    <text name="WelcomePage_Info" value="欢迎使用本应用，您可以从左边的菜单启动要使用的功能。如果您没有看到任何菜单，可能是因为您没有获得任何一项授权，您可以联系您的系统管理员获得授权. " />
+    <text name="RequestedFileDoesNotExists" value="请求的文件不存在!" />
+    <text name="MailSent" value="邮件已发送" />
+    <text name="PasswordResetMailSentMessage" value="已向您的邮箱发送了一封密码重置邮件，请查收." />
+    <text name="ActivationMailSentMessage" value="已向您的邮箱发送了一封邮箱地址验证邮件，请查收." />
+    <text name="UseCaptchaOnRegistration" value="用户注册时使用图片验证码(captcha)." />
+    <text name="FormBasedRegistration" value="基于表单身份验证" />
+    <text name="LdapSettings" value="LDAP设置" />
+    <text name="EnableLdapAuthentication" value="启用轻量目录访问协议(LDAP)认证." />
+    <text name="OtherSettings" value="其它设置" />
+    <text name="AuditLogs" value="审计日志" />
+    <text name="Success" value="成功" />
+    <text name="Time" value="时间" />
+    <text name="Service" value="服务" />
+    <text name="Action" value="操作" />
+    <text name="Duration" value="持续时间" />
+    <text name="IpAddress" value="IP地址" />
+    <text name="Client" value="客户端" />
+    <text name="Browser" value="浏览器" />
+    <text name="Xms" value="{0} ms" />
+    <text name="Close" value="关闭" />
+    <text name="Refresh" value="刷新" />
+    <text name="ErrorState" value="错误状态" />
+    <text name="All" value="全部" />
+    <text name="HasError" value="出现错误" />
+    <text name="ShowAdvancedFilters" value="显示高级过滤" />
+    <text name="HideAdvancedFilters" value="隐藏高级过滤" />
+    <text name="AuditLogDetail" value="审计日志详情" />
+    <text name="Parameters" value="参数" />
+    <text name="DateRange" value="日期范围" />
+    <text name="ActionInformations" value="操作信息" />
+    <text name="Today" value="今天" />
+    <text name="Yesterday" value="昨天" />
+    <text name="Last7Days" value="最近7天" />
+    <text name="Last30Days" value="最近30天" />
+    <text name="ThisMonth" value="这个月" />
+    <text name="LastMonth" value="上个月" />
+    <text name="TenantSelection" value="选择租户" />
+    <text name="TenantSelection_Detail" value="请选择一个租户" />
+    <text name="LoginWith" value="登录" />
+    <text name="PasswordChangeDontRememberMessage" value="忘记密码？ {0}." />
+    <text name="ClickHere" value="点击这里" />
+    <text name="Apply" value="应用" />
+    <text name="CustomRange" value="自定义范围" />
+    <text name="DashboardNoteForMpaVersion">
+      <![CDATA[
+      查看本示例:基于<strong>多页面应用</strong>版本，基于ASP.NET MVC和<strong>jQuery</strong>.
+      ]]>
+    </text>
+    <text name="DashboardNoteForSpaVersion">
+      <![CDATA[
+      查看本示例:基于<strong>单页面应用</strong>版本，基于ASP.NET MVC和<strong>AngularJs</strong>.
+      ]]>
+    </text>
+    <text name="SeeDemo" value="查看示例" />
+
+    <text name="Editions" value="版本列表" />
+    <text name="EditionsHeaderInfo" value="管理当前应用的版本和特性参数" />
+    <text name="CreateNewEdition" value="创建新的版本" />
+    <text name="EditEdition" value="编辑版本" />
+    <text name="EditionProperties" value="版本属性列表" />
+    <text name="EditionName" value="版本名称" />
+    <text name="Features" value="特性参数列表" />
+    <text name="EditionDeleteWarningMessage" value="{0}已经分配给租户的版本会被删除." />
+    <text name="CreatingNewEdition" value="创建一个新的版本" />
+    <text name="EditingEdition" value="正在编辑版本" />
+    <text name="DeletingEdition" value="正在删除版本" />
+    <text name="ChangingFeatures" value="正在修改特性参数" />
+    <text name="ResetSpecialFeatures" value="重置特殊的特性参数" />
+    <text name="ResetFeaturesTooltip" value="重置租户指定的特性参数设置并且保存.当前租户只会拥有已注册版本的特性参数." />
+    <text name="NotAssigned" value="没有分配" />
+    <text name="InvalidFeaturesWarning" value="一个或者多个特性参数值无效" />
+    <text name="Languages" value="语言列表" />
+    <text name="LanguagesHeaderInfo" value="管理语言包的文本头信息" />
+    <text name="CreateNewLanguage" value="创建新的语言" />
+    <text name="Code" value="编码" />
+    <text name="CreatingNewLanguage" value="正在创建新的语言" />
+    <text name="EditingLanguage" value="正在编辑语言" />
+    <text name="DeletingLanguages" value="正在删除语言" />
+    <text name="ChangingTexts" value="正在修改文本信息" />
+    <text name="SuccessfullySaved" value="保存成功." />
+    <text name="Language" value="语言" />
+    <text name="Flag" value="标记" />
+    <text name="SetAsDefaultLanguage" value="设置当前语言为默认语言" />
+    <text name="InvlalidLanguageCode" value="无效的语言代码." />
+    <text name="EditLanguage" value="编辑语言" />
+    <text name="ChangeTexts" value="改变文本信息" />
+    <text name="TargetValue" value="目标值" />
+    <text name="BaseValue" value="默认值" />
+    <text name="Key" value="键值" />
+    <text name="SaveAndClose" value="保存 &amp; 关闭" />
+    <text name="SaveAndNext" value="保存 &amp; 文本" />
+    <text name="EditText" value="编辑文本" />
+    <text name="LanguageTexts" value="语言的文本信息" />
+    <text name="LanguageTextsHeaderInfo" value="编辑语言的文本头信息." />
+    <text name="EmptyOnes" value="空值" />
+    <text name="Source" value="选择源" />
+    <text name="BaseLanguage" value="默认语言" />
+    <text name="TargetLanguage" value="目标语言" />
+    <text name="Previous" value="向前" />
+    <text name="LanguageDeleteWarningMessage" value="确定要删除当前语言包吗 {0}?" />
+    <text name="CanNotEditOrDeleteDefaultLanguages" value="不能删除默认语言.只能删除或者修改自己增加的语言. 但可以改变所有语言的文本信息." />
+    <text name="LookingForMpaVersion" value="查找多页面应用版本号" />
+    <text name="LookingForSpaVersion" value="查找单页面应用版本号" />
+    <text name="ThisLanguageAlreadyExists" value="这种语言已经存在!" />
+    <text name="OrganizationUnits" value="组织机构" />
+    <text name="OrganizationUnitsHeaderInfo" value="应用组织机构和行政区划到用户和实体" />
+    <text name="OrganizationTree" value="组织结构树" />
+    <text name="Members" value="组织成员" />
+    <text name="SelectAnOrganizationUnitToSeeMembers" value="选择一个组织成员。" />
+    <text name="OrganizationUnitDeleteWarningMessage" value="您确定删除组织机构 {0}?" />
+    <text name="AddSubUnit" value="添加子组织" />
+    <text name="AddMember" value="添加成员" />
+    <text name="SuccessfullyAdded" value="添加成功" />
+    <text name="RemoveUserFromOuWarningMessage" value="您确定要从组织机构 {1} 中删除成员 {0} ?" />
+    <text name="SuccessfullyRemoved" value="删除成功" />
+    <text name="SelectAnItem" value="选择一个项目" />
+    <text name="NewOrganizationUnit" value="新建组织机构" />
+    <text name="SelectAUser" value="选择一个用户" />
+    <text name="Select" value="选择" />
+    <text name="UserIsAlreadyInTheOrganizationUnit" value="这个用户已经在组织机构中!" />
+    <text name="AddRootUnit" value="添加根组织" />
+    <text name="AddUser" value="添加用户" />
+    <text name="NoOrganizationUnitDefinedYet" value="没有定义组织机构." />
+    <text name="OrganizationUnitMoveConfirmMessage" value="请确认移动 {0} 到 {1}." />
+    <text name="Root" value="根" />
+    <text name="SuccessfullyMoved" value="移动成功" />
+    <text name="AddedTime" value="添加时间" />
+    <text name="ManagingMembers" value="管理成员" />
+    <text name="ManagingOrganizationTree" value="管理组织机构树" />
+    <text name="LoginForUsers" value="用户登录" />
+    <text name="LoginAsThisUser" value="使用这个用户登录" />
+    <text name="BackToMyAccount" value="返回我的账户" />
+    <text name="LoginForTenants" value="租户登录" />
+    <text name="LoginAsThisTenant" value="使用这个租户登录" />
+    <text name="AuditLogImpersonatedOperationInfo" value="注意:此操作是由另一个用户代表该用户." />
+    <text name="CustomData" value="自定义数据" />
+    <text name="None" value="没有" />
+    <text name="YouCanBackToYourAccount" value="点击此返回我的账户." />
+    <text name="CascadeImpersonationErrorMessage" value="不能多次模拟登录,这已经是模拟登录!" />
+    <text name="FromTenantToHostImpersonationErrorMessage" value="不能从租户中模拟本地用户!" />
+    <text name="DifferentTenantImpersonationErrorMessage" value="不能模拟不同租户的用户!" />
+    <text name="ImpersonationTokenErrorMessage" value="模拟认证无效或过期" />
+    <text name="NotImpersonatedLoginErrorMessage" value="这不是模拟登录!" />
+    <text name="YouCannotLinkToSameAccount">您不能链接到相同的帐户!</text>
+    <text name="ChangePasswordBeforeLinkToAnAccount">您必须改变这个帐户的密码!</text>
+    <text name="LinkedAccounts">关联账户</text>
+    <text name="ManageLinkedAccounts">账户管理</text>
+    <text name="LinkNewAccount">创建关联账户</text>
+    <text name="SuccessfullyUnlinked">关联成功</text>
+    <text name="LinkedUserDeleteWarningMessage">用户的关联 { 0 } 将被删除。</text>
+    <text name="SwitchToLinkedAccountTokenErrorMessage" value="模拟令牌无效或过期!" />
+    <text name="WelcomeToTheApplicationNotificationMessage" value="欢迎来到我们的应用 !通知系统是用来告诉您事件。您可以选择您想要哪种类型的通知收到通知设置。" />
+    <text name="NewUserRegisteredNotificationDefinition" value="新用户注册。" />
+    <text name="NewUserRegisteredNotificationMessage" value="新用户注册成功。用户名:{ userName },邮件地址:{ emailAddress }。" />
+    <text name="SeeAllNotifications" value="看到所有的通知" />
+    <text name="SetAsRead" value="设置为已读" />
+    <text name="SetAllAsRead" value="设置所有为已读" />
+    <text name="NotificationSettings" value="通知设置" />
+    <text name="ReceiveNotifications" value="接收通知" />
+    <text name="ReceiveNotifications_Definition" value="这个选项可以用来完全启用/禁用接收通知。" />
+    <text name="NotificationTypes" value="通知类型" />
+    <text name="ReceiveNotifications_DisableInfo" value="您完全禁用接收通知,您可以启用它并选择您想收到通知类型。" />
+    <text name="Notifications" value="通知" />
+    <text name="ThereIsNoNotification" value="没有通知。" />
+    <text name="Unread" value="未读的" />
+    <text name="YouCanNotDeleteOwnAccount" value="您不能删除自己的用户帐户!" />
+    <text name="On" value="启用" />
+    <text name="Off" value="禁用" />
+    <text name="Maintenance">维护</text>
+    <text name="Caches">缓存</text>
+    <text name="CacheSuccessfullyCleared">清除缓存成功。</text>
+    <text name="AllCachesSuccessfullyCleared">所有缓存清除成功。</text>
+    <text name="ClearAll">全部清除</text>
+    <text name="Clear">清除</text>
+    <text name="CachesHeaderInfo">您可以在本页中清除应用程序缓存。</text>
+    <text name="TestEmailSettingsHeader">测试邮件设置</text>
+    <text name="SendTestEmail">发送测试邮件</text>
+    <text name="TestEmail_Subject">测试电子邮件</text>
+    <text name="TestEmail_Body">这是一个测试邮件。</text>
+    <text name="TestEmailSentSuccessfully">成功发送测试邮件。</text>
+    <text name="WebSiteLogs">网站日志</text>
+    <text name="WebSiteLogsHeaderInfo">您可以看到最新的日志，或下载所有日志的压缩文件。</text>
+    <text name="DownloadAll">全部下载</text>
+    <text name="TenantManagement">租户管理</text>
+    <text name="AllowTenantsToRegisterThemselves" value="允许租户注册到系统。" />
+    <text name="AllowTenantsToRegisterThemselves_Hint" value="如果您禁用此，创建租户只能在租户管理页，并且需要管理员权限 " />
+    <text name="NewRegisteredTenantsIsActiveByDefault" value="新注册的默认租户。" />
+    <text name="NewRegisteredTenantsIsActiveByDefault_Hint" value="如果您禁用这个，新的租户将不启用（和不能登录），直到管理员手动激活帐户。" />
+    <text name="TenantSignUp">注册租户</text>
+    <text name="NewTenantRegisteredNotificationDefinition" value="申请注册的一个新租户。" />
+    <text name="NewTenantRegisteredNotificationMessage" value="申请注册的新租户。租户的名称: {tenancyName}." />
+    <text name="LoginAttempts">登录记录</text>
+    <text name="Failed">失败</text>
+    <text name="NewTenant">新租户</text>
+    <text name="ResizedProfilePicture_Warn_SizeLimit" value="，图片大小不能超过{0}KB。请调整图片大小后再试一次。" />
+    <text name="RegisterFormUserNameInvalidMessage">请不要使用包含用户名的电子邮件地址。</text>
+    <text name="UseHostDatabase" value="使用Host数据库" />
+    <text name="DatabaseConnectionString" value="数据库连接字符串" />
+    <text name="TenantDatabaseConnectionStringChangeWarningMessage" value="通知：在更改租户的数据库连接字符串之前，应将租户数据库移到新的位置。更改连接字符串并不会移动数据库。" />
+    <text name="Timezone">时区</text>
+    <text name="HasOwnDatabase">使用自己的数据库</text>
+    <text name="TimeZoneSettingChangedRefreshPageNotification">时区设置改变。单击“确定”按钮刷新页面，并使更改生效。</text>
+
+    <text name="Permission">许可</text>
+    <text name="Role">角色</text>
+    <text name="Security">安全</text>
+    <text name="PasswordComplexity">密码复杂性</text>
+    <text name="UseDefaultSettings">使用默认设置</text>
+    <text name="PasswordComplexityNotSatisfied">过于简单的密码。</text>
+    <text name="PasswordComplexity_MinLength_Hint">密码必须包含 {0} 个字符</text>
+    <text name="PasswordComplexity_MaxLength_Hint">密码不能大于 {0} 个字符</text>
+    <text name="PasswordComplexity_UseNumbers_Hint">密码必须包含数字</text>
+    <text name="PasswordComplexity_UseUpperCaseLetters_Hint">密码必须包含一个大写字母</text>
+    <text name="PasswordComplexity_UseLowerCaseLetters_Hint">密码必须包含一个小写字母</text>
+    <text name="PasswordComplexity_UsePunctuations_Hint">密码必须包含一个特殊字符</text>
+    <text name="YouAlreadySentAFriendshipRequestToThisUser">您已经添加了这个用户。</text>
+    <text name="YouCannotBeFriendWithYourself">您不能邀请自己做朋友</text>
+    <text name="NewChatMessageEmail_Title">消息详情</text>
+    <text name="NewChatMessageEmail_SubTitle"></text>
+    <text name="NewChatMessageEmail_Subject">您有一个新的消息</text>
+    <text name="Sender">发送人</text>
+    <text name="Message">消息</text>
+    <text name="UserBlocked">用户锁定成功。</text>
+    <text name="UserUnblocked">用户解锁成功。</text>
+    <text name="BlockUser">锁定用户</text>
+    <text name="UnblockUser">解锁用户</text>
+    <text name="FriendshipRequestAccepted">对方已成为您的朋友</text>
+    <text name="UserSendYouAFriendshipRequest">{0} 想添加您为朋友。</text>
+    <text name="Friends">朋友</text>
+    <text name="Others">其他</text>
+    <text name="BlockedUsers">锁定的用户</text>
+    <text name="YouDontHaveAnyFriend">您没有任何朋友。请填写一个用户名到上面的输入框，然后单击“添加朋友”按钮。</text>
+    <text name="YouDontHaveAnyBlockedFriend">您没有任何被锁定的用户。如果想锁定一个朋友，请从下拉框中选择一个朋友。</text>
+    <text name="ChatUserSearch_Hint">
+      <![CDATA[
+      填写租户用户的唯一用户名， <br>
+      其它租户的用户为 <strong>[租户名称]\[用户名称]</strong><br><br>
+      例如: <br>
+      .\admin -> 宿主管理员 <br>
+      Test\admin -> Test租户的管理员 <br>
+      admin -> 您的租户管理员
+      ]]>
+    </text>
+    <text name="AddFriend">添加朋友</text>
+    <text name="TypeAMessageHere">请在这里输入消息...</text>
+    <text name="Chat">聊天</text>
+    <text name="ChatFeature">聊天</text>
+    <text name="ChatFeatureIsNotEnabledForSender">您没有启用聊天功能。</text>
+    <text name="ChatFeatureIsNotEnabledForReceiver">租户没有启用聊天功能。</text>
+    <text name="UserIsBlocked">用户已锁定。</text>
+    <text name="ChatIsNotConnectedWarning">聊天还没有链接。</text>
+    <text name="Demo_SampleChatMessage">您好，这是一个测试消息。请在不同的浏览器中登录和退出来测试聊天功能。</text>
+    <text name="TenantToTenantChatFeatureIsNotEnabledForSender">您没有启用与其他租户聊天的功能。</text>
+    <text name="TenantToTenantChatFeatureIsNotEnabledForReceiver">当前租户没有启用与其他租户聊天功能。</text>
+    <text name="TenantToHostChatFeatureIsNotEnabledForSender">您没有启用与宿主聊天的功能。</text>
+    <text name="TenantToHostChatFeatureIsNotEnabledForReceiver">当前租户没有启用与宿主聊天功能。</text>
+    <text name="TenantToTenantChatFeature">与其他租户聊天</text>
+    <text name="TenantToHostChatFeature">与宿主聊天</text>
+    <text name="FilterByPermission">按许可搜索</text>
+    <text name="FilterByRole">按角色搜索</text>
+    <text name="FilterOrAddUser">搜索/添加 用户</text>
+    <text name="HangfireDashboard" value="Hangfire 仪表盘" />
+    <text name="TargetUserNotFoundProbablyDeleted">找不到目标用户。他可能已被删除。</text>
+    <text name="UserLockedOutMessage">用户帐户已被锁定。请稍后再试。</text>
+    <text name="SendSecurityCode">发送安全代码。</text>
+    <text name="SendSecurityCode_Information">您必须通过验证才能登录。请选择一个验证类型。根据选定的验证类型发送代码。</text>
+    <text name="SendSecurityCodeErrorMessage">无法发送安全代码！</text>
+    <text name="VerifySecurityCodeNotLoggedInErrorMessage">您应该在登录后再验证！可能您的登录已超时。请转到登录页，然后重新尝试。</text>
+    <text name="VerificationCode">验证码</text>
+    <text name="VerifySecurityCode">安全代码</text>
+    <text name="VerifySecurityCode_Information">请输入发送给您的验证码。</text>
+    <text name="RememberThisBrowser">记住这个浏览器</text>
+    <text name="InvalidSecurityCode">无效的安全代码！</text>
+    <text name="PhoneNumber">电话号码</text>
+    <text name="Unlock">解锁</text>
+    <text name="UnlockedTheUser">解锁用户 {0}</text>
+    <text name="UserLockOut">用户锁定</text>
+    <text name="EnableUserAccountLockingOnFailedLoginAttemts">登录失败后启用用户的帐户锁定</text>
+    <text name="MaxFailedAccessAttemptsBeforeLockout">在锁定帐户之前的累计登录失败的最大数量</text>
+    <text name="DefaultAccountLockoutDurationAsSeconds">帐户锁定持续时间（秒）</text>
+    <text name="TwoFactorLogin">两步认证登录</text>
+    <text name="EnableTwoFactorLogin">启用两步认证登录</text>
+    <text name="IsEmailVerificationEnabled">启用电子邮件验证。</text>
+    <text name="IsSmsVerificationEnabled">启用短信验证。</text>
+    <text name="AllowToRememberBrowserForTwoFactorLogin">允许记住浏览器。如果您允许，用户可以选择记住浏览器，以跳过在同一个浏览器中的再次两步认证登录。</text>
+
+    <text name="NotSelected">未选择</text>
+    <text name="Change">修改</text>
+    <text name="ChangeTenant">修改租户</text>
+    <text name="UnknownTenantId{0}" value="未知租户ID：{0}" />
+    <text name="TenantIdIsNotActive{0}" value="未激活的租户ID：{0}" />
+    <text name="TimeoutPleaseTryAgain">操作超时！请再试一次。</text>
+    <text name="RemainingTime">生育时间</text>
+    <text name="SecondShort{0}">{0} 秒</text>
+    <text name="ResetCode">重置代码</text>
+    <text name="IsTwoFactorEnabled">是否启用双因素身份验证？</text>
+    <text name="IsLockoutEnabled">是否启用锁定？</text>
+    <text name="IsLockoutEnabled_Hint">在一定数量的失败登录尝试后，用户将被锁定一段时间。</text>
+    <text name="TenantRegistrationLoginInfo">单击此处登录</text>
+    <text name="CouldNotValidateExternalUser">无法验证外部用户登录</text>
+    <text name="LeaveEmptyToSwitchToHost">想要切换到宿主请留空</text>
+    <text name="PleaseWaitToConfirmYourEmailMessage">正在确认您的电子邮件地址，请稍后...</text>
+    <text name="ChatIsConnecting">正在连接聊天...</text>
+    <text name="Note_RefreshPageForPermissionChanges">如果您正在更改自己的权限，则可能需要刷新页面（F5），以在您所做的权限更改生效！</text>
+    <!--====================================================自定义=========================================================-->
+    <text name="DemoPayPalAccount">Demo PayPal 账号</text>
+    <text name="IsEnabled">是否启用</text>
+    <text name="IsGoogleAuthenticatorEnabled">启用Google验证</text>
+    <text name="GoogleAuthenticatorReferrerLink">请检查 </text>
+    <text name="ScanQrCodeWithYourMobileApp">请打开手机扫码二维码</text>
+    <text name="Profile">个人</text>
+    <text name="Enable">启用</text>
+    <text name="GoogleAuthenticatorIsNotEnabled">您的帐户未启用Google身份验证器。您必须首先在您的设置中启用它。</text>
+    <text name="SubscriptionExpiringSoon_Email_Subject">您的管理订阅到期通知</text>
+    <text name="SubscriptionExpiringSoon_Email_Body">您的管理订阅即将于 {0} 过期。</text>
+    <text name="SubscriptionExpire_Title">管理订阅过期</text>
+    <text name="SubscriptionExpire_SubTitle">发送此电子邮件通知您的订阅到期</text>
+    <text name="SubscriptionAssignedToAnother_Email_Body">您的管理订阅即将于 {0} 过期。您当前的版本为： {0}。</text>
+    <text name="FailedSubscriptionTerminations_Title">订阅失败</text>
+    <text name="FailedSubscriptionTerminations_SubTitle">部分租户订阅失败</text>
+    <text name="SubscriptionExpiringSoon_Title">订阅过期通知</text>
+    <text name="SubscriptionExpiringSoon_SubTitle">此电子邮件会发送给您，以通知您的订阅过期。</text>
+    <text name="AdminRoleCannotRemoveFromAdminUser">管理员角色无法从管理员用户中删除</text>
+    <text name="YouCannotRemoveUserRolePermissionsFromAdminRole">您不能从管理员角色中删除用户/角色权限</text>
+    <text name="YouCannotRemoveUserRolePermissionsFromAdminUser">您不能从管理员用户删除用户/角色权限</text>
+    <text name="Notification">通知</text>
+    <text name="TotalRecordsCount">总计： {0}</text>
+    <text name="SubscriptionInformation">订阅信息</text>
+    <text name="PaymentHistory">交易历史</text>
+    <text name="Gateway">网关</text>
+    <text name="Amount">金额</text>
+    <text name="Status">状态</text>
+    <text name="Period">周期</text>
+    <text name="DayCount">天数</text>
+    <text name="LastModificationTime">最后修改时间</text>
+    <text name="PaymentId">交易流水号</text>
+    <text name="SubscriptionPaymentGatewayType_Paypal">Paypal</text>
+    <text name="SubscriptionPaymentStatus_Completed">完成</text>
+    <text name="SubscriptionPaymentStatus_Processing">处理中</text>
+    <text name="SubscriptionPaymentStatus_Failed">失败</text>
+    <text name="PaymentPeriodType_Annual">全年</text>
+    <text name="PaymentPeriodType_Monthly">每月</text>
+    <text name="ProcessTime">处理时间</text>
+    <text name="SmsVerificationEnabled">启用电话号码验证（通过短信）</text>
+    <text name="SmsVerificationMessage">您的验证码： {0}</text>
+    <text name="Verify">校验</text>
+    <text name="YourCode">你的验证码</text>
+    <text name="VerifyYourCode">验证你的验证码</text>
+    <text name="YourPhoneNumberIsVerified">您的电话号码已验证</text>
+    <text name="YourPhoneNumberIsNotVerified">您的电话号码未经验证</text>
+    <text name="WrongSmsVerificationCode">验证码错误 !</text>
+    <text name="SelectUsers">选择用户</text>
+    <text name="YouCanManageUsersOrganizationUnitsFromOrganizationUnitsPage">您可以从“组织单位”页面管理用户组织单位。</text>
+    <text name="DemoUiComponents">演示UI组件</text>
+    <text name="DateAndTimePickers">日期和时间选择器</text>
+
+    <text name="PostedValue">Posted value</text>
+    <text name="SelectDate">选择日期</text>
+    <text name="SelectFile">选择文件</text>
+    <text name="UploadedFile">上传文件</text>
+    <text name="PostedData">提交数据</text>
+    <text name="Remove">删除</text>
+    <text name="OrganizationUnitNotFoundForThisUser">该用户没有组织单位。</text>
+    <text name="DemoUiComponents_Info">
+      此页面显示了可在应用程序中使用的一些有用的UI组件。此页面中的组件实现为完整堆栈（包括服务器端）
+    </text>
+    <text name="DemoUiComponents_Info_Metronic_Link_Text">查看Metronic主题以获取更多UI组件</text>
+
+    <text name="Subscription">订阅</text>
+    <text name="SubscriptionStartDate">订阅开始时间</text>
+    <text name="SubscriptionEndDate">订阅结束时间</text>
+    <text name="SubscriptionEndDateUtc">订阅结束时间</text>
+    <text name="TenantNameOrTenancyCode">租客名或租客编号</text>
+    <text name="UnlimitedTimeSubscription">无期限订阅</text>
+    <text name="Upgrade">升级</text>
+    <text name="Free">免费</text>
+    <text name="MaximumUserCount">最大用户数</text>
+    <text name="TestCheckFeature">测试检查功能</text>
+    <text name="TestCheckFeature2">测试检查功能2</text>
+    <text name="UnlockedTenandAdmin">解锁成功</text>
+    <text name="PasswordComplexity_RequireDigit">密码复杂性要求数字</text>
+    <text name="PasswordComplexity_RequireLowercase">密码复杂性要求小写字母</text>
+    <text name="PasswordComplexity_RequireNonAlphanumeric">密码复杂性要求非字母数字</text>
+    <text name="PasswordComplexity_RequireUppercase">密码复杂性要求大写字母</text>
+    <text name="PasswordComplexity_RequiredLength">密码复杂性要求长度</text>
+    <text name="Unlimited">无限</text>
+
+    <text name="SubscriptionPrice">订阅价格</text>
+    <text name="Paid">支付</text>
+    <text name="MonthlyPrice">每月价格</text>
+    <text name="AnnualPrice">年度价格</text>
+    <text name="IsTrialActive">是否试验激活</text>
+    <text name="TrialDayCount">试验天数</text>
+    <text name="WaitAfterSubscriptionExpireDate">订阅过期等待</text>
+    <text name="WaitingDayAfterExpire">过期等待天数</text>
+    <text name="WhatWillDoneAfterSubscriptionExpiry">订阅过期操作</text>
+    <text name="DeactiveTenant">停用租客</text>
+    <text name="AssignToAnotherEdition">分配其他版本</text>
+    <text name="IsInTrialPeriod">是否在试用期</text>
+    <text name="PaymentInfo">付款信息</text>
+    <text name="Extend_Edition_Description">扩展版的描述</text>
+    <text name="Extend">扩展</text>
+    <text name="TrialExpireNotification">试验过期通知</text>
+    <text name="Trial">试验</text>
+    <text name="BuyNow">现在购买</text>
+    <text name="PerMonth">每月</text>
+    <text name="PerYear">每年</text>
+
+    <text name="NewSubscriptionAmount">新订购金额</text>
+    <text name="NewTenants">新租户</text>
+    <text name="DashboardSampleStatistics">Demo</text>
+    <text name="DashboardSampleStatisticsHelpText">Demo</text>
+    <text name="IncomeStatistics">收入统计</text>
+    <text name="Daily">每日</text>
+    <text name="Weekly">每周</text>
+    <text name="Monthly">每月</text>
+    <text name="EditionStatistics">版本统计</text>
+    <text name="SubscriptionExpiringTenants">订阅到期租户</text>
+    <text name="RemainingDay">剩余天数</text>
+    <text name="SeeAllRecords">查看所有记录</text>
+    <text name="RecentTenants">最近租户</text>
+    <text name="HostDashboardHeaderInfo">查看统计信息以及相关情况</text>
+
+    <text name="Invoce">发票</text>
+    <text name="LegalName">抬头名称</text>
+    <text name="Address">地址</text>
+    <text name="LoginMsg">分布式后台快速开发框架</text>
+    <text name="UserImpersonateErrorMessage">租户权限已修改，无法切换！请尝试使用该租户账户独立登陆！</text>
+
+    <text name="OperationLogs">操作日志</text>
+    <text name="ChangeLogs">变更记录</text>
+    <text name="Object">对象</text>
+    <text name="Property">属性</text>
+    <text name="OriginalValue">原值</text>
+    <text name="NewValue">新值</text>
+    <text name="Detail">详细</text>
+    <text name="CreatedAtByUser"><![CDATA[<b>{1}</b> 于 <b>{0}</b> 创建 ]]></text>
+    <text name="Magicodes.Admin.MultiTenancy.Tenant">租户</text>
+    <text name="Magicodes.Admin.MultiTenancy.Role">角色</text>
+    <text name="Abp.Organizations.OrganizationUnit">组织单元</text>
+    <text name="Search">搜索</text>
+    <text name="Pin">Pin</text>
+    <text name="TopMenu">顶部菜单</text>
+    <text name="LeftMenu">左侧菜单</text>
+    <text name="UserAccounts">用户账号</text>
+    <text name="Blue">蓝色</text>
+    <text name="Green">绿色</text>
+    <text name="Pink">粉色</text>
+    <text name="Yellow">黄色</text>
+
+    <text name="UiCustomization_Layout">布局</text>
+    <text name="VisualSettings">界面设置</text>
+    <text name="UiCustomization_Theme">主题</text>
+    <text name="UiCustomization_LayoutType">布局类型</text>
+    <text name="UiCustomization_ContentSkin">内容区域底色</text>
+    <text name="UiCustomization_Fluid">平铺</text>
+    <text name="UiCustomization_Boxed">居中</text>
+    <text name="UiCustomization_LightGrey">浅灰色</text>
+    <text name="UiCustomization_White">白色</text>
+    <text name="SaveAsSystemDefault">保存</text>
+    <text name="UiCustomization_Header">顶部</text>
+    <text name="UiCustomization_DropdownSkin">下拉背景</text>
+    <text name="UiCustomization_Dark">深色</text>
+    <text name="UiCustomization_Light">浅色</text>
+    <text name="UiCustomization_Desktop">页面设置</text>
+    <text name="UiCustomization_DesktopFixedHeader">固定在页面顶部</text>
+    <text name="UiCustomization_DesktopMinimizeMode">最小化模式</text>
+    <text name="UiCustomization_None">无</text>
+    <text name="UiCustomization_Hide">隐藏</text>
+    <text name="UiCustomization_DropdownSkinDesktop">背景</text>
+    <text name="UiCustomization_DisplaySubmenuArrowDesktop">显示子菜单箭头</text>
+    <text name="UiCustomization_Mobile">移动呈现</text>
+    <text name="UiCustomization_MobileFixedHeader">固定顶部</text>
+    <text name="UiCustomization_Menu">菜单</text>
+    <text name="UiCustomization_MenuPosition">位置</text>
+    <text name="UiCustomization_Left">左侧</text>
+    <text name="UiCustomization_Top">顶部</text>
+    <text name="UiCustomization_MenuSkin">背景</text>
+    <text name="UiCustomization_FixedMenu">固定</text>
+    <text name="UiCustomization_AllowAsideMinimizing">允许最小化</text>
+    <text name="UiCustomization_DefaultMinimizedAside">默认最小化</text>
+    <text name="UiCustomization_AllowAsideHiding">允许隐藏</text>
+    <text name="UiCustomization_DefaultHiddenAside">默认隐藏</text>
+    <text name="UiCustomization_SubmenuToggle">子菜单展开方式</text>
+    <text name="UiCustomization_Dropdown">下拉</text>
+    <text name="UiCustomization_Accordion">展开</text>
+    <text name="UiCustomization_DropdownSubmenuSkin">子菜单背景</text>
+    <text name="UiCustomization_Inherit">继承</text>
+    <text name="UiCustomization_DropdownSubmenuArrow">显示二级菜单箭头</text>
+    <text name="UiCustomization_Footer">底部</text>
+    <text name="UiCustomization_FixedFooter">固定底部</text>
+    <text name="UiCustomizationHeaderInfo">管理和设置自定义布局、颜色和背景等</text>
+
+    <!--2018-6-4-->
+    <text name="ThisFieldIsRequired">请填写此项内容</text>
+    <text name="PasswordComplexity_RequiredLength_Hint">为了您的账号安全，请输入数字、字母和特殊符号组成的长度超过6位的密码</text>
+    <text name="PasswordsDontMatch">两次密码不一致</text>
+
+    <!--2018-6-5-->
+    <text name="Create" value="添加" />
+    <text name="CreateNew" value="添加" />
+    <text name="CreateNewPort" value="添加港口" />
+    <text name="CreateNewPortAear" value="添加区域" />
+    <text name="DeleteWarningMessage" value="确定删除此项？" />
+    <text name="Import" value="导入" />
+    <text name="Filter" value="搜索关键字" />
+    <text name="CreateDateRange" value="创建日期范围" />
+    <text name="UpdateDateRange" value="修改日期范围" />
+    <text name="NoDataToExport" value="没有数据可供导出！" />
+    <text name="Manager" value="管理" />
+    <text name="CurrentUserDidNotLoginToTheApplication" value="当前用户没有登陆，请登陆后再试！" />
+
+    <!--2018-6-11-->
+    <text name="ExportData" value="导出数据" />
+
+    <!--2018-6-25-->
+    <text name="SuccessfulOperation" value="操作成功！" />
+
+    <!--2018-6-26-->
+    <text name="RecycleBin" value="回收站" />
+    <text name="Restore" value="恢复" />
+    <text name="RestoreWarningMessage" value="由于此数据已删除，恢复之后可能会存在风险，确定要恢复此数据么？" />
+    <text name="SuccessfullyRestore" value="数据恢复成功！" />
+    <!--2018-6-27-->
+    <text name="EmptyTextTip" value="请选择一项..." />
+    <text name="EndTimeShouldGreaterThanStartTime" value="结束时间必须大于开始时间！" />
+    <text name="DragAndDropSortTip" value="请拖拽此项进行排序！" />
+
+    <!--2018-7-25-->
+    <text name="Choose" value="选择" />
+    <text name="Upload" value="上传" />
+    <text name="Contents" value="内容管理" />
+    <text name="PictureManage" value="图片管理" />
+    <text name="Top" value="置顶" />
+    <text name="Hot" value="热门" />
+    <text name="Recommend" value="推荐" />
+    <text name="Common" value="普通" />
+    <text name="OrdinaryTable" value="普通表格" />
+    <text name="TreeTable" value="树状表格" />
+
+    <!--生成，请勿修改-->
+    <text name="ArticleInfo" value="文章" />
+    <text name="Title" value="标题" />
+    <text name="Publisher" value="发布人（机构）" />
+    <text name="Content" value="内容" />
+    <text name="IsActive" value="是否启用" />
+    <text name="IsNeedAuthorizeAccess" value="授权访问" />
+    <text name="ColumnInfo" value="栏目信息" />
+    <text name="ArticleSourceInfo" value="文章来源" />
+    <text name="ReleaseTime" value="发布时间" />
+    <text name="SeoTitle" value="标题" />
+    <text name="KeyWords" value="关键字（多个以逗号隔开）" />
+    <text name="Introduction" value="简介" />
+    <text name="StaticPageUrl" value="静态页路径" />
+    <text name="Cover" value="封面" />
+    <text name="ArticleTagInfos" value="标签" />
+    <text name="Url" value="链接" />
+    <text name="RecommendedType" value="推荐类型" />
+    <text name="ViewCount" value="访问数" />
+    <text name="CreatorUserId" value="创建者UserId" />
+    <text name="LastModifierUserId" value="最后修改者UserId" />
+    <text name="DeleterUserId" value="删除者UserId" />
+    <text name="DeletionTime" value="删除时间" />
+    <text name="IsDeleted" value="是否删除" />
+    <text name="TenantId" value="租户Id" />
+    <text name="Id" value="Id" />
+    <text name="Description" value="描述" />
+    <text name="SortNo" value="排序号" />
+    <text name="ParentId" value="父级Id" />
+    <text name="IconCls" value="小图标" />
+
+    <!-- 2018-08-28 CLL 关于微信和支付宝支付的配置-->
+    <text name="PaySettings" value="支付设置"></text>
+    <text name="PayIsActiveExplain" value="请确认配置正确后再启用！" />
+    <text name="WeChatPay" value="微信支付" />
+    <text name="WeChatPayInformation" value="微信支付配置信息" />
+    <text name="WeChatAppId" value="开发者的应用ID" />
+    <text name="WeChatMchId" value="商户Id" />
+    <text name="WeChatTenPayKey" value="支付密钥" />
+    <text name="WeChatPayNotifyUrl" value="支付回调路径" />
+    <text name="AliPay" value="支付宝支付" />
+    <text name="AliInformation" value="支付宝支付配置信息" />
+    <text name="AliAppId" value="开发者的应用ID" />
+    <text name="AliUid" value="合作商户UID" />
+    <text name="AliGatewayurl" value="支付宝网关" />
+    <text name="AlipayPublicKey" value="公钥" />
+    <text name="AlipaySignPublicKey" value="签名公钥" />
+    <text name="AliPrivateKey" value="商户私钥" />
+    <text name="AliCharSet" value="编码格式" />
+    <text name="AliNotify" value="支付回调路径" />
+    <text name="AliSignType" value="签名算法" />
+    <text name="IsKeyFromFile" value="是否从文件读取公私钥" />
+    <text name="IsKeyFromFileExplain" value="如果勾选 ，那么公私钥应该配置为密钥文件路径" />
+
+    <!-- 2018-09-03 短信验证码配置 -->
+    <text name="SmsCodeSettings" value="短信配置" />
+    <text name="AliSmsCode" value="阿里云短信" />
+    <text name="AliSmsCodeSetting" value="阿里云短信配置" />
+    <text name="AliSmsCodeInformation" value="阿里云短信配置信息" />
+    <text name="AccessKeyId" value="AccessKeyId" />
+    <text name="AccessKeySecret" value="AccessKeySecret"/>
+    <text name="SignName" value="短信签名" />
+    <text name="TemplateCode" value="短信模板" />
+    <text name="TemplateParam" value="模板中JSON串" />
+
+    <!-- 2018-09-11 发票配置 -->
+    <text name="Invoice" value="发票" />
+    <text name="InvoiceInformation" value="发票信息" />
+    <text name="TaxNumber" value="税号" />
+    <text name="Contact" value="联系方式" />
+    <text name="BankAccount" value="银行账户" />
+    <text name="Bank" value="开户行名称" />
+
+    <!-- 2018-09-17 发票配置 -->
+    <text name="Appearance" value="外观" />
+    <text name="ApplicationLogo" value="应用logo" />
+    <text name="CustomCSS" value="客户定制系统" />
+
+
+    <!--2018-09-10 存储配置-->
+    <text name="StorageSettings" value="存储配置" />
+    <text name="AliStorage" value="阿里云存储" />
+    <text name="AliStorageSetting" value="阿里云存储配置" />
+    <text name="AliStorageInformation" value="阿里云存储配置信息" />
+    <text name="EndPoint" value="地域节点" />
+
+    <!--交易日志-->
+    <text name="TransactionLog" value="交易日志" />
+    <text name="Currency" value="金额" />
+    <text name="ClientIpAddress" value="客户端Ip" />
+    <text name="ClientName" value="客户端名称" />
+    <text name="IsFreeze" value="是否冻结" />
+    <text name="PayChannel" value="支付渠道" />
+    <text name="Terminal" value="终端" />
+    <text name="TransactionState" value="交易状态" />
+    <text name="OutTradeNo" value="交易单号" />
+    <text name="TransactionId" value="支付订单号" />
+    <text name="PayTime" value="支付完成时间" />
+    <text name="Exception" value="异常信息" />
+
+    <!--终端-->
+    <text name="Unknown" value="未知" />
+    <text name="Android" value="Android" />
+    <text name="Iphone" value="Iphone" />
+    <text name="Ipad" value="Ipad" />
+    <text name="MacOS" value="MacOS" />
+    <text name="WindowsXP" value="WindowsXP" />
+    <text name="WindowsVista" value="WindowsVista" />
+    <text name="Windows7" value="Windows7" />
+    <text name="Windows8" value="Windows8" />
+    <text name="Windows10" value="Windows10" />
+
+    <!--交易状态-->
+    <text name="NotPay" value="未支付" />
+    <text name="PayError" value="支付失败" />
+    <text name="PendingRefund" value="待退款" />
+    <text name="Refunded" value="已退款" />
+
+    <text name="PleaseSelectProperSort" value="请选择正确的分类" />
+    <!--V6.1-->
+    <text name="YouAreNotLinkedToAnyAccount">您没有链接到任何帐户</text>
+    <text name="DownloadCollectedData">下载收集的数据</text>
+    <text name="GdprDataPrepareStartedNotification">我们正在准备数据。准备好数据后，您会收到通知。</text>
+    <text name="GdprDataPreparedNotificationMessage">您的数据已准备就绪，请点击此处下载。</text>
+    <text name="ChatMessage_From">从</text>
+    <text name="ChatMessage_To">到</text>
+    <text name="ReadState">阅读状态</text>
+    <text name="You">你</text>
+    <text name="Anonymous">匿名</text>
+    <text name="Messages">消息</text>
+    <text name="ThisNotificationDoesntBelongToYou">此通知不属于您。</text>
+
+    <!--CMS加强-->
+    <text name="ColumnType">栏目类型</text>
+    <text name="MaxItemCount">最大子项数量</text>
+    <text name="Html">Html文本</text>
+    <text name="Image">图片</text>
+    <text name="IsStatic">是否为静态属性(创建后无法删除)</text>
+    <text name="StaticColumnInfo_Tooltip">不能删除静态栏目</text>
+    <text name="StaticArticleInfo_Tooltip">不能删除静态文章</text>
+    <text name="ExceedTheMaxCount">超出栏目子项最大数量</text>
+    <text name="ArticleTagInfo">文章标签</text>
+    <text name="Parent">父级</text>
+    <text name="IsHeaderNav">头部导航</text>
+    <text name="IsFooterNav">底部导航</text>
+
+    <!--微信扫码支付-->
+    <text name="PleaseWaitToConfirmYourAuthenticate">请等待验证你的授权请求</text>
+
+    <!--国际支付宝-->
+    <text name="GlobalAliPay">国际支付宝</text>
+    <text name="GlobalAliPayInformation">国际支付宝配置信息</text>
+    <text name="globalAliPay_Key">key(安全检验码)</text>
+    <text name="globalAliPay_Partner">合作商户uid</text>
+    <text name="globalAliPay_Gatewayurl">支付宝网关</text>
+    <text name="globalAliPay_Notify">服务器异步通知路径(需http://格式的完整路径，不能加?id=123这类自定义参数,必须外网可以正常访问)</text>
+    <text name="globalAliPay_ReturnUrl">页面跳转同步通知页面路径(需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问)</text>
+    <text name="globalAliPay_Currency">结算币种</text>
+    <text name="splitFund">分账信息</text>
+    <text name="InvalidPattern">请输入正确的值</text>
+    <text name="TransIn">账户Id</text>
+    <text name="AmountRate">分账比例</text>
+    <text name="Desc">描述</text>
+    <text name="TransInExplain">(接受分账资金的支付宝账户ID。 以2088开头的纯16位数字)</text>
+    <text name="AmountRateExplain">(只能是0-1之间的小数,包含0和1)</text>
+    <text name="TransInExistPleaseReplace">账户Id已存在请更换</text>
+    <text name="CreateSuccessfully">创建成功</text>
+    <text name="EditSuccessfully">修改成功</text>
+    <!--2018-12-7 小程序配置相关-->
+    <text name="MiniProgramSetting" value="小程序配置" />
+    <text name="WeChatMiniProgramSetting" value="微信小程序" />
+    <!--2018-12-17 腾讯云存储配置-->
+    <text name="AppId" value="应用ID" />
+    <text name="SecretId" value="秘钥id" />
+    <text name="SecretKey" value="秘钥Key" />
+    <text name="Region" value="区域" />
+    <text name="BucketName" value="存储桶名称" />
+    <text name="TencentStorage" value="腾讯云存储"/>
+    <text name="TencentStorageSettings" value="腾讯云存储配置"/>
+
+    <text name="ExpiringEditionMustBeAFreeEdition" value="到期分配版必须是免费版" />
+
+    <!--2019-1-25 微信公众号配置-->
+    <text name="WeChatSettings" value="微信公众号配置" />
+    <text name="WeChatSetting" value="微信公众号" />
+
+    <!--新版UI配置信息-->
+    <text name="CurrentTenant" value="当前租户名称" />
+    <text name="LanguageSelection" value="语言选择" />
+    <text name="FilterByEdition" value="版本过滤" />
+    <text name="SubscriptionEndUtc" value="订阅" />
+    <text name="DisplayTenancyName" value="租户显示名称" />
+    <text name="ConfirmPassword" value="确认密码" />
+    <text name="UseDefaultPassword" value="使用默认密码:{0}" />
+    <text name="PleaseSelect" value="请选择" />
+    <text name="IsUnlimited" value="是否无限订阅" />
+    <text name="EditTenantFeatures" value="编辑租户功能" />
+    <text name="TestTenantScopeFeature" value="测试租户范围功能" />
+    <text name="TestEditionScopeFeature" value="测试版本范围功能" />
+
+    <text name="Edition" value="版本" />
+    <text name="EditionNameNotAllowedRepeat" value="版本名称不允许重复" />
+    <text name="NameOfThings" value="名称"/>
+    <text name="AddSubNodeForXParentNode" value="{0} ：添加子节点" />
+
+    <!--审计日志-->
+    <text name="MethodName" value="方法名" />
+    <text name="MinExecutionDuration" value="最短执行时间" />
+    <text name="MaxExecutionDuration" value="最长执行时间" />
+
+
+    <!--数据表格-->
+    <text name="BatchDelete" value="批量删除"></text>
+    <text name="NoData" value="暂无数据"/>
+    <text name="GridFooterDisplayText" value="当前 {0} 页/共 {1} 页，共 {2} 条/显示 {3}-{4} 条"/>
+    <text name="GridSelectedXItemsTips">
+      <![CDATA[
+        已选择 <strong class="text-primary">{0}</strong> 项
+     ]]>
+    </text>
+    <text name="More" value="更多..."/>
+    <text name="ClearEmpty" value="清空"/>
+
+    <!--系统提示性信息-->
+    <text name="HintInformation" value="提示信息"/>
+    <text name="ConfirmInformation" value="确认信息"/>
+    <text name="MessageInfo" value="通知信息"/>
+    <text name="MessageSuccess" value="成功信息"/>
+    <text name="MessageWarn" value="警告信息"/>
+    <text name="MessageError" value="错误信息"/>
+    <text name="MessageFail" value="失败信息"/>
+    <text name="MessageConfirmOperation" value="确认操作"/>
+    <text name="DoYouMakeSureToContinue" value="确认要继续吗？"/>
+    <text name="ConfirmLogout" value="确定退出系统吗？"/>
+    <text name="ConfirmDeleteWarningMessage" value="确定要删除吗？"/>
+    <text name="PleaseSelectAtLeastOneItem" value="请至少选择一项"/>
+    <text name="InvalidParameter" value="参数无效" />
+    <text name="ConfirmDeleteXItemsWarningMessage">
+      <![CDATA[
+        确定要删除选中的 <b class='text-red'>{0}</b> 项记录吗？
+       ]]>
+    </text>
+    <text name="YouHaveNoOperatingPermissions" value="抱歉，您无权操作！"/>
+    <text name="MovingWithThreeDot" value="移动中..."/>
+    <text name="Ok" value="确定" />
+    <text name="Cancel" value="取消" />
+    <text name="FileNotAllowedEmpty" value="文件不允许为空" />
+    <text name="Yes" value="是" />
+    <text name="No" value="否" />
+    <text name="ActivationSuccess" value="激活成功!" />
+    <text name="ActivationFailed" value="激活失败!" />
+
+    <!--权限显示-->
+    <text name="InXSearchPlaceHolder" value="在{0}中搜索"/>
+    <text name="PermissionDisplayName" value="权限显示名称"/>
+
+    <!--搜索表单-->
+    <text name="StartDateTime" value="开始日期"/>
+    <text name="EndDateTime" value="结束日期"/>
+    <text name="ExceptionType" value="异常" />
+    <text name="ViewDetails" value="查看详情" />
+
+
+    <text name="filterText" value="关键字" />
+    <text name="ShipInfo" value="船舶信息" />
+    <text name="ShipCode" value="代码" />
+    <text name="ShipPortCode" value="船舶码头代码"/>
+    <text name="ShipNameCN" value="中文船名" />
+    <text name="ShipNameEN" value="英文船名" />
+    <text name="OperatorCode" value="运营人" />
+    <text name="AgentLevel" value="代理级别" />
+    <text name="IMO" value="IMO编号" />
+    <text name="CallSign" value="呼号" />
+    <text name="MMSI" value="标识编号" />
+    <text name="ShipTypeName" value="船舶类型" />
+    <text name="BulidDate" value="建造日期" />
+    <text name="Memo" value="备注" />
+    <text name="BulidDateRange" value="建造日期" />
+    <text name="OFFCIALNO" value="注册编号" />
+    <text name="LicenceNo" value="牌薄号" />
+    <text name="MSANO" value="海事船舶编号" />
+    <text name="BaseTradeTypeId" value="内外贸船" />
+    <text name="HomeTradeNo" value="内贸船识别码" />
+    <text name="ShipWidth" value="船宽(m)" />
+    <text name="LOA" value="总长(m)" />
+    <text name="LBP" value="法长(m)" />
+    <text name="GrossTon" value="总吨" />
+    <text name="NetTon" value="净吨" />
+    <text name="DeadTon" value="载重吨" />
+    <text name="LaunchDate" value="下水日期" />
+    <text name="Displacement" value="满载排水量" />
+    <text name="Dpaft" value="满载吃水" />
+    <text name="LightShip" value="空船重量" />
+    <text name="LightShipDraft" value="空船吃水" />
+    <text name="DepthMLD" value="型深(m)" />
+    <text name="FreeBoard" value="干舷" />
+    <text name="AirDraft" value="船高(m)" />
+    <text name="TPC" value="TPC" />
+    <text name="BasePortId" value="船籍港" />
+    <text name="FullSpeed" value="最大航速" />
+    <text name="ECOSpeed" value="经济航速" />
+    <text name="BridgeToBow" value="驾驶台到船艏距离" />
+    <text name="BridgeToStern" value="驾驶台到船艉距离" />
+    <text name="Holds" value="货舱数量" />
+    <text name="HatchCovers" value="舱盖数量" />
+    <text name="BaseHatchCoverTypeId" value="舱盖类型" />
+    <text name="HFO" value="重油" />
+    <text name="DO" value="轻油" />
+    <text name="LO" value="滑油" />
+    <text name="FreshWater" value="淡水" />
+    <text name="Ballast" value="压舱水" />
+    <text name="ClassificationSociety" value="船级社" />
+    <text name="ShipColor" value="船体颜色" />
+    <text name="FunnelColor" value="烟囱颜色" />
+    <text name="IsUsed" value="是否在用"/>
+    <text name="DeckPlans" value="甲板层数"/>
+
+    <text name="ShipType" value="船舶类型" />
+    <text name="TypeCode" value="代码" />
+    <text name="TypeName" value="种类名称" />
+    <text name="ParentName" value="父级名称" />
+
+    <text name="BaseAgentLevel" value="代理级别" />
+    <text name="AgentLevelName" value="名称" />
+    <text name="CreatingNewBaseAgentLevel" value="添加代理级别"/>
+    <text name="CreatingNewShipInfo" value="添加船舶"/>
+    <text name="CreatingNewShipType" value="添加类型" />
+
+
+    <text name="BaseCountry" value="国家资料" />
+    <text name="CountryCode" value="国家代码" />
+    <text name="ChineseShortName" value="中文简称" />
+    <text name="ChineseFullName" value="中文全称" />
+    <text name="EnglishShortName" value="英文简称" />
+    <text name="EnglishFullName" value="英文全称" />
+    <text name="IsTonnageTaxDiscount" value="是否吨税优惠国" />
+    <text name="IsAGM" value="是否AGM检验国" />
+
+    <text name="BaseCountryIdentifier" value="国家Identifier" />
+    <text name="IdentifuerCode" value="海关舱单识别码" />
+    <text name="IsUse" value="是否使用" />
+
+
+
+    <!--<text name="BaseTradeType" value="内外贸" />
+    <text name="TradeName" value="贸易类型名称" />
+
+    <text name="PublicBase" value="公共信息" />
+    <text name="CustomBaseData" value="客户信息" />-->
+
+
+    <!--客户信息-->
+    <text name="BaseCustomInfo" value="客户资料" />
+    <text name="CustomName" value="中文全称" />
+    <text name="TABLE_CODE_ID" value="主数据平台客户ID" />
+    <text name="CUSTOMER_CODE" value="客户代码" />
+    <text name="CustomCNShortName" value="中文简称" />
+    <text name="CustomENFullName" value="英文全称" />
+    <text name="CustomENShortName" value="英文简称" />
+    <text name="FINANCIAL_CODE" value="客户财务编码" />
+    <text name="CUSTOMER_TYPE" value="结费类型" />
+    <text name="ORGANIZATION_CUSTOMER_LEVEL" value="组织规模客户级别" />
+    <text name="BaseCustomCompanyTypeId" value="客户企业性质" />
+    <text name="CUSTOMER_CLASS" value="客户等级" />
+    <text name="DUTY_NUMBER" value="税号" />
+    <text name="IsForzen" value="是否冻结" />
+    <text name="KINGDEE_PAY_CODE" value="金蝶应付编码" />
+    <text name="KINGDEE_REC_CODE" value="金蝶应收编码" />
+    <!--业务类型-->
+    <text name="BaseBusinessType" value="业务类型"/>
+    <text name="BusinessTypeName" value="业务类型"/>
+    <!--联系人类型（eg:经理，单证，短信通知人，电子发票发送人。。。）-->
+    <text name="BaseContactType" value="联系人类型"/>
+    <text name="ContactTypeName" value="联系人类型名称"/>
+    <!--客户联系人信息-->
+    <text name="BaseCusContact" value="客户联系人信息" />
+    <text name="BaseCustomInfoId" value="客户id" />
+    <text name="ContactName" value="联系人姓名" />
+    <text name="Position" value="职位" />
+    <text name="Phone" value="手机" />
+    <!--<text name="Tel" value="座机" />
+    <text name="Email" value="邮箱" />
+    <text name="Fax" value="传真" />-->
+    <!--客户企业性质（个人，国企，企业。。。）-->
+    <text name="modifyTime" value="修改时间"/>
+    <text name="BaseCustomCompanyType" value="客户企业性质" />
+    <text name="CustomCompanyType" value="客户企业性质" />
+    <!--客户开票信息-->
+    <text name="BaseCustomInvoice" value="客户开票信息" />
+    <text name="OpenTitle" value="开票户头" />
+    <text name="DUTY_PARA" value="税号" />
+    <text name="BANK_NAME" value="银行名称" />
+    <text name="BANK_ACCOUNT" value="银行账号" />
+    <text name="BANK_ADDRESS" value="银行地址" />
+    <text name="BANK_TEL" value="电话" />
+    <text name="FLAG" value="纳税人标识" />
+    <text name="ISDEFAULT" value="是否为默认" />
+    <text name="BaseCurrencyId" value="币种" />
+    <!--客户门店信息-->
+    <text name="BaseCustomStore" value="客户门店信息" />
+    <text name="StoreName" value="门店名称" />
+    <text name="StoreAddress" value="门店地址" />
+    <!--客户类型名-->
+    <text name="BaseCustomType" value="客户类型" />
+    <text name="CusTypeName" value="客户类型" />
+
+    <!--yxh 2019.5.22-->
+    <text name="BaseCountryId" value="国家"/>
+    <text name="BaseBulkShipInfos" value="散杂货船舶其他资料" />
+    <text name="BaseShipInfo" value="" />
+    <text name="CargoHatchSize" value="货舱舱口尺寸" />
+    <text name="HatchSize" value="舱盖尺寸" />
+    <text name="HoldsCap" value="舱容" />
+    <text name="MaxLoad" value="最大载重" />
+    <text name="BaseContainerShipInfos" value="集装箱船舶其他资料" />
+    <text name="DeckTEU" value="甲板上TEU" />
+    <text name="DeckTiers" value="甲板上层数" />
+    <text name="DeckStackLoadTwenty" value="甲板上负荷(20')" />
+    <text name="DeckStackLoadForty" value="甲板上负荷(40')" />
+    <text name="DeckReeferPlug" value="甲板上冻柜插座" />
+    <text name="DeckPowered" value="甲板上同时供电数" />
+    <text name="InHoldTEU" value="舱内TEU" />
+    <text name="InHoldTiers" value="舱内层数" />
+    <text name="InHoldStackLoadTwenty" value="舱内负荷(20')" />
+    <text name="InHoldStackLoadForty" value="舱内负荷(40')" />
+    <text name="InHoldReeferPlug" value="舱内冻柜插座" />
+    <text name="InHoldPowered" value="舱内同时供电数" />
+    <text name="BaseCretificateFile" value="船舶证书文件" />
+    <text name="BaseShipCretificateId" value="证书ID" />
+    <text name="BaseShipCretificate" value="" />
+    <text name="FileName" value="文件名" />
+    <text name="ServerPath" value="服务器文件存放地址" />
+    <text name="BaseOilShipInfos" value="油船船舶其他资料" />
+    <text name="InterfaceConnectionName" value="接口名称" />
+    <text name="Dimension" value="接口尺寸" />
+    <text name="Quantity" value="接口数量" />
+    <text name="InterfacePosition" value="接口位置" />
+    <text name="DischRate" value="卸率" />
+    <text name="CNFullName" value="中文全名" />
+    <text name="CNShortName" value="中文简称" />
+    <text name="ENFullName" value="英文全名" />
+    <text name="ENShortName" value="英文简称" />
+    <text name="ValidTimeStart" value="有效期起" />
+    <text name="ValidTimeEnd" value="有效期止" />
+    <text name="NeedTimeOutRemind" value="是否需要到期提醒" />
+    <text name="BeforeHour" value="提前几小时进行提醒（多天折算成小时数）" />
+
+    <text name="Manifest" value="报文"/>
+    <text name="MainfestCARGO" value="货物" />
+    <text name="MainfestIMBILLId" value="提单号" />
+    <text name="IMBILL" value="提单表" />
+    <text name="CARGO_SEQUENCE_NO" value="货物序号" />
+    <text name="CARGO_CODE" value="货类代码" />
+    <text name="PACKAGES" value="货物件数" />
+    <text name="PACKAGE_TYPE_CODE" value="包装类型代码" />
+    <text name="PACKAGE_TYPE" value="包装类型" />
+    <text name="GROSS_WEIGHT" value="货物毛重" />
+    <text name="NET_WEIGHT" value="净重" />
+    <text name="MEASUREMENT" value="尺寸" />
+    <text name="TARIFF_CODE_NO" value="海关税编号" />
+    <text name="CUSTOMS_PROCEDURE_CODE" value="海关手续代码" />
+    <text name="COUNTRY_OF_ORIGIN" value="原产地代码" />
+    <text name="MainfestCTNSEAL" value="铅封号" />
+    <text name="ManifestCONTAINERId" value="箱子id" />
+    <text name="CONTAINER" value="" />
+    <text name="SEALNO" value="铅封号" />
+    <text name="SEALKIND" value="铅封类型" />
+    <text name="SEALER_CODE" value="施封人" />
+    <text name="MainfestIMBILL" value="提单表" />
+    <text name="IMBILLNO" value="提单号" />
+    <text name="VOYId" value="单船单航次id" />
+    <text name="VOYInfo" value="单船单航次" />
+    <text name="BILLTYPE" value="提单类型" />
+    <text name="SHIPPER_CODE" value="发货人代码" />
+    <text name="CUSId" value="委托方" />
+    <text name="MAINORPART" value="主单/分单" />
+    <text name="MAINBILLId" value="主单索引，如果是分单，此项必填" />
+    <text name="RECEIPTPLACE" value="收货地代码" />
+    <text name="LOAD_PORT_Id" value="装货港ID" />
+    <text name="TRANSPORTATION_ITEMS" value="运输条款" />
+    <text name="PREPAId_OR_COLLECT" value="付款方式" />
+    <text name="CONSIGN_LOAD_DATE" value="货物装船时间" />
+    <text name="QUARANTINE_CODING" value="检疫代码" />
+    <text name="DATE_OF_ISSUE" value="签发日期" />
+    <text name="TOTAL_COUNT" value="件数" />
+    <text name="TOTAL_WEIGHT" value="重量" />
+    <text name="TOTAL_CUBE" value="尺寸" />
+    <text name="HANDING_INSTRUCTION_CODE" value="码头作业指令代码" />
+    <text name="DECONSOLIdATOR_CODE" value="拆箱人代码" />
+    <text name="PRE_CUSTOMS_NO" value="前一海关单证号" />
+    <text name="PRE_CUSTOMS_TYPE" value="前一海关单证类型代码" />
+    <text name="DIFF" value="区分" />
+    <text name="DISCHARGE_PORT_CODE" value="卸货地代码" />
+    <text name="DISCHARGE_PORT_Id" value="卸货港代码" />
+    <text name="DELIVERY_PLACE_CODE" value="交货地代码" />
+    <text name="DELIVERY_PLACE_NAME" value="交货地名称" />
+    <text name="TRANSHIPMENT_PORT_CODE" value="中转港代码" />
+    <text name="TRANSHIPMENT_PORT_NAME" value="中转港" />
+    <text name="TRANSHIPMENT_TYPE" value="中转类型" />
+    <text name="BL_PLACE_CODE" value="签发地代码" />
+    <text name="ISSUE_BL_PLACE" value="提单签发地" />
+    <text name="DISCHARGE_DATE" value="到达卸货地日期" />
+    <text name="TRANSSHIPMENT_CODE" value="中转地点代码" />
+    <text name="DESTINATION_TRANSIT_CODE" value="中转目的地代码" />
+    <text name="COUNTRIES_OF_ROUTING_CODE" value="途径国家代码" />
+    <text name="SHIPPER_NAME" value="发货人名称" />
+    <text name="SHIPPER_ADDRESS" value="发货人地址" />
+    <text name="SHIPPER_CITY_NAME" value="城市名称" />
+    <text name="SHIPPER_Province_CODE" value="省份代码" />
+    <text name="SHIPPER_COUNTRY_NAME" value="省份名称" />
+    <text name="SHIPPER_POSTCODE" value="邮政编码" />
+    <text name="SHIPPER_COUNTRY_CODE" value="国家代码" />
+    <text name="SHIPPER_COMMUNICATION_TYPE" value="发货人通讯类型" />
+    <text name="SHIPPER_COMMUNICATION_NO" value="通讯号码" />
+    <text name="SHIPPER_AEO" value="发货人AEO代码" />
+    <text name="CONSIGNEE_CODE" value="收货人代码" />
+    <text name="CONSIGNEE_NAME" value="收货人名称" />
+    <text name="CONSIGNEE_ADDRESS" value="收货人地址" />
+    <text name="CONSIGNEE_COMMUNICATION_TYPE" value="收货人通讯类型" />
+    <text name="CONSIGNEE_COMMUNICATION_NO" value="收货人联系号码" />
+    <text name="CONSIGNEE_CITY_NAME" value="城市名称" />
+    <text name="CONSIGNEE_Province_CODE" value="省份代码" />
+    <text name="CONSIGNEE_COUNTRY_NAME" value="省份名称" />
+    <text name="CONSIGNEE_POSTCODE" value="邮政编码" />
+    <text name="CONSIGNEE_COUNTRY_CODE" value="国家代码" />
+    <text name="CONSIGNEE_CONTACT_NAME" value="具体联系人名称" />
+    <text name="CONSIGNEE_CONTACT_TYPE" value="具体联系人通讯类型" />
+    <text name="CONSIGNEE_CONTACT_NO" value="具体联系人联系号码" />
+    <text name="CONSIGNEE_AEO" value="收货人AEO" />
+    <text name="NOTIFY_CODE" value="通知人代码" />
+    <text name="NOTIFY_NAME" value="通知人名称" />
+    <text name="NOTIFY_ADDRESS" value="通知人地址" />
+    <text name="NOTIFY_COMMUNICATION_TYPE" value="通知人通讯类型" />
+    <text name="NOTIFY_COMMUNICATION_NO" value="通知人联系号码" />
+    <text name="NOTIFY_CITY_NAME" value="城市名称" />
+    <text name="NOTIFY_Province_CODE" value="省份代码" />
+    <text name="NOTIFY_COUNTRY_NAME" value="省份名称" />
+    <text name="NOTIFY_POSTCODE" value="邮政编码" />
+    <text name="NOTIFY_COUNTRY_CODE" value="国家代码" />
+    <text name="ISDANGER" value="是否为危险品" />
+    <text name="DANGERCLASS" value="危险品等级" />
+    <text name="DANGERPAGE" value="危险品页号" />
+    <text name="UNNO" value="国际危规号" />
+    <text name="DANGER_LABEL" value="危险品标签" />
+    <text name="FLASH_POINT" value="危险品闪点" />
+    <text name="EMS_NO" value="船运危险品应急措施号" />
+    <text name="MFAG_NO" value="医疗急救指南号" />
+    <text name="EMERGENCY_CONTACT" value="应急联系" />
+    <text name="DANGER_CONTACT_NAME" value="紧急联系人" />
+    <text name="DANGER_CONTACT_TYPE" value="联系方式" />
+    <text name="DANGER_CONTACT_NO" value="联系号码" />
+    <text name="ISFROZEN" value="冻柜" />
+    <text name="TEMPERATURE_Id" value="温度计量单位" />
+    <text name="TEMPERATURE_SETTING" value="设置温度" />
+    <text name="MIN_TEMPERATURE" value="冷藏最低温度" />
+    <text name="MAX_TEMPERATURE" value="冷藏最高温度" />
+    <text name="MARKS" value="唛头" />
+    <text name="CARGO_DESCRIPTION" value="货物描述" />
+    <text name="FREE_TEXT" value="补充描述" />
+    <text name="SEND_CUSTOMS_TIME" value="发送海关时间" />
+    <text name="SEND_CUSTONS_USER" value="发送人" />
+    <text name="CUSTOMS_MESSAGE_Id" value="海关文件号" />
+    <text name="ManifestCONTAINER" value="集装箱" />
+    <text name="CTNNO" value="箱号" />
+    <text name="CTNSIZE" value="尺寸" />
+    <text name="CTNTYPE" value="箱型UN95码" />
+    <text name="MAIN_SEAL_NO" value="主铅封号" />
+    <text name="EORF" value="空重" />
+    <text name="TARE_WEIGHT" value="箱皮重" />
+    <text name="CTN_CARGO_SIZE" value="箱内货物尺码" />
+    <text name="OVER_FRONT" value="前超" />
+    <text name="OVER_BACK" value="后超" />
+    <text name="OVER_LEFT" value="左超" />
+    <text name="OVER_RIGHT" value="右超" />
+    <text name="SOC" value="集装箱来源代码" />
+    <text name="ISLCL" value="整拼" />
+
+
+
+
+    <!--基础数据-->
+    <text name="BasicInfo" value="基础数据" />
+    <text name="SystemBase" value="系统设置" />
+    <!--公共信息-->
+    <text name="PublicBase" value="公共信息" />
+    <!--锚地-->
+    <text name="Anchorage" value="锚地" />
+    <text name="AnchorageName" value="锚地名称" />
+    <text name="AnchorageCoordinates" value="锚地坐标集合" />
+    <text name="ContainBasePort" value="所属港口" />
+    <text name="ContainBasePortArea" value="所属港口区域" />
+    <text name="BasePortArea" value="港口区域" />
+
+    <!--泊位类型-->
+    <text name="BaseBerthType" value="泊位类型" />
+    <text name="BerthTypeName" value="泊位类型名称" />
+    <text name="BerthTypeDescription" value="描述" />
+
+    <!--公司银行信息-->
+    <text name="BaseCompanyBank" value="公司银行信息" />
+    <text name="BankName" value="开户行名称" />
+    <text name="OpenBankAccount" value="开户行账号" />
+    <text name="MainBankName" value="总行名称" />
+    <text name="ContainBaseCurrency" value="币种" />
+    <text name="FinancialCode" value="财务科目编码" />
+    <text name="KingdeeCode" value="金蝶核算代码" />
+    <text name="KingdeeBankName" value="金蝶银行名称" />
+
+    <!--公司基本信息-->
+    <text name="BaseCompanySetting" value="公司基本信息" />
+    <text name="CompanyCNFullName" value="公司中文全名" />
+    <text name="CompanyCNShortName" value="公司中文简称" />
+    <text name="CompanyENFullName" value="公司英文全名" />
+    <text name="CompanyENShortName" value="公司英文简称" />
+    <text name="CompanyAddress" value="地址" />
+    <text name="Tel" value="电话" />
+    <text name="Fax" value="传真" />
+    <text name="Email" value="邮箱" />
+    <text name="WebSite" value="官网" />
+    <text name="TaxNo" value="税号" />
+    <text name="ManifestNo" value="舱单传输人代码" />
+
+    <!--币种-->
+    <text name="BaseCurrency" value="币种" />
+    <text name="CurrencyCode" value="币种代码" />
+    <text name="CurrencyName" value="币种名称" />
+
+    <!--关区代码-->
+    <text name="BaseCustomDistrict" value="关区代码" />
+    <text name="BaseCustomDistrictEnCode" value="关区英文代码" />
+    <text name="BaseCustomDistrictNoCode" value="关区中文代码" />
+
+    <!--港口港口区域-->
+    <text name="BasePort" value="港口" />
+    <text name="PortCode" value="港口代码" />
+    <text name="PortCNName" value="港口中文名称" />
+    <text name="PortShotrNameCN" value="中文简称" />
+    <text name="PortNameEN" value="港口英文名称" />
+    <text name="PortShotrNameEN" value="英文简称" />
+    <text name="ContainBaseCountry" value="所属国家" />
+
+    <text name="AreaCode" value="区域代码" />
+    <text name="AreaName" value="区域名称" />
+
+    <!--港口间距离-->
+    <text name="BasePortDistance" value="港口间距离" />
+    <text name="BasePortStart" value="港口1" />
+    <text name="BasePortEND" value="港口2" />
+    <text name="Distince" value="距离" />
+
+    <!--港口名称对照表-->
+    <text name="BasePortNameComparisonTable" value="港口名称对照表" />
+    <text name="ContainBaseCustomInfo" value="客户名称" />
+    <text name="CusPortCode" value="船公司港口代码" />
+    <text name="KeyWord" value="关键字" />
+
+    <!--码头泊位-->
+    <text name="BaseTerminal" value="码头" />
+    <text name="CreateTerminal" value="添加码头" />
+    <text name="TerminalCode" value="码头代码" />
+    <text name="TerminalName" value="码头名称" />
+    <text name="TerminalDescription" value="描述" />
+    <text name="FairwayDepth" value="航道水深" />
+    <text name="MachineCount" value="机械数量" />
+
+    <text name="CreateBerth" value="添加泊位" />
+    <text name="BerthCode" value="泊位代码" />
+    <text name="ContainBaseBerthType" value="泊位类型" />
+    <text name="ContainBaseCustomDistrict" value="关区代码" />
+    <text name="BerthLength" value="泊位长度" />
+    <text name="BerthWidth" value="泊位宽度" />
+    <text name="WaterDepth" value="泊位水深" />
+    <text name="LoadDischargeRate" value="装卸率" />
+    <text name="ContainBaseWaterSupplyType" value="淡水供应类型" />
+    <text name="ShipOrder" value="是否批船" />
+    <text name="ContainBaseTerminal" value="所属码头" />
+
+    <!--淡水供应类型-->
+    <text name="BaseWaterSupplyType" value="淡水供应类型" />
+    <text name="WaterSupplyTypeName" value="淡水供应类型名称" />
+
+    <!--箱子信息-->
+    <text name="Container" value="箱子信息" />
+    <!--集装箱箱型尺寸标注对照表-->
+    <text name="BaseContainerStandard" value="集装箱箱型尺寸标注" />
+    <text name="SizeAndType" value="标准箱型" />
+    <text name="boxType" value="标准尺寸" />
+    <text name="CNDescription" value="中文描述" />
+    <text name="ENDescription" value="英文描述" />
+    <text name="MaxContainerTareWeight" value="最大箱皮重" />
+    <text name="MaxDeadWeight" value="最大载重" />
+
+    <!--船公司箱型尺寸对照-->
+    <text name="BaseShipContainer" value="船公司箱型尺寸" />
+    <text name="ShipSizeAndType" value="船公司箱型" />
+    <text name="ShipSize" value="船公司尺寸" />
+    <text name="ContainBaseContainerStandard" value="标准箱型尺寸" />
+
+    <!--空重-->
+    <text name="BaseContainerFillState" value="空重" />
+    <text name="StateCode" value="空重代码" />
+    <text name="StateName" value="空重名称" />
+
+    <!--键值对类型对照表-->
+    <text name="BaseKey_ValueType" value="键值对类型" />
+    <text name="KeyTypeCode" value="类型代码" />
+    <text name="KeyTypeName" value="类型名称" />
+
+    <!--键值对对照表-->
+    <text name="BaseKey_Value" value="键值对对照表" />
+    <text name="ContainBaseKey_ValueType" value="键值对类型" />
+    <text name="KeyCode" value="键" />
+    <text name="KeyName" value="值" />
+
+    <!--流程控制状态-->
+    <text name="ProcessControl" value="流程控制状态基表" />
+    <!--费用审核-->
+    <text name="BaseCheckProcess" value="费用审核" />
+    <text name="ProcessCode" value="进程代码" />
+    <text name="ProcessName" value="进程名称" />
+
+    <!--费用支付状态-->
+    <text name="BasePaymentProcess" value="费用支付状态" />
+    <text name="PayMentProcessCode" value="费用支付状态代码" />
+    <text name="PaymentProcessName" value="费用支付状态名称" />
+
+    <!--提单基础项-->
+    <text name="BillBaseInfo" value="提单基础项" />
+    <!--提单类型-->
+    <text name="BaseBillType" value="提单类型" />
+    <text name="BillTypeCode" value="提单类型代码" />
+    <text name="BillTypeName" value="提单类型名称" />
+
+    <!--区分-->
+    <text name="BaseDiff" value="区分" />
+    <text name="DiffCode" value="区分代码" />
+    <text name="DiffName" value="区分名称" />
+
+    <!--通讯类别-->
+    <text name="BaseCommunicationType" value="通讯类别" />
+    <text name="CommunicationTypeCode" value="通讯类别代码" />
+    <text name="CommunicationTypeName" value="通讯类别名称" />
+
+    <!--包装类型-->
+    <text name="BasePackageType" value="包装类型" />
+    <text name="PackageTypeCode" value="包装类型代码" />
+    <text name="PackageTypeName" value="包装类型名称" />
+
+    <!--铅封类型-->
+    <text name="BaseSealsType" value="铅封类型" />
+    <text name="SealsTypeCode" value="铅封类型代码" />
+    <text name="SealsTypeName" value="铅封类型名称" />
+
+    <!--船务部-->
+    <text name="ShippingDepatrment" value="船务部" />
+    <!--航线资料-->
+    <text name="SteamerLine" value="航线资料" />
+    <!--航线基础信息-->
+    <text name="ShipDepSteamerLineInfo" value="航线基础信息" />
+    <text name="LineCode" value="航线代码" />
+    <text name="CircleHour" value="一圈时间（小时）" />
+    <text name="RouteDescription" value="航线描述" />
+    <text name="VSLCount" value="挂靠船舶数量" />
+    <text name="Speed" value="航速" />
+    <text name="PortLineCode" value="码头航线代码" />
+    <text name="PortDescription" value="码头航线描述" />
+    <text name="ContainBaseNatureOfCustomsSupervision" value="海关监管性质" />
+
+    <!--航线操作员-->
+    <text name="ShipDepLineOperator" value="航线操作员" />
+    <text name="ContainShipDepSteamerLineInfo" value="航线" />
+    <text name="ContainUser" value="操作员" />
+
+    <!--航线名称对照表-->
+    <text name="ShipDepLineNameContrast" value="航线对照" />
+    <text name="ContrastBaseCustomInfo" value="船公司" />
+    <text name="ContainBaseCusContact" value="船公司联系人" />
+    <text name="vesAgent" value="船代" />
+    <text name="slotAgent" value="舱代" />
+    <text name="upPortConnection" value="上港操作联系人" />
+    <text name="downPortConnection" value="下港操作联系人" />
+    <text name="ShipperCode" value="航线代码" />
+    <text name="ShipperDes" value="航线描述" />
+    <text name="VesAgentStartTime" value="船代开始时间" />
+    <text name="VesAgentEndTime" value="船代结束时间" />
+    <text name="SlotAgentStartTime" value="舱代开始时间" />
+    <text name="SlotAgentEndTime" value="舱代结束时间" />
+
+    <!--航线运营船舶-->
+    <text name="ShipDepLineVes" value="航线运营船舶" />
+    <text name="PositionNo" value="位号" />
+    <text name="VesNo" value="艘次号" />
+    <text name="GenerateSchedule" value="是否生成船期" />
+    <text name="ContainBaseShipInfo" value="船名" />
+    <text name="JoinPort" value="加入港口" />
+    <text name="PITime" value="P/I时间" />
+    <text name="ExitPort" value="退出港口" />
+    <text name="POTime" value="P/O时间" />
+
+
+
+
+
+    <text name="BaseHatchCoverType" value="舱盖类型" />
+    <text name="CoverNameCN" value="舱盖类型中文名称" />
+    <text name="CoverNameEN" value="舱盖类型英文名称" />
+
+    <text name="BaseShipOldName" value="船舶曾用名" />
+    <text name="OldShipNameEn" value="英文曾用名" />
+    <text name="OldShipNameCN" value="中文曾用名" />
+    <text name="BaseShipInfoId" value="船舶ID" />
+
+    <text name="BaseTradeType" value="内外贸" />
+    <text name="TradeName" value="贸易类型名称" />
+
+    <text name="CustomBaseData" value="客户信息" />
+
+    <!--封航原因-->
+    <text name="iceoundAndShutDownReasonName" value="封航原因" />
+    <text name="needSpecialHandling" value="是否特殊处理" />
+    <text name="Remarks" value="备注" />
+
+    <!--停工原因-->
+    <text name="FiceoundAndShutDownReasonName" value="停工原因" />
+
+    <!--进出口对照表-->
+    <text name="BaseImorEx" value="进出口对照表" />
+    <text name="code" value="代码" />
+    <text name="name" value="名称" />
+
+    <!--海关监管性质-->
+    <text name="BaseNatureOfCustomsSupervision" value="海关监管性质" />
+    <text name="supervisionCode" value="性质代码" />
+    <text name="supervisionName" value="性质名称" />
+
+    <!--财务计费-->
+    <text name="FinancialInfo" value="财务计费" />
+    <!--结费方式-->
+    <text name="BaseChargeMode" value="结费方式" />
+    <text name="chargeModeCode" value="结费方式代码" />
+    <text name="chargeModeName" value="结费方式名称" />
+
+    <!--汇率-->
+    <text name="BaseExchangeRate" value="汇率" />
+    <text name="Rate" value="汇率" />
+    <text name="UseBegin" value="适用时间起" />
+    <text name="UseEnd" value="适用时间止" />
+
+    <!--费用项目-->
+    <text name="BaseFeeItem" value="费用项目" />
+    <text name="feeCode" value="费用代码" />
+    <text name="feeName" value="费用名称" />
+    <text name="displayFeeName" value="费用显示内容" />
+    <text name="baseTaxClassification" value="税收分类编码" />
+    <text name="baseBusinessType" value="业务类型名称" />
+    <text name="baseChargeMode" value="结费方式" />
+    <text name="isUse" value="是否使用" />
+    <text name="TaxClassification" value="税收分类" />
+    <text name="BusinessType" value="业务类型" />
+     <text name="TaxRate" value="税率" />
+
+    <!--按提单计费费率-->
+    <text name="BaseFeeRateByBill" value="按提单计费费率" />
+    <text name="baseFeeItem" value="费用项目" />
+    <text name="baseCurrency" value="结算币别" />
+    <text name="price" value="单价" />
+    <text name="maxPrice" value="封顶值" />
+    <text name="baseFeeRateProcess" value="审核标识" />
+    <text name="startTime" value="适用开始日期" />
+    <text name="endTime" value="适用结束日期" />
+    <text name="basePayAndReceiveType" value="应收或应付" />
+    <text name="baseCustomInfo" value="费率适用客户" />
+    <text name="PayAndReceive" value="应收应付" />
+    <text name="BaseCustom" value="客户" />
+    <text name="ApplyTime" value="适用日期" />
+    <text name="ApplyStartTime" value="开始日期" />
+    <text name="ApplyEndTime" value="结束日期" />
+
+    <!--按箱计费费率-->
+    <text name="BaseFeeRateByContainer" value="按箱计费费率" />
+    <text name="size" value="尺寸" />
+    <text name="type" value="箱型" />
+    <text name="baseContainerFillState" value="空重" />
+    <text name="containerFillStateType" value="空重类型" />
+
+    <!--按区间计费费率-->
+    <text name="BaseFeeRateBySection" value="按区间计费费率" />
+    <text name="sectionPrice" value="区间单价" />
+    <text name="startSection" value="计费区间起" />
+    <text name="endSection" value="计费区间止" />
+    <text name="unitOfMeasurement" value="计费单位" />
+    <text name="sectionMaxPrice" value="区间封顶值" />
+
+    <!--按船计费费率-->
+    <text name="BaseFeeRateByVessel" value="按船计费费率" />
+
+    <!--费率审核流程基础代码-->
+    <text name="BaseFeeRateProcess" value="费率审核代码" />
+    <text name="feeRateProcessCode" value="代码" />
+    <text name="feeRateProcessName" value="名称" />
+
+    <!--应收应付代码-->
+    <text name="BasePayAndReceiveType" value="应收应付代码" />
+    <text name="payAndReceiveTypeCode" value="应收应付代码" />
+    <text name="payAndReceiveTypeName" value="应收应付名称" />
+
+    <!--支付类型-->
+    <text name="BasePaymentMethod" value="支付类型" />
+    <text name="paymentMethodCode" value="支付方式代码" />
+    <text name="paymentMethodName" value="支付方式名称" />
+
+    <!--税收分类编码-->
+    <text name="BaseTaxClassification" value="税收分类编码" />
+    <text name="taxClassificationCode" value="税收分类编码" />
+    <text name="taxClassificationName" value="货物和劳务名称" />
+    <text name="isPrivilege" value="是否优惠" />
+    <text name="taxRate" value="税率" />
+
+    <!--挂靠港口-->
+    <text name="ShipDepLinePort" value="航线挂靠港口" />
+    <text name="shipDepSteamerLineInfo" value="航线" />
+    <text name="basePort" value="港口" />
+    <text name="sort" value="排序" />
+    <text name="peta" value="抵港时间" />
+    <text name="petb" value="靠泊时间" />
+    <text name="petd" value="离泊时间" />
+    <text name="nextPortDistance" value="下一港距离" />
+    <text name="sailingTime" value="航行时间（时）" />
+    <text name="timeDiff" value="时差（时）" />
+    <text name="tmlName" value="码头" />
+    <text name="PostPoneInsert" value="顺延插入" />
+
+    <!--挂靠码头-->
+    <text name="ShipDepLineTerminal" value="航线挂靠码头" />
+    <text name="baseTerminal" value="码头" />
+
+    <!--直靠准班-->
+    <text name="ShipDepSchedule" value="直靠准班" />
+    <text name="SbaseCustomInfo" value="船公司" />
+    <text name="directDockingHour" value="直靠小时数" />
+    <text name="onSchedule" value="计划数量" />
+
+    <!--进出口航次生成规则记录-->
+    <text name="ShipDepVoyRules" value="航次生成规则" />
+    <text name="Shipowner" value="船东" />
+    <text name="baseImorEx" value="进出口标识" />
+    <text name="ruleOne" value="第一位" />
+    <text name="ruleTwo" value="第二位" />
+    <text name="ruleThree" value="第三位" />
+    <text name="ruleFour" value="第四位" />
+    <text name="ruleFive" value="第五位" />
+    <text name="ruleSix" value="第六位" />
+    <text name="ruleSeven" value="第七位" />
+    <text name="ruleEight" value="第八位" />
+    <text name="ruleNine" value="第九位" />
+    <text name="ruleTen" value="第十位" />
+    <text name="ruleEleven" value="第十一位" />
+    <text name="ruleTwelve" value="第十二位" />
+
+
+    <!--运营船公司变更记录-->
+    <text name="ShipDepShipperChange" value="运营船公司变更记录" />
+
+    <!--历史维护记录-->
+    <text name="ModificationUser" value="修改人" />
+    <text name="ModificationTime" value="修改日期" />
+    <text name="Records" value="修改前内容记录" />
+
+    <!--船东事务-->
+    <text name="ShipownerAffairs" value="船东事务" />
+    <!--船东事务类型-->
+    <text name="shipownerAffairsType" value="船东事务类型" />
+    <text name="affairName" value="名称" />
+    <text name="affairUnit" value="计量单位" />
+    <!--船东事务挂靠-->
+    <text name="ShipownerAffairRegistration" value="船东事务挂靠" />
+
+
+    <!--班轮-->
+    <text name="ClassShip" value="班轮" />
+    <text name="ClassArriveShipList" value="抵港船舶清单" />
+    <text name="ActualArrivalTime" value="实际抵港" />
+    <text name="ActualArrivalStartTime" value="开始时间" />
+    <text name="ActualArrivalEndTime" value="结束时间" />
+    <text name="ActualDepartureTime" value="实际离港" />
+    <text name="ActualDepartureStartTime" value="开始时间" />
+    <text name="ActualDepartureEndTime" value="结束时间" />
+    <text name="BaseCustomDistrictCode" value="关区编号" />
+    <text name="VesbaseCustomInfo" value="船舶运营人" />
+    <text name="TaxValidDate" value="吨税有效期" />
+    <text name="PETD" value="窗口离泊时间" />
+    <text name="NextPETD" value="窗口抵达时间" />
+    <text name="EPETD" value="预计抵达时间" />
+    <text name="CNTAO_PETA" value="窗口抵港时间" />
+    <text name="CNTAO_PETB" value="窗口靠泊时间" />
+    <text name="CNTAO_PETD" value="窗口离泊时间" />
+    <text name="CNTAO_ReserveTime" value="备车航行时间" />
+    <text name="META" value="船长第一次报" />
+    <text name="ETANote" value="ETA备注" />
+    <text name="CNTAO_EPOB" value="EPOB" />
+    <text name="CNTAO_ETB" value="预计靠泊时间" />
+    <text name="CNTAO_ETD" value="预计离泊时间" />
+    <text name="CNTAO_ATA" value="实际抵港时间" />
+    <text name="CNTAO_ATB" value="实际靠泊时间" />
+    <text name="CNTAO_ATD" value="实际离泊时间" />
+    <text name="Berth_DespatchRequest" value="靠离泊要求" />
+    <text name="VSL_Position" value="船舶实时位置" />
+    <text name="HandlingType" value="装卸类型" />
+    <text name="IMPAgent" value="进口代理" />
+    <text name="IMPPilot" value="引水" />
+    <text name="IMPTugBoat" value="拖轮" />
+    <text name="IMPCustomsMonitor" value="海关监装" />
+    <text name="IMPRemarks" value="监装备注" />
+    <text name="EXPAgent" value="出口代理" />
+    <text name="EXPPilot" value="引水" />
+    <text name="EXPTugBoat" value="拖轮" />
+    <text name="EXPCustomsMonitor" value="海关监卸" />
+    <text name="EXPRemarks" value="监卸备注" />
+    <text name="Arrivedf1" value="抵港前吃水" />
+    <text name="Arrivedm1" value="抵港中吃水" />
+    <text name="Arriveda1" value="抵港后吃水" />
+    <text name="Departdf1" value="离泊前吃水" />
+    <text name="Departdm1" value="离泊中吃水" />
+    <text name="Departda1" value="离泊后吃水" />
+    <text name="CushionPosition" value="垫子框位置" />
+    <text name="CushionNumber" value="垫子框个数" />
+    <text name="THROUGH" value="进口危险品清单" />
+    <text name="Pilot1" value="Pilot引航站" />
+    <text name="TS_ElectronPort" value="青岛电子口岸" />
+    <text name="Single_window" value="单一窗口" />
+    <text name="Immigration1" value="边防批船" />
+    <text name="Customs1" value="海关批船" />
+    <text name="Quarantine1" value="卫检批船" />
+    <text name="BaseBerth" value="泊位" />
+
+    <!--船东事务-->
+    <text name="Num" value="数量" />
+    <text name="ShipGeneration" value="是否处理" />
+    <text name="ShipArrangement" value="船代安排" />
+    <text name="ShipCompany" value="船公司安排" />
+    <text name="BaseSupper" value="供应商" />
+    <text name="PlanUserAddTime" value="计划录入时间" />
+    <text name="HandleUser" value="处理人" />
+    <text name="HandleUserAddTime" value="处理人处理时间" />
+
+    <!--船期表-->
+    <text name="BaseShippingDate" value="船期表" />
+    <!--船期-->
+    <text name="ShippingDate" value="船期" />
+    <!--船期表生成-->
+    <text name="BaseShipDate" value="船期表生成" />
+    <text name="GenerateShipSchedule" value="生成船期表" />
+    <text name="SKIP" value="SKIP" />
+    <text name="CancelSKIP" value="取消SKIP" />
+    <text name="Recalculate" value="单船多航次重新计算" />
+
+    <!--散货船-->
+    <text name="BulkCargoShip" value="散货船" />
+    <text name="IMP" value="进口航次" />
+    <text name="EXP" value="出口航次" />
+    <text name="PlanUser" value="计划员" />
+    <text name="BoardingUser" value="外勤" />
+    <text name="Principal" value="委托方" />
+    <text name="FeeCustomInfo" value="付费方" />
+    <text name="BerthRequest" value="靠泊要求" />
+    <text name="DespatchRequest" value="离泊要求" />
+    <text name="ETB" value="靠泊计划时间" />
+    <text name="ETD" value="离泊计划时间" />
+    <text name="ATDExchangeRate" value="离泊汇率" />
+    <text name="OilLengthBerth" value="油船水线长度靠泊" />
+    <text name="OilLengthDespatch" value="油船水线长度离泊" />
+    <text name="OilSize" value="油船接口尺寸" />
+    <text name="OilNumber" value="油船接口数量" />
+    <text name="MineLengthBerth" value="矿船水线长度靠泊" />
+    <text name="MineLengthDespatch" value="矿船水线长度离泊" />
+    <text name="MineSize" value="矿船接口尺寸" />
+    <text name="MineNumber" value="矿船接口数量" />
+    <text name="LoadPort" value="装货港" />
+    <text name="LastPort" value="上一港" />
+    <text name="ATD" value="实际离泊时间" />
+    <text name="NextPort" value="下一港" />
+    <text name="FieldPersonnel" value="外勤录" />
+    <text name="Note" value="备注" />
+    <text name="TS_Single_window" value="青岛单一" />
+    <text name="Pilot" value="单一窗口海事局" />
+    <text name="MSA" value="引航站" />
+    <text name="Immigration" value="边防" />
+    <text name="Customs" value="海关" />
+    <text name="Quarantine" value="卫检" />
+    <text name="EstimateETA" value="预计抵港时间" />
+    <text name="ExpectArrivalTime" value="预计抵港" />
+    <text name="ExpectArrivalStartTime" value="开始时间" />
+    <text name="ExpectArrivalEndTime" value="结束时间" />
+    <text name="AgentType" value="代理类型" />
+    <text name="BillingStaff" value="计费人员" />
+    <text name="Adopt" value="通过" />
+    <text name="NoPassage" value="不通过" />
+    <text name="CreateNewRemark" value="添加Remarks" />
+
+    <!--散货船ETA-->
+    <text name="ETA" value="ETA" />
+    <text name="EtaSpeed" value="Speed" />
+    <text name="lng" value="经度" />
+    <text name="lat" value="纬度" />
+    <text name="CreateNewETA" value="EAT新增" />
+    <text name="EntryTime" value="录入时间" />
+
+    <!--码头信息-->
+    <text name="BulkCargoWharf" value="码头信息" />
+    <text name="CustomCode" value="关区代码" />
+    <text name="CustomsNum" value="关区编码" />
+    <text name="CustomsSeq" value="海关编码" />
+
+    <!--吃水信息-->
+    <text name="BulkCargoDraft" value="吃水信息" />
+    <text name="Arrivedf" value="抵港df" />
+    <text name="Arrivedm" value="抵港dm" />
+    <text name="Arriveda" value="抵港da" />
+    <text name="Departdf" value="离泊df" />
+    <text name="Departdm" value="离泊dm" />
+    <text name="Departda" value="离泊da" />
+
+    <!--操作人员-->
+    <text name="Link" value="联系人" />
+    <text name="PnoneNumber" value="手机" />
+    <text name="DepartmentEmail" value="部门邮箱" />
+    <text name="WorkAddress" value="办公地址" />
+
+    <!--船舶运营状态-->
+    <text name="ShipFunctionStatus" value="船舶运营状态" />
+    <text name="FCode" value="代码" />
+    <text name="ChinaExplain" value="中文解释" />
+    <text name="EnExplain" value="英文解释" />
+    <text name="FOrder" value="作业次序" />
+    <!--船舶证书类型-->
+    <text name="BaseCretificateType" value="船舶证书类型" />
+
+    <!-- 散货船维护货主货种等信息 -->
+    <text name="BulkShipCargoOwner" value="货主" />
+    <text name="BulkShipCargoSpecie" value="货种" />
+  </texts>
+</localizationDictionary>

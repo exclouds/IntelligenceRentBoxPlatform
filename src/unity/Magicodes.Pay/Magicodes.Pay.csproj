@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Magicodes.Alipay.Global" Version="0.0.8" />
+    <PackageReference Include="Magicodes.Pay.WeChat" Version="1.0.5" />
+    <PackageReference Include="Magicodes.PayNotify" Version="0.0.5" />
+    <PackageReference Include="Magicodes.Alipay" Version="7.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Magicodes.Admin.Core\Magicodes.Admin.Core.csproj" />
+  </ItemGroup>
+</Project>

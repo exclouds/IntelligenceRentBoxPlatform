@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<!-- 
+Template Name: zhuanyun123
+Version: 1.0.0
+Author: Kamleshyadav
+Website: http://himanshusofttech.com/
+Purchase: http://themeforest.net/user/kamleshyadav
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!-- Begin Head -->
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Cms.Host</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="@ViewData["Description"]" />
+    <meta name="keywords" content="@ViewData["Keywords"]" />
+    <meta name="author" content="@ViewData["Author"]" />
+    <meta name="MobileOptimized" content="320" />
+    <!--srart theme style -->
+    <link href="~/css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/js/login-signup-modal-window/css/style.css">
+    <!-- end theme style -->
+    <!-- favicon links -->
+    <link rel="shortcut icon" type="image/png" href="~/images/header/favicon.png" />
+</head>
+<body>
+    <!--Page main section start-->
+    <div id="pro_wrapper">
+        <!--Header start-->
+        <header id="ed_header_wrapper" class="header_transparent">
+            <partial name="_HeaderPartial" />
+            <partial name="_NavPartial" />
+        </header>
+        <!--header end -->
+        @RenderBody()
+        <!--Newsletter Section six start-->
+        <div class="ed_newsletter_section ed_toppadder90 ed_bottompadder90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="ed_newsletter_section_heading">
+                                    <h4>如果有任务问题，请立即联系我们.</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-0">
+                                <div class="row">
+                                    <div class="ed_newsletter_section_form">
+                                        <form class="form">
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <input class="form-control" type="text" placeholder="物流轨迹通知订阅" />
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <button class="btn ed_btn ed_green">确认订阅</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Newsletter Section six end-->
+        <!--Footer start-->
+        <partial name="_FooterPartial" />
+        <!--Footer end-->
+    </div>
+    <!--Page main section end-->
+    <!--main js file start-->
+    <script type="text/javascript" src="~/js/jquery-1.12.2.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/js/modernizr.js"></script>
+    <script type="text/javascript" src="~/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="~/js/smooth-scroll.js"></script>
+    <script type="text/javascript" src="~/js/jquery.magnific-popup.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.actions.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.carousel.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.kenburn.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.parallax.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/revel/revolution.extension.video.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/countto/jquery.countTo.js"></script>
+    <script type="text/javascript" src="~/js/plugins/countto/jquery.appear.js"></script>
+    <script type="text/javascript" src="~/js/custom.js"></script>
+    <script type="text/javascript" src="~/js/login-signup-modal-window/js/main.js"></script>
+    <!--main js file end-->
+</body>
+</html>

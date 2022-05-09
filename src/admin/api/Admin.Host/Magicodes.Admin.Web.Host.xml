@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Magicodes.Admin.Web.Host</name>
+    </assembly>
+    <members>
+        <member name="M:Magicodes.Admin.Web.Authentication.External.WeChatAuthProviderApi.GetUserInfo(System.String)">
+            <summary>
+            Gets the user information.
+            </summary>
+            <param name="accessCode">The access code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.View">
+            <summary>
+            返回插件视图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.View(System.String)">
+            <summary>
+            返回插件视图
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.View(System.Object)">
+            <summary>
+            返回插件视图
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.View(System.String,System.Object)">
+            <summary>
+            返回插件视图
+            </summary>
+            <param name="viewName"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.PartialView(System.String,System.Object)">
+            <summary>
+            返回插件分布视图
+            </summary>
+            <param name="viewName"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.PartialView(System.String)">
+            <summary>
+            返回插件分布视图
+            </summary>
+            <param name="viewName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.PartialView">
+            <summary>
+            返回插件分布视图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.PluginView(System.String,System.String,System.Object)">
+            <summary>
+            插件视图
+            </summary>
+            <param name="plusName">插件短名</param>
+            <param name="view">视图名称</param>
+            <param name="model">模型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Controllers.PluginControllerBase.PluginPartialView(System.String,System.String,System.Object)">
+            <summary>
+            插件部分视图
+            </summary>
+            <param name="plusName">插件短名</param>
+            <param name="view">视图名称</param>
+            <param name="model">模型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Magicodes.Admin.Web.Startup.Startup.ConfigureCustomServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置自定义服务
+            </summary>
+            <param name="services"></param>
+        </member>
+    </members>
+</doc>

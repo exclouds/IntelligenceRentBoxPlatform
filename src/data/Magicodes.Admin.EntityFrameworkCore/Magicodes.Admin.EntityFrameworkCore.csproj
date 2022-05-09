@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"></Import>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>Magicodes.Admin</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PackageId>GroupWorldex.EntityFrameworkCore</PackageId>
+    <Product>GroupWorldex.EntityFrameworkCore</Product>
+    <Version>1.0.0</Version>
+    <Authors>Exclouds.lx</Authors>
+    <Company>Exclouds</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Entity database operations</Description>
+    <AssemblyVersion>1.0.2.3</AssemblyVersion>
+    <FileVersion>1.0.2.1</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="MultiTenancy\**" />
+    <EmbeddedResource Remove="MultiTenancy\**" />
+    <None Remove="MultiTenancy\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20190425073535_add-tables.cs" />
+    <Compile Remove="Migrations\20190425074240_update-tables.cs" />
+    <Compile Remove="Migrations\20190425082243_update-table.cs" />
+    <Compile Remove="Migrations\20190425082550_update-tables.cs" />
+    <Compile Remove="Migrations\20190426014112_update-table-shipinfo.cs" />
+    <Compile Remove="Migrations\20190428071239_add-table-base.cs" />
+    <Compile Remove="Migrations\20190428071505_add-table-base.cs" />
+    <Compile Remove="Migrations\20190514025306_update-table.cs" />
+    <Compile Remove="Migrations\20190514025633_add-db-514.cs" />
+    <Compile Remove="Migrations\20190703061559_update-MainfestCTNSEAL.cs" />
+    <Compile Remove="Migrations\20190703071037_aa.cs" />
+    <Compile Remove="Migrations\20190709041449_update-table-BaseCheckProcess.cs" />
+    <Compile Remove="Migrations\20190709062359_add-tables-fees.cs" />
+    <Compile Remove="Migrations\20190719065133_updatepx.cs" />
+    <Compile Remove="Migrations\20190805235753_initdb.cs" />
+    <Compile Remove="Migrations\20190902071724_updatetables2.cs" />
+    <Compile Remove="Migrations\20190910054727_uptb6.cs" />
+    <Compile Remove="Migrations\20190910055216_uptb8.cs" />
+    <Compile Remove="Migrations\20190910055325_uptb9.cs" />
+    <Compile Remove="Migrations\20191101031542_ppp4.cs" />
+    <Compile Remove="Migrations\20191109080539_px1.cs" />
+    <Compile Remove="Migrations\20191116060032_px1.cs" />
+    <Compile Remove="Migrations\20191125063958_px8.cs" />
+    <Compile Remove="Migrations\20191221005300_pp7.cs" />
+    <Compile Remove="Migrations\20191221054211_p3.cs" />
+    <Compile Remove="Migrations\20191223072908_p3.cs" />
+    <Compile Remove="Migrations\20200219002633_p1.cs" />
+    <Compile Remove="Migrations\20200603091909_init.cs" />
+    <Compile Remove="Migrations\20200804035904_init14.cs" />
+    <Compile Remove="Migrations\20200818011858_Initial_DB.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp.Dapper" Version="4.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Magicodes.Admin.Core.Custom\Magicodes.Admin.Core.Custom.csproj" />
+  </ItemGroup>
+
+</Project>
