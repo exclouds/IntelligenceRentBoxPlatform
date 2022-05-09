@@ -49,7 +49,7 @@ namespace Magicodes.Admin.Authorization.Users
         [MaxLength(20)]
         public string TelNumber { get; set; }
         
-        [Display(Name = "用户性质")]
+        [Display(Name = "用户性质（0：客户，1：平台管理员）")]
         public bool UserNature { get; set; } = true;
         [Display(Name = "是否管理员（客户端企业用户）")]
         public bool IsAdmin { get; set; } = false;
