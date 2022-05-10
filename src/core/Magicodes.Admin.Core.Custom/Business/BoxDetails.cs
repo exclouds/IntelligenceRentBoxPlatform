@@ -54,19 +54,6 @@ namespace Magicodes.Admin.Core.Custom.Business
         public double BoxAge { get; set; }
 
         /// <summary>
-        /// 集装箱照片
-        /// </summary>
-        [Display(Name = "集装箱照片")]
-        [MaxLength(150)]
-        public string ImageUrl { get; set; }
-        /// <summary>
-        /// 集装箱证书
-        /// </summary>
-        [Display(Name = "集装箱证书")]
-        [MaxLength(150)]
-        public string CertificateUrl { get; set; }
-
-        /// <summary>
         /// 是否审核
         /// </summary>
         [Display(Name = "是否审核")]
