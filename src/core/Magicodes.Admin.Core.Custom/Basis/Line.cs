@@ -9,7 +9,7 @@ namespace Magicodes.Admin.Core.Custom.Basis
     /// 路线
     /// </summary>
     [Display(Name = "路线")]
-    public class Line
+    public class Line: EntityBase<int>
     {
         /// <summary>
         /// 航线名称
