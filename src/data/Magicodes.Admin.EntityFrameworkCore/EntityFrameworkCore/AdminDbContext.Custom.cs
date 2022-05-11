@@ -23,6 +23,10 @@ namespace Magicodes.Admin.EntityFrameworkCore
         
         public virtual DbSet<ContactNO> ContactNO { get; set; }
 
+        public virtual DbSet<Line> Lines { get; set; }
+        public virtual DbSet<LinSite> LinSites { get; set; }
+
+        public virtual DbSet<Country> Countries { get; set; }
         #endregion
 
         #region 业务
@@ -36,6 +40,8 @@ namespace Magicodes.Admin.EntityFrameworkCore
         public virtual DbSet<SiteTable> SiteTables { get; set; }
 
         public virtual DbSet<BusinessConfirm> BusinessConfirms { get; set; }
+
+        
 
         /// <summary>
         /// 部门信息

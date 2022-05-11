@@ -126,7 +126,7 @@ namespace Magicodes.Admin.Authorization.Users
                                u.Surname.Contains(input.Filter) ||
                                u.UserName.Contains(input.Filter) ||
                                u.EmailAddress.Contains(input.Filter))
-                               && !u.UserNature
+                               && u.UserNature==2
 
                        )
                         select new UserListExtionDto
@@ -192,7 +192,7 @@ namespace Magicodes.Admin.Authorization.Users
                         u.Surname.Contains(input.Filter) ||
                         u.UserName.Contains(input.Filter) ||
                         u.EmailAddress.Contains(input.Filter))
-                        && u.UserNature
+                        && (u.UserNature==0 || u.UserNature==1)
                 );
 
             if (input.Permission != null && input.Permission.Count > 0)
