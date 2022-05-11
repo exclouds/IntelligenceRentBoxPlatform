@@ -35,6 +35,8 @@ namespace Magicodes.Admin.EntityFrameworkCore
 
         public virtual DbSet<SiteTable> SiteTables { get; set; }
 
+        public virtual DbSet<BusinessConfirm> BusinessConfirms { get; set; }
+
         /// <summary>
         /// 部门信息
         /// </summary>

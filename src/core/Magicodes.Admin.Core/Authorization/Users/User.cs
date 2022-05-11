@@ -49,10 +49,23 @@ namespace Magicodes.Admin.Authorization.Users
         [MaxLength(20)]
         public string TelNumber { get; set; }
         
-        [Display(Name = "用户性质（0：客户，1：平台管理员）")]
-        public bool UserNature { get; set; } = true;
+        [Display(Name = "用户性质（0：租客客户，1：箱东客户；2：平台管理员）")]
+        public int UserNature { get; set; } 
         [Display(Name = "是否管理员（客户端企业用户）")]
         public bool IsAdmin { get; set; } = false;
+
+        /// <summary>
+        /// 是否审核
+        /// </summary>
+        [Display(Name = "是否审核")]
+        public bool IsVerify { get; set; }
+
+        /// <summary>
+        /// 审核评语
+        /// </summary>
+        [Display(Name = "审核评语")]
+        [MaxLength(500)]
+        public string VerifyRem { get; set; }
 
         public User()
 		{

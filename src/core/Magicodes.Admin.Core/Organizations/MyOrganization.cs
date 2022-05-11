@@ -35,5 +35,18 @@ namespace Magicodes.Admin.Organizations
         /// </summary>
         [Display(Name = "公司类型")]
         public int CompanyType { get; set; }
+
+        /// <summary>
+        /// 是否审核
+        /// </summary>
+        [Display(Name = "是否审核")]
+        public bool IsVerify { get; set; }
+
+        /// <summary>
+        /// 审核评语
+        /// </summary>
+        [Display(Name = "审核评语")]
+        [MaxLength(500)]
+        public string VerifyRem { get; set; }
     }
 }
