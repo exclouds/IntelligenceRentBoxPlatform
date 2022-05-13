@@ -39,6 +39,8 @@ using Magicodes.Admin.Notifications;
 using Magicodes.WeChat.SDK.Apis.OAuth;
 using Magicodes.WeChat.SDK.Apis.Token;
 using Abp.Domain.Repositories;
+using Admin.Application.Custom.API.CustRegist.Dto;
+using Magicodes.Admin.Organizations;
 //using Microsoft.AspNetCore.Cors;
 
 namespace Magicodes.Admin.Web.Controllers
@@ -67,7 +69,8 @@ namespace Magicodes.Admin.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IdentityOptions _identityOptions;
         private readonly GoogleAuthenticatorProvider _googleAuthenticatorProvider;
-        
+        private readonly IRepository<MyOrganization, long> _organizationUnitRepository;
+
         //
         //private readonly IUserEmailer _userEmailer;
         //private readonly IPasswordHasher<User> _passwordHasher;
@@ -90,7 +93,8 @@ namespace Magicodes.Admin.Web.Controllers
             ISmsSender smsSender,
             IEmailSender emailSender,
             IOptions<IdentityOptions> identityOptions,
-            GoogleAuthenticatorProvider googleAuthenticatorProvider
+            GoogleAuthenticatorProvider googleAuthenticatorProvider,
+            IRepository<MyOrganization, long> organizationUnitRepository
             //IUserEmailer userEmailer,
             //IPasswordHasher<User> passwordHasher,
             //IWebUrlService webUrlService
@@ -116,6 +120,7 @@ namespace Magicodes.Admin.Web.Controllers
             //_userEmailer = userEmailer;
             //_passwordHasher = passwordHasher;
             //_webUrlService = webUrlService;
+            _organizationUnitRepository = organizationUnitRepository;
 
         }
 
@@ -710,5 +715,73 @@ namespace Magicodes.Admin.Web.Controllers
 
             return returnUrl;
         }
+        #region 客户登录
+        [HttpPost]
+        public async Task<LoginResultModel> CustLoginOn([FromBody]AuthenticateModel model)
+        {
+
+
+
+            var loginResult = await GetLoginResultAsync(
+                model.UserNameOrEmailAddress,
+                model.Password,
+                GetTenancyNameOrNull()
+            );
+
+            //  var returnUrl = model.ReturnUrl;
+
+
+            //判断该用户是否被锁定，锁定不能登录
+            if (!loginResult.User.IsVerify && string.IsNullOrEmpty(loginResult.User.VerifyRem))
+            {
+                throw new UserFriendlyException("该用户注册正在审核中，请稍后重试！");
+            }
+            if (!loginResult.User.IsVerify && !string.IsNullOrEmpty(loginResult.User.VerifyRem))
+            {
+                throw new UserFriendlyException("该用户注册未通过审核，未通过原因："+ loginResult.User.VerifyRem + "，请联系管理员！");
+            }
+
+            //判断该用户是否被锁定，锁定不能登录
+            if (loginResult.User.IsLockoutEnabled)
+            {
+                throw new UserFriendlyException("该用户已被锁定，请联系管理员！");
+            }
+
+            await _userManager.InitializeOptionsAsync(loginResult.Tenant?.Id);
+
+
+            //Login!
+            var accessToken = CreateAccessToken(await CreateJwtClaims(loginResult.Identity, loginResult.User));
+            Console.WriteLine(AbpSession.UserId.ToString() + "***********************************************");
+            var  returnmode= new LoginResultModel
+            {
+                AccessToken = accessToken,               
+                UserId = loginResult.User.Id,
+                Name = loginResult.User.Name,
+                CompanyType =string.IsNullOrEmpty(loginResult.User.OrganizationCode) ?
+                (loginResult.User.UserNature+2) : loginResult.User.UserNature,
+                OrganizationCode = loginResult.User.OrganizationCode,
+                UserName = loginResult.User.UserName,
+               
+                IsAdmin = loginResult.User.IsAdmin,
+                TenantId= loginResult.User.TenantId
+
+            };
+             if (loginResult.User.OrganizationCode.IsNullOrEmpty() )
+            {
+                returnmode.CompanyType = 2;
+            }
+            else 
+            {
+               
+               returnmode.CompanyType = loginResult.User.UserNature;
+
+            }
+            //if (CompanyType = loginResult.User.OrganizationCode.IsNullOrEmpty() ? 4 :
+            //     loginResult.User.IsAdmin ? 4 :)
+
+            return returnmode;
+        }
+        #endregion
     }
 }
