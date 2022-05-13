@@ -86,5 +86,11 @@ namespace Magicodes.Admin.Core.Custom.Business
         [Display(Name = "单据是否完成")]
         public bool Finish { get; set; }
 
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        [Display(Name = "是否启用")]
+        public bool IsEnable { get; set; } = true;
+
     }
 }
