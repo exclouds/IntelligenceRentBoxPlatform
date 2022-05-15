@@ -58,7 +58,7 @@ namespace Admin.Application.Custom.API.CustRegist
             }
             else
             {
-                await NewCreateUserAsync(dto);
+                 await NewCreateUserAsync(dto);
             }
             
         }
@@ -66,7 +66,7 @@ namespace Admin.Application.Custom.API.CustRegist
         private async Task NewUpdateUserAsync(UserRegistDto dto)
         {
             var user = await UserManager.FindByIdAsync(dto.Id);
-           // user.UserName = dto.UserName;
+            user.UserName = dto.UserName;
           //  user.OrganizationCode = dto.OrganizationCode;         
             //邮箱
             user.EmailAddress = dto.EmailAddress;
@@ -99,11 +99,12 @@ namespace Admin.Application.Custom.API.CustRegist
             user.ShouldChangePasswordOnNextLogin = false;
 
 
-            await UserManager.CreateAsync(user);
+          
         }
 
         private async Task NewCreateUserAsync(UserRegistDto dto)
         {
+           
             int count = (from o in _userRepository.GetAll().Where(o => o.UserName == dto.UserName) select o).Count();
             if (count > 0)
             {
@@ -111,7 +112,15 @@ namespace Admin.Application.Custom.API.CustRegist
             }
             var user = new User();
             user.UserName = dto.UserName;
+           
             user.OrganizationCode = dto.OrganizationCode;
+            if (dto.OrganizationCode.IsNullOrEmpty() && dto.IsActive)
+            {
+                if (!AbpSession.UserId.HasValue)
+                    throw new UserFriendlyException(L("请先登录！"));
+                var users = _userRepository.Get(AbpSession.UserId.Value);
+                dto.OrganizationCode = users.OrganizationCode;
+            }
             //租户
             user.TenantId = AbpSession.TenantId.HasValue ? AbpSession.TenantId : 1;
             //邮箱
@@ -173,7 +182,8 @@ namespace Admin.Application.Custom.API.CustRegist
                   
             organizationDto.ShortName = dto.ShortName;
             organizationDto.BusinessLicense = dto.BusinessLicense;
-            organizationDto.CompanyType = dto.CompanyType;
+            organizationDto.CompanyType = dto.CompanyType == 1 ? 2 :
+                                          dto.CompanyType == 0 ? 3 : 1; 
             organizationDto.LastModifierUserId = AbpSession.UserId;
             organizationDto.LastModificationTime = DateTime.Now;
 
@@ -197,8 +207,7 @@ namespace Admin.Application.Custom.API.CustRegist
             user.LastModifierUserId = AbpSession.UserId;
             user.LastModificationTime = DateTime.Now;
 
-            user.UserNature = dto.CompanyType == 2 ? 1 :
-                            dto.CompanyType == 3 ? 0 : 2;//客户
+            user.UserNature = dto.CompanyType ;//客户
 
             #endregion
         }

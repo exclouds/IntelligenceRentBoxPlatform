@@ -1,5 +1,6 @@
 ﻿using Abp.Authorization;
 using Abp.Domain.Repositories;
+using Abp.UI;
 using Magicodes.Admin;
 using Magicodes.Admin.Attachments;
 using Microsoft.AspNetCore.Hosting;
@@ -16,13 +17,17 @@ using System.Threading.Tasks;
 
 namespace Admin.Application.Custom.API.PublicArea.Annex
 {
-    [AbpAllowAnonymous]
+    [AbpAllowAnonymous] 
     public class AnnexAppService : AppServiceBase
     {
         private readonly IHostingEnvironment _hosting;
-        public AnnexAppService(IHostingEnvironment hosting)
+        private readonly IRepository<AttachmentInfo, long> _AttachmentInfoRepository;
+        
+        public AnnexAppService(IHostingEnvironment hosting,
+            IRepository<AttachmentInfo, long> AttachmentInfoRepository)
         {
             _hosting = hosting;
+            _AttachmentInfoRepository = AttachmentInfoRepository;
         }
         /// <summary>
         /// 公司注册上传营业执照
@@ -56,5 +61,6 @@ namespace Admin.Application.Custom.API.PublicArea.Annex
 
             return path + file.FileName;
         }
+      
     }
 }

@@ -730,7 +730,10 @@ namespace Magicodes.Admin.Web.Controllers
 
             //  var returnUrl = model.ReturnUrl;
 
-
+            if (loginResult.User.UserNature == 2)
+            {
+                throw new UserFriendlyException("用户名或密码错误！");
+            }
             //判断该用户是否被锁定，锁定不能登录
             if (!loginResult.User.IsVerify && string.IsNullOrEmpty(loginResult.User.VerifyRem))
             {

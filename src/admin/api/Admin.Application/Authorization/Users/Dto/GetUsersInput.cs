@@ -38,7 +38,7 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Name";
+                Sorting = "CreationTime desc";
             }
         }
     }
