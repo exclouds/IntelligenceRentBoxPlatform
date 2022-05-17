@@ -17,7 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Admin.Application.Custom.API.PublicArea.Annex
 {
-    class AttachmentAppService : AppServiceBase
+    public class AttachmentAppService : AppServiceBase
     {
         private readonly IHostingEnvironment _hosting;
         private readonly IRepository<AttachmentInfo, long> _AttachmentInfoRepository;
@@ -69,7 +69,8 @@ namespace Admin.Application.Custom.API.PublicArea.Annex
                     {
                         CreationTime = DateTime.Now,
                         CreatorUserId = AbpSession.UserId,
-                        Name = file.Name,
+                        TenantId=AbpSession.TenantId,
+                        Name = file.FileName,
                         ContentType = file.ContentType,
                         FileLength = file.Length,
                         Url = filepath,
@@ -90,15 +91,16 @@ namespace Admin.Application.Custom.API.PublicArea.Annex
         #endregion
 
         #region 获取文件列表
-        public List<FileInfoModel> GetUPFile(string Id)
+        public List<FileInfoModel> GetUPFile(string Id,string billno)
         {
             var url = _httpContextAccessor.HttpContext.Request.Host;//取后台Url路径
-            var allfile = _AttachmentInfoRepository.GetAll().Where(p => p.ContainerName == Id.ToString())
+            var allfile = _AttachmentInfoRepository.GetAll().Where(p => p.ContainerName == Id.ToString() && p.BlobName== billno)
                 .Select(p => new FileInfoModel
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Url = "http://" + url.Value + "/" + p.Url
+                    CreationTime=p.CreationTime,
+                    Url = "http://" + url.Value + "/DBService/" + p.Url
                 }).ToList();
 
             return allfile;

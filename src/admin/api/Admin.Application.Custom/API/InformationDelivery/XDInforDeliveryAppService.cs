@@ -200,7 +200,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Url = "http://" + url.Value + "/" + p.Url
+                    Url = "http://" + url.Value  +"/DBService/" + p.Url,
+                    CreationTime= p.CreationTime
                 }).ToList();
             info.fileList = allfile;
 
@@ -215,19 +216,21 @@ namespace Admin.Application.Custom.API.InformationDelivery
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task XDDelInfoAddEdit(EditXDDelInfoDto input)
+        public async Task<BoxInfo> XDDelInfoAddEdit(EditXDDelInfoDto input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateXDDelInfoAsync(input);
+                var  model=await UpdateXDDelInfoAsync(input);
+                return model;
             }
             else
             {
-                await CreateXDDelInfoAsync(input);
+                var model = await CreateXDDelInfoAsync(input);
+                return model;
             }
         }
 
-        private async Task UpdateXDDelInfoAsync(EditXDDelInfoDto input)
+        private async Task<BoxInfo> UpdateXDDelInfoAsync(EditXDDelInfoDto input)
         {
             var XDDelInfo = await _BoxInfoRepository.GetAsync(input.Id.Value);
             if (XDDelInfo == null)
@@ -264,7 +267,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
                     await CreateDetailsoAsync(input.Id.Value,item);
                 }
             }
-           
+            return XDDelInfo;
         }
 
         private async Task CreateDetailsoAsync(int id,EditXDDetailsDto input)
@@ -309,7 +312,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             XDDetails.LastModificationTime = DateTime.Now;
         }
 
-        private async Task CreateXDDelInfoAsync(EditXDDelInfoDto input)
+        private async Task<BoxInfo> CreateXDDelInfoAsync(EditXDDelInfoDto input)
         {
             string billno = await _IContactNOAPPService.GetBusNO("XD");
             var XDDelInfo = new BoxInfo()
@@ -341,6 +344,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             {
                 await CreateDetailsoAsync(id, item);
             }
+            return XDDelInfo;
             //if (!input.filename.IsNullOrEmpty())
             //{
             //    PublicResource filemodel = new PublicResource

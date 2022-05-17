@@ -762,7 +762,7 @@ namespace Magicodes.Admin.Web.Controllers
                 UserId = loginResult.User.Id,
                 Name = loginResult.User.Name,
                 CompanyType =string.IsNullOrEmpty(loginResult.User.OrganizationCode) ?
-                (loginResult.User.UserNature+2) : loginResult.User.UserNature,
+                loginResult.User.UserNature:(loginResult.User.UserNature+2),
                 OrganizationCode = loginResult.User.OrganizationCode,
                 UserName = loginResult.User.UserName,
                

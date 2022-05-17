@@ -15,5 +15,6 @@ namespace Admin.Application.Custom.API.PublicArea.Annex.Dto
         /// 文件路径
         /// </summary>
         public string Url { get; set; }
+        public DateTime? CreationTime { get; set; }
     }
 }

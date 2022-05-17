@@ -182,7 +182,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 {
                     Id=p.Id,
                     Name=p.Name,
-                    Url= "http://" + url.Value + "/" + p.Url
+                    Url= "http://" + url.Value + "/DBService/" + p.Url,
+                    CreationTime = p.CreationTime
                 }).ToList();
             info.fileList = allfile;
 
@@ -195,19 +196,21 @@ namespace Admin.Application.Custom.API.InformationDelivery
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task ZKDelInfoAddEdit(ZKDelInfoListDto input)
+        public async Task<TenantInfo> ZKDelInfoAddEdit(ZKDelInfoListDto input)
         {
             if (input.Id.HasValue)
             {
-                await UpdateZKDelInfoAsync(input);
+                var model = await UpdateZKDelInfoAsync(input);
+                return model;
             }
             else
-            {               
-                await CreateZKDelInfoAsync(input);
+            {
+                var model = await CreateZKDelInfoAsync(input);
+                return model;
             }
         }
 
-        private async Task UpdateZKDelInfoAsync(ZKDelInfoListDto dto)
+        private async Task<TenantInfo> UpdateZKDelInfoAsync(ZKDelInfoListDto dto)
         {
             var ZKDelInfo = await _TenantInfoRepository.GetAsync(dto.Id.Value);
             if (ZKDelInfo == null)
@@ -234,12 +237,12 @@ namespace Admin.Application.Custom.API.InformationDelivery
             ZKDelInfo.LastModifierUserId = AbpSession.UserId;
             ZKDelInfo.LastModificationTime = DateTime.Now;
 
-           // return ZKDelInfo;
+            return ZKDelInfo;
 
 
         }
 
-        private async Task CreateZKDelInfoAsync(ZKDelInfoListDto dto)
+        private async Task<TenantInfo> CreateZKDelInfoAsync(ZKDelInfoListDto dto)
         {
             string billno =await _IContactNOAPPService.GetBusNO("ZK");
             var ZKDelInfo = new TenantInfo()
@@ -271,7 +274,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             var id = await _TenantInfoRepository.InsertAndGetIdAsync(ZKDelInfo);
            // ZKDelInfo.Id = id;
 
-            //return ZKDelInfo;
+            return ZKDelInfo;
 
 
         }
