@@ -16,7 +16,8 @@ namespace Magicodes.Admin.Core.Custom.Business
         /// </summary>
         [Display(Name = "箱东信息")]
         [Required]
-        public int BoxTenantInfo { get; set; }
+        [MaxLength(50)]
+        public string BoxTenantInfoNO { get; set; }
 
 
         /// <summary>
