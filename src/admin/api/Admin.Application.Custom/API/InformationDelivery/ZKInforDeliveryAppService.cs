@@ -72,7 +72,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             _SiteTableRepository = SiteTableRepository;
             _LinSiteRepository = LinSiteRepository;
             _LineRepository = LineRepository;
-            _BoxDetailsRepository = _BoxDetailsRepository;
+            _BoxDetailsRepository = BoxDetailsRepository;
 
         }
         #endregion
@@ -357,6 +357,15 @@ namespace Admin.Application.Custom.API.InformationDelivery
             XDDetails.LastModificationTime = DateTime.Now;
         }
         #endregion
+
+        #region 获取单据信息
+        public List<BoxDetails> GetBoxDetail(string billno)
+        {
+            var alllist = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO.ToUpper() == billno.ToUpper()).ToList();
+            return alllist;
+        }
+        #endregion
+
 
         #region 批量删除
         /// <summary>
