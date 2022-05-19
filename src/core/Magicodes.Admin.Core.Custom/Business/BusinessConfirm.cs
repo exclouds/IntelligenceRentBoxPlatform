@@ -35,7 +35,7 @@ namespace Magicodes.Admin.Core.Custom.Business
         /// 租客Id
         /// </summary>
         [Display(Name = "租客Id")]
-        public string TenantId { get; set; }
+        public string TenantInfoId { get; set; }
         #endregion
 
         /// <summary>
