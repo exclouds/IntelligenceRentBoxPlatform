@@ -99,13 +99,13 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     .PageBy(input)
                     .ToList();
 
-                var allids = results.Select(p => p.Id).ToList();
+                var allids = results.Select(p => p.BillNO).ToList();
                 if (allids.Count > 0)
                 {
-                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfo)).ToList();
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
                     results.ForEach(item =>
                     {
-                        var boxdetai = alldetail.Where(p => p.BoxTenantInfo == item.Id).ToList();
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
                         item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
                     });
                 }
@@ -165,10 +165,10 @@ namespace Admin.Application.Custom.API.OnlineSearch
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<List<XDSeachDtailDto>> GetXDBoxDetail(int id)
+        public async Task<List<XDSeachDtailDto>> GetXDBoxDetail(string billno)
         {
            
-            var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfo == id)
+            var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO == billno)
                 .Select(p=>new XDSeachDtailDto
                 {
                     Id=p.Id,
@@ -205,6 +205,16 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     .OrderBy(input.Sorting)
                     .PageBy(input)
                     .ToList();
+                var allids = results.Select(p => p.BillNO).ToList();
+                if (allids.Count > 0)
+                {
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    results.ForEach(item =>
+                    {
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                    });
+                }
                 return new PagedResultDto<ZKSearchList>(resultCount, results.MapTo<List<ZKSearchList>>());
             }
             return await GetListFunc();

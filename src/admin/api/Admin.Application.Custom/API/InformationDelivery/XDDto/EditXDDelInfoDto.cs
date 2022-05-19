@@ -73,9 +73,9 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// </summary>     
         public int? Id { get; set; }
         /// <summary>
-        /// 箱东信息
+        /// 箱东租客信息
         /// </summary>
-        public int? BoxTenantInfo { get; set; }
+        public string BoxTenantInfo { get; set; }
 
 
         /// <summary>

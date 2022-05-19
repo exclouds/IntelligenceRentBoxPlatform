@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Admin.Application.Custom.API.InformationDelivery.XDDto;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Admin.Application.Custom.API.InformationDelivery.ZKDto
 {
-    public class ZKDelInfoListDto
+    public class EditZKDelInfoDto
     {
         /// <summary>
         /// Id
@@ -45,34 +46,10 @@ namespace Admin.Application.Custom.API.InformationDelivery.ZKDto
         public decimal HopePrice { get; set; }
 
         /// <summary>
-        /// 是否审核
-        /// </summary>
-        public bool IsVerify { get; set; }
-
-        /// <summary>
-        /// 审核评语
-        /// </summary>
-        public string VerifyRem { get; set; }
-
-        /// <summary>
-        /// 询价次数
-        /// </summary>
-        public int? InquiryNum { get; set; }
-
-        /// <summary>
-        /// 单据是否完成（界面打完成标记）
-        /// </summary>
-        public bool Finish { get; set; }
-        /// <summary>
         /// 是否启用
         /// </summary>
-        public bool? IsEnable { get; set; } 
-        public DateTime? CreationTime { get; set; }
+        public bool? IsEnable { get; set; }
         public string Remarks { get; set; }
-        /// <summary>
-        /// 箱型尺寸
-        /// </summary>
-        public string xxcc { get; set; }
-        
+        public List<EditXDDetailsDto> BoxDetails { get; set; }
     }
 }

@@ -56,5 +56,9 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         public bool Finish { get; set; }
        
         public DateTime? CreationTime { get; set; }
+        /// <summary>
+        /// 箱型尺寸
+        /// </summary>
+        public string xxcc { get; set; }
     }
 }

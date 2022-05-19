@@ -127,14 +127,14 @@ namespace Admin.Application.Custom.API.Recommend
                     .OrderBy(dto.Sorting)
                     .PageBy(dto)
                     .ToList();
-                var allids = results.Select(p => p.Id).ToList();
+                var allids = results.Select(p => p.BillNO).ToList();
 
                 if (allids.Count > 0)
                 {
-                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfo)).ToList();
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
                     results.ForEach(item =>
                     {
-                        var boxdetai = alldetail.Where(p => p.BoxTenantInfo == item.Id).ToList();
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
                         if (boxdetai.Count > 0)
                         {
                             item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
@@ -171,7 +171,24 @@ namespace Admin.Application.Custom.API.Recommend
                     .OrderBy(dto.Sorting)
                     .PageBy(dto)
                     .ToList();
-               
+
+                var allids = results.Select(p => p.BillNO).ToList();
+
+                if (allids.Count > 0)
+                {
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    results.ForEach(item =>
+                    {
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                        if (boxdetai.Count > 0)
+                        {
+                            item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
+
+                        }
+
+                    });
+                }
+
                 returnresult.zklist = results;
 
             }

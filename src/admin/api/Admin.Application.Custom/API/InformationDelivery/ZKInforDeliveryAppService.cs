@@ -28,6 +28,7 @@ using Admin.Application.Custom.API.PublicArea.Annex.Dto;
 using Magicodes.Admin.Attachments;
 using Microsoft.AspNetCore.Http;
 using Admin.Application.Custom.API.PublicArea.PubContactNO;
+using Admin.Application.Custom.API.InformationDelivery.XDDto;
 
 namespace Admin.Application.Custom.API.InformationDelivery
 {
@@ -45,6 +46,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
         private readonly IRepository<SiteTable, int> _SiteTableRepository;
         private readonly IRepository<LinSite, int> _LinSiteRepository;
         private readonly IRepository<Line, int> _LineRepository;
+        private readonly IRepository<BoxDetails, int> _BoxDetailsRepository;
 
         // private TokenAuthController
 
@@ -57,7 +59,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
             IContactNOAPPService IContactNOAPPService,
             IRepository<SiteTable, int> SiteTableRepository,
             IRepository<LinSite, int> LinSiteRepository,
-            IRepository<Line, int> LineRepository)
+            IRepository<Line, int> LineRepository,
+            IRepository<BoxDetails, int> BoxDetailsRepository)
         {
             _TenantInfoRepository = TenantInfoRepository;
             _organizationUnitRepository = organizationUnitRepository;
@@ -69,6 +72,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             _SiteTableRepository = SiteTableRepository;
             _LinSiteRepository = LinSiteRepository;
             _LineRepository = LineRepository;
+            _BoxDetailsRepository = _BoxDetailsRepository;
 
         }
         #endregion
@@ -92,6 +96,17 @@ namespace Admin.Application.Custom.API.InformationDelivery
                     .OrderBy(input.Sorting)
                     .PageBy(input)
                     .ToList();
+
+                var allids = results.Select(p => p.BillNO).ToList();
+                if (allids.Count > 0)
+                {
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    results.ForEach(item =>
+                    {
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                    });
+                }
                 return new PagedResultDto<ZKDelInfoListDto>(resultCount, results.MapTo<List<ZKDelInfoListDto>>());
             }
             return await GetListFunc();
@@ -165,6 +180,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
                             InquiryNum = ZKDelInfo.InquiryNum,
                             Finish = ZKDelInfo.Finish,                          
                             Remarks = ZKDelInfo.Remarks,
+                            BoxDetails=new List<BoxDetails> (),
                             fileList=new List<FileInfoModel>()
                         };
             // var info = entity.MapTo<ZKDelInfoListDto>();
@@ -176,6 +192,10 @@ namespace Admin.Application.Custom.API.InformationDelivery
             {
                 throw new UserFriendlyException($"未查找到相关信息!");
             }
+
+            var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO.ToUpper() == info.BillNO.ToUpper()).ToList();
+            info.BoxDetails = allfeelis;
+
             var url = _httpContextAccessor.HttpContext.Request.Host;//取后台Url路径
             var allfile = _AttachmentInfoRepository.GetAll().Where(p => p.ContainerName == info.Id.ToString())
                 .Select(p => new FileInfoModel
@@ -196,7 +216,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<TenantInfo> ZKDelInfoAddEdit(ZKDelInfoListDto input)
+        public async Task<TenantInfo> ZKDelInfoAddEdit(EditZKDelInfoDto input)
         {
             if (input.Id.HasValue)
             {
@@ -210,7 +230,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             }
         }
 
-        private async Task<TenantInfo> UpdateZKDelInfoAsync(ZKDelInfoListDto dto)
+        private async Task<TenantInfo> UpdateZKDelInfoAsync(EditZKDelInfoDto dto)
         {
             var ZKDelInfo = await _TenantInfoRepository.GetAsync(dto.Id.Value);
             if (ZKDelInfo == null)
@@ -237,12 +257,25 @@ namespace Admin.Application.Custom.API.InformationDelivery
             ZKDelInfo.LastModifierUserId = AbpSession.UserId;
             ZKDelInfo.LastModificationTime = DateTime.Now;
 
+
+            foreach (var item in dto.BoxDetails)
+            {
+                if (item.Id.HasValue)
+                {
+                    await UpdateDetailsInfoAsync(item);
+                }
+                else
+                {
+                    await CreateDetailsoAsync(ZKDelInfo.BillNO, item);
+                }
+            }
+
             return ZKDelInfo;
 
 
         }
 
-        private async Task<TenantInfo> CreateZKDelInfoAsync(ZKDelInfoListDto dto)
+        private async Task<TenantInfo> CreateZKDelInfoAsync(EditZKDelInfoDto dto)
         {
             string billno =await _IContactNOAPPService.GetBusNO("ZK");
             var ZKDelInfo = new TenantInfo()
@@ -272,11 +305,56 @@ namespace Admin.Application.Custom.API.InformationDelivery
 
             }
             var id = await _TenantInfoRepository.InsertAndGetIdAsync(ZKDelInfo);
-           // ZKDelInfo.Id = id;
+            foreach (var item in dto.BoxDetails)
+            {
+                await CreateDetailsoAsync(billno, item);
+            }
 
             return ZKDelInfo;
 
 
+        }
+
+        private async Task CreateDetailsoAsync(string  billno, EditXDDetailsDto input)
+        {
+            var XDDetails = new BoxDetails()
+            {
+                Remarks = input.Remarks,
+                CreatorUserId = AbpSession.UserId,
+                CreationTime = DateTime.Now,
+                TenantId = AbpSession.TenantId,
+                BoxTenantInfoNO = billno,
+                Box = input.Box,
+                Size = input.Size,
+                Quantity = input.Quantity,
+                BoxNO = input.BoxNO,
+                BoxAge = input.BoxAge,
+                IsVerify = false,
+
+
+
+            };
+            await _BoxDetailsRepository.InsertAndGetIdAsync(XDDetails);
+        }
+
+        private async Task UpdateDetailsInfoAsync(EditXDDetailsDto input)
+        {
+            var XDDetails = await _BoxDetailsRepository.GetAsync(input.Id.Value);
+            if (XDDetails == null)
+            {
+                throw new UserFriendlyException($"未查找到相关信息!");
+            }
+            XDDetails.Remarks = input.Remarks;
+            XDDetails.Box = input.Box;
+            XDDetails.Size = input.Size;
+            XDDetails.Quantity = input.Quantity;
+            XDDetails.BoxNO = input.BoxNO;
+            XDDetails.BoxAge = input.BoxAge;
+            // XDDetails.IsVerify = input.IsVerify;
+
+            XDDetails.Remarks = input.Remarks;
+            XDDetails.LastModifierUserId = AbpSession.UserId;
+            XDDetails.LastModificationTime = DateTime.Now;
         }
         #endregion
 
@@ -304,6 +382,17 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 item.DeletionTime = DateTime.Now;
             }
             var idstr = ids.Select(p => p.ToString()).ToList();
+            var billlist = alllist.Select(p => p.BillNO.ToUpper()).ToList();
+            //删除详情
+            var alldetail = _BoxDetailsRepository.GetAll()
+                .Where(p => billlist.Contains(p.BoxTenantInfoNO.ToUpper())).ToList();
+            foreach (var item in alldetail)
+            {
+                item.IsDeleted = true;
+                item.DeleterUserId = AbpSession.UserId;
+                item.DeletionTime = DateTime.Now;
+            }
+
             //删除附件
             var allfile = _AttachmentInfoRepository.GetAll().Where(p => !string.IsNullOrEmpty(p.ContainerName))
                 .Where(p => idstr.Contains(p.ContainerName)).ToList();

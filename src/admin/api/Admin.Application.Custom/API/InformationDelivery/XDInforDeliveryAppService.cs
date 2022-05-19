@@ -99,13 +99,13 @@ namespace Admin.Application.Custom.API.InformationDelivery
                     .PageBy(input)
                     .ToList();
 
-                var allids = results.Select(p => p.Id).ToList(); 
+                var allids = results.Select(p => p.BillNO).ToList(); 
                 if (allids.Count > 0)
                 {
-                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfo)).ToList();
+                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
                     results.ForEach(item => 
                     {
-                        var boxdetai = alldetail.Where(p => p.BoxTenantInfo == item.Id).ToList();
+                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
                         item.xxcc = boxdetai.Count==0 ? "" : string.Join(",", boxdetai.Select(p => p.Size+ p.Box).Distinct().ToList());
                     });
                 }
@@ -191,7 +191,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             var BoxInfo = _BoxInfoRepository.Get(id);
             info.BoxInfo = BoxInfo;
 
-            var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfo == id).ToList();
+            var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO.ToUpper() == BoxInfo.BillNO.ToUpper()).ToList();
             info.BoxDetails = allfeelis;
 
             var url = _httpContextAccessor.HttpContext.Request.Host;//取后台Url路径
@@ -264,13 +264,13 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 }
                 else
                 {
-                    await CreateDetailsoAsync(input.Id.Value,item);
+                    await CreateDetailsoAsync(XDDelInfo.BillNO,item);
                 }
             }
             return XDDelInfo;
         }
 
-        private async Task CreateDetailsoAsync(int id,EditXDDetailsDto input)
+        private async Task CreateDetailsoAsync(string billno, EditXDDetailsDto input)
         {
             var XDDetails = new BoxDetails()
             {
@@ -278,7 +278,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 CreatorUserId = AbpSession.UserId,
                 CreationTime = DateTime.Now,
                 TenantId = AbpSession.TenantId,
-                BoxTenantInfo = id,
+                BoxTenantInfoNO = billno,
                 Box = input.Box,
                 Size = input.Size,
                 Quantity = input.Quantity,
@@ -342,7 +342,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
             var id = await _BoxInfoRepository.InsertAndGetIdAsync(XDDelInfo);
             foreach (var item in input.BoxDetails)
             {
-                await CreateDetailsoAsync(id, item);
+                await CreateDetailsoAsync(billno, item);
             }
             return XDDelInfo;
             //if (!input.filename.IsNullOrEmpty())
@@ -392,9 +392,10 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 item.DeletionTime = DateTime.Now;
             }
 
+            var billlist = alllist.Select(p => p.BillNO.ToUpper()).ToList();
             //删除详情
             var alldetail = _BoxDetailsRepository.GetAll()
-                .Where(p => ids.Contains(p.BoxTenantInfo.ToString())).ToList();
+                .Where(p => billlist.Contains(p.BoxTenantInfoNO.ToUpper())).ToList();
             foreach (var item in alldetail)
             {
                 item.IsDeleted = true;
