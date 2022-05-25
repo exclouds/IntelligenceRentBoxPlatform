@@ -17,6 +17,10 @@ namespace Admin.Application.Custom.API.Recommend.Dto
         /// </summary>     
         public int? Id { get; set; }
         /// <summary>
+        /// 发布方
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
         /// 类型，：主要区分箱东信息还是租客信息
         /// </summary>
         public string type { get; set; }
@@ -58,11 +62,6 @@ namespace Admin.Application.Custom.API.Recommend.Dto
         /// 有效时间止
         /// </summary>
         public string EffectiveETime { get; set; }
-        
-        /// <summary>
-        /// 租金/期望成交价
-        /// </summary>
-        public decimal Price { get; set; }
 
         /// <summary>
         /// 所属路线（可根据站点自动关联，可选）

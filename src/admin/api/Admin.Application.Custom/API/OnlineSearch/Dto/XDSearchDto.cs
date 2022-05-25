@@ -32,10 +32,11 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         /// </summary>
         public bool? IsInStock { get; set; }
         /// <summary>
-        /// 租金范围
+        /// 用箱时间
         /// </summary>
-        public decimal? startprice { get; set; }
-        public decimal? endprice { get; set; }
+        public DateTime? EffectiveTime { get; set; }
+       
+
         public void Normalize()
         {
             if (string.IsNullOrEmpty(Sorting))

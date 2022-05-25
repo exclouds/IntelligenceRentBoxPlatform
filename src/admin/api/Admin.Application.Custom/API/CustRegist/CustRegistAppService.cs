@@ -1,4 +1,5 @@
 ﻿using Abp.Authorization;
+using Abp.Authorization.Users;
 using Abp.Dapper.Repositories;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -98,8 +100,8 @@ namespace Admin.Application.Custom.API.CustRegist
 
             user.ShouldChangePasswordOnNextLogin = false;
 
+           
 
-          
         }
 
         private async Task NewCreateUserAsync(UserRegistDto dto)
@@ -155,8 +157,13 @@ namespace Admin.Application.Custom.API.CustRegist
 
             user.ShouldChangePasswordOnNextLogin = false;
 
+            user.Roles = new Collection<UserRole>();
+            user.Roles.Add(new UserRole(AbpSession.TenantId, user.Id, dto.CompanyType==0?9:8));
 
             await UserManager.CreateAsync(user);
+            //long id = user.Id;
+
+          //  int i = await _sqlDapperRepository.ExecuteAsync("insert into AbpUserRoles(CreationTime,CreatorUserId,TenantId,UserId,RoleId) values(getdate(), 2, 1,id,)@", new {  });
         }
         #endregion
 
@@ -307,8 +314,9 @@ namespace Admin.Application.Custom.API.CustRegist
                 user.Password = _passwordHasher.HashPassword(user, dto.Password);
             }
 
-          
 
+            user.Roles = new Collection<UserRole>();
+            user.Roles.Add(new UserRole(AbpSession.TenantId, user.Id, dto.CompanyType == 0 ? 9 : 8));
 
             await UserManager.CreateAsync(user);
            
