@@ -21,13 +21,11 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         /// <summary>
         /// 目的站
         /// </summary>   
-        public string EndStation { get; set; }
-
+        public string EndStation { get; set; }          
         /// <summary>
-        /// 租金范围
+        /// 有效时间
         /// </summary>
-        public decimal? startprice { get; set; }
-        public decimal? endprice { get; set; }
+        public DateTime? EffectiveTime { get; set; }
         /// <summary>
         /// 单据是否完成（界面打完成标记）
         /// </summary>

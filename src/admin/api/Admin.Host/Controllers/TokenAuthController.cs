@@ -770,16 +770,16 @@ namespace Magicodes.Admin.Web.Controllers
                 TenantId= loginResult.User.TenantId
 
             };
-             if (loginResult.User.OrganizationCode.IsNullOrEmpty() )
-            {
-                returnmode.CompanyType = 2;
-            }
-            else 
-            {
+            // if (loginResult.User.OrganizationCode.IsNullOrEmpty() )
+            //{
+            //    returnmode.CompanyType = 2;
+            //}
+            //else 
+            //{
                
-               returnmode.CompanyType = loginResult.User.UserNature;
+            //   returnmode.CompanyType = loginResult.User.UserNature;
 
-            }
+            //}
             //if (CompanyType = loginResult.User.OrganizationCode.IsNullOrEmpty() ? 4 :
             //     loginResult.User.IsAdmin ? 4 :)
 

@@ -48,10 +48,6 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         /// 有效时间止
         /// </summary>
         public DateTime? EffectiveETime { get; set; }
-        /// <summary>
-        /// 租金
-        /// </summary>
-        public decimal SellingPrice { get; set; }
 
         /// <summary>
         /// 所属路线（可根据站点自动关联，可选）

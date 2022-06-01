@@ -122,8 +122,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
                               .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)
                               .WhereIf(!input.ReturnStation.IsNullOrEmpty(), p => p.ReturnStation == input.ReturnStation)                            
                               .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
-                              .WhereIf(input.startprice.HasValue, p => p.SellingPrice>= input.startprice)
-                              .WhereIf(input.endprice.HasValue, p => p.SellingPrice <= input.endprice)
+                              .WhereIf(input.EffectiveTime.HasValue, p => p.EffectiveSTime <= input.EffectiveTime.Value && p.EffectiveETime>=input.EffectiveTime.Value)
 
 
                         join site in _SiteTableRepository.GetAll() on XDDelInfo.StartStation equals site.Code into startsite
@@ -131,6 +130,9 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
                         join site in _SiteTableRepository.GetAll() on XDDelInfo.EndStation equals site.Code into endsite
                         from endline in endsite.DefaultIfEmpty()
+
+                        join site in _SiteTableRepository.GetAll() on XDDelInfo.ReturnStation equals site.Code into resite
+                        from reline in resite.DefaultIfEmpty()
 
                         join line in _LineRepository.GetAll() on XDDelInfo.Line equals line.Id into lines
                         from xdline in lines.DefaultIfEmpty()
@@ -142,12 +144,12 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             BillNO = XDDelInfo.BillNO,
                             StartStation = string.IsNullOrEmpty(startline.SiteName) ? XDDelInfo.StartStation : startline.SiteName,
                             EndStation = string.IsNullOrEmpty(endline.SiteName) ? XDDelInfo.EndStation : endline.SiteName,
-                            ReturnStation = XDDelInfo.ReturnStation,
+                            ReturnStation = string.IsNullOrEmpty(reline.SiteName) ? XDDelInfo.ReturnStation : reline.SiteName,
+                        
                             IsInStock = XDDelInfo.IsInStock,
                             PredictTime = XDDelInfo.PredictTime,
                             EffectiveSTime = XDDelInfo.EffectiveSTime,
                             EffectiveETime = XDDelInfo.EffectiveETime,
-                            SellingPrice = XDDelInfo.SellingPrice,
                             Line = xdline.LineName,                           
                             Finish = XDDelInfo.Finish,
                             CreationTime = XDDelInfo.CreationTime,
@@ -226,9 +228,8 @@ namespace Admin.Application.Custom.API.OnlineSearch
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
                               .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)
-                              .WhereIf(input.startprice.HasValue, p => p.HopePrice >= input.startprice)
-                              .WhereIf(input.endprice.HasValue, p => p.HopePrice <= input.endprice)
-
+                               .WhereIf(input.EffectiveTime.HasValue, p => p.EffectiveSTime <= input.EffectiveTime.Value && p.EffectiveETime >= input.EffectiveTime.Value)
+                               .WhereIf(input.Finish.HasValue, p => p.Finish == input.Finish)
                         join site in _SiteTableRepository.GetAll() on ZKDelInfo.StartStation equals site.Code into startsite
                         from startline in startsite.DefaultIfEmpty()
 
@@ -248,7 +249,6 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
                             EffectiveSTime = ZKDelInfo.EffectiveSTime,
                             EffectiveETime = ZKDelInfo.EffectiveETime,
-                            HopePrice = ZKDelInfo.HopePrice,
                             Line = zkline.LineName,                          
                             InquiryNum = ZKDelInfo.InquiryNum,
                             Finish = ZKDelInfo.Finish,
