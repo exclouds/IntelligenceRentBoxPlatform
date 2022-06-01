@@ -31,8 +31,7 @@ namespace Magicodes.Admin.Core.Custom.Business
         /// 目的站
         /// </summary>
         [Display(Name = "目的站")]
-        [Required]
-        [MaxLength(50)]
+        [MaxLength(8000)]
         public string EndStation { get; set; }
 
         /// <summary>
@@ -43,17 +42,8 @@ namespace Magicodes.Admin.Core.Custom.Business
         [MaxLength(50)]
         public string ReturnStation { get; set; }
         
-
-        /// <summary>
-        /// 是否库存
-        /// </summary>
-        [Display(Name = "是否库存")]
-        public bool IsInStock { get; set; } = true;
-        /// <summary>
-        /// 预计到站时间
-        /// </summary>
-        [Display(Name = "预计到站时间")]
-        public DateTime? PredictTime { get; set; }
+        
+        
 
         /// <summary>
         /// 有效时间起

@@ -25,6 +25,16 @@ namespace Magicodes.Admin.Core.Custom.Basis
         [Required]
         [MaxLength(100)]
         public string SiteName { get; set; }
+
+        /// <summary>
+        /// 英文站点名称
+        /// </summary>
+        [Display(Name = "英文站点名称")]
+        [MaxLength(100)]
+        public string ENSiteName { get; set; }
+
+
+
         /// <summary>
         /// 国家代码
         /// </summary>

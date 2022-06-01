@@ -43,6 +43,12 @@ namespace Magicodes.Admin.Core.Custom.Business
         public int Quantity { get; set; }
 
         /// <summary>
+        /// 预计到站时间(在途箱时间必填)
+        /// </summary>
+        [Display(Name = "预计到站时间")]
+        public DateTime? PredictTime { get; set; }
+
+        /// <summary>
         /// 箱号
         /// </summary>
         [Display(Name = "箱号")]
