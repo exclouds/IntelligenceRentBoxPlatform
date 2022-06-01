@@ -124,7 +124,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
                              .WhereIf(input.IsVerify.HasValue, p => p.IsVerify == input.IsVerify)
                              .WhereIf(input.IsEnable.HasValue, p => p.IsEnable == input.IsEnable)
                               .WhereIf(input.Finish.HasValue, p => p.Finish == input.Finish)
-                              .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
+                             // .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
 
 
                         join site in _SiteTableRepository.GetAll() on XDDelInfo.StartStation equals site.Code into startsite
@@ -146,8 +146,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                             StartStation = string.IsNullOrEmpty(startline.SiteName) ? XDDelInfo.StartStation : startline.SiteName,
                             EndStation = string.IsNullOrEmpty(endline.SiteName) ? XDDelInfo.EndStation : endline.SiteName,
                             ReturnStation = XDDelInfo.ReturnStation,
-                            IsInStock = XDDelInfo.IsInStock,                           
-                            PredictTime = XDDelInfo.PredictTime,                            
+                            //IsInStock = XDDelInfo.IsInStock,                           
+                            //PredictTime = XDDelInfo.PredictTime,                            
                             EffectiveSTime = XDDelInfo.EffectiveSTime,
                             EffectiveETime = XDDelInfo.EffectiveETime,
                             SellingPrice = XDDelInfo.SellingPrice,
@@ -240,8 +240,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
             XDDelInfo.StartStation = input.StartStation;
             XDDelInfo.EndStation = input.EndStation;
             XDDelInfo.ReturnStation = input.ReturnStation;
-            XDDelInfo.IsInStock = input.IsInStock;                           
-            XDDelInfo.PredictTime = input.PredictTime;                            
+            //XDDelInfo.IsInStock = input.IsInStock;                           
+            //XDDelInfo.PredictTime = input.PredictTime;                            
             XDDelInfo.EffectiveSTime = input.EffectiveSTime;
             XDDelInfo.EffectiveETime = input.EffectiveETime;
             XDDelInfo.SellingPrice = input.SellingPrice;
@@ -325,8 +325,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 StartStation = input.StartStation,
                 EndStation = input.EndStation,
                 ReturnStation = input.ReturnStation,
-                IsInStock = input.IsInStock,
-                PredictTime = input.PredictTime,
+                //IsInStock = input.IsInStock,
+                //PredictTime = input.PredictTime,
                 EffectiveSTime = input.EffectiveSTime,
                 EffectiveETime = input.EffectiveETime,
                 SellingPrice = input.SellingPrice,

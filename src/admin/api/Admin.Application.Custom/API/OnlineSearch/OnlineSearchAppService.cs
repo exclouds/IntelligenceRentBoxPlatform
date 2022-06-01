@@ -116,12 +116,13 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
         private IQueryable<XDSearchList> CreateXDDelInfoQuery(XDSearchDto input)
         {
+
             var query = from XDDelInfo in _BoxInfoRepository.GetAll().Where(p => p.IsEnable && p.IsVerify && string.IsNullOrEmpty(p.VerifyRem))
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
                               .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)
                               .WhereIf(!input.ReturnStation.IsNullOrEmpty(), p => p.ReturnStation == input.ReturnStation)                            
-                              .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
+                             // .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
                               .WhereIf(input.EffectiveTime.HasValue, p => p.EffectiveSTime <= input.EffectiveTime.Value && p.EffectiveETime>=input.EffectiveTime.Value)
 
 
@@ -146,8 +147,8 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             EndStation = string.IsNullOrEmpty(endline.SiteName) ? XDDelInfo.EndStation : endline.SiteName,
                             ReturnStation = string.IsNullOrEmpty(reline.SiteName) ? XDDelInfo.ReturnStation : reline.SiteName,
                         
-                            IsInStock = XDDelInfo.IsInStock,
-                            PredictTime = XDDelInfo.PredictTime,
+                            //IsInStock = XDDelInfo.IsInStock,
+                            //PredictTime = XDDelInfo.PredictTime,
                             EffectiveSTime = XDDelInfo.EffectiveSTime,
                             EffectiveETime = XDDelInfo.EffectiveETime,
                             Line = xdline.LineName,                           
