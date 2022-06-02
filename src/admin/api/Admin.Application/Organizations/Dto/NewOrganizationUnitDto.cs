@@ -17,7 +17,7 @@ namespace Magicodes.Admin.Organizations.Dto
 
         public bool disabled { get; set; } = false;
         public bool? ismulti { get; set; } = false;
-
+        public string ParentCode { get; set; }
         public List<NewOrganizationUnitDto> children { get; set; }
     }
 

@@ -27,12 +27,20 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         /// 组织结构（部门）
         /// </summary>
         public List<string> Organization { get; set; }
+        /// <summary>
+        /// 用户性质（0：租客客户，1：箱东客户；2：平台管理员）
+        /// </summary>
+        public int UserNature { get; set; }
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool OnlyLockedUsers { get; set; }
+        /// <summary>
+        /// 是否审核
+        /// </summary>
+        public bool IsVerify { get; set; }
+        public bool? IsAdmin { get; set; }
 
-        ///// <summary>
-        ///// 是否锁定
-        ///// </summary>
-        //public bool OnlyLockedUsers { get; set; }
-        
 
         public void Normalize()
         {

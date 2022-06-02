@@ -35,6 +35,7 @@ using Magicodes.Admin.Organizations.Dto;
 using Abp.Runtime.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Magicodes.Admin.Core.Custom.Basis;
+using Magicodes.Admin.Organizations;
 
 namespace Magicodes.Admin.Authorization.Users
 {
@@ -54,7 +55,8 @@ namespace Magicodes.Admin.Authorization.Users
         private readonly IUserPolicy _userPolicy;
         private readonly IEnumerable<IPasswordValidator<User>> _passwordValidators;
         private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IRepository<OrganizationUnit, long> _organizationUnitRepository;
+        private readonly IRepository<MyOrganization, long> _organizationUnitRepository;
+        private readonly IDapperRepository<MyOrganization, long> _organizationUnitDapperRepository;
         private readonly IRepository<Department, int> _departmentRepository;
         private readonly IRepository<UserOrganizationUnit, long> _userOrganizationUnitRepository;
 
@@ -75,7 +77,8 @@ namespace Magicodes.Admin.Authorization.Users
             IUserPolicy userPolicy,
             IEnumerable<IPasswordValidator<User>> passwordValidators,
             IPasswordHasher<User> passwordHasher,
-            IRepository<OrganizationUnit, long> organizationUnitRepository,
+            IRepository<MyOrganization, long> organizationUnitRepository,
+            IDapperRepository<MyOrganization, long> organizationUnitDapperRepository,
             IRepository<Department, int> departmentRepository
                 , IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository
             , IDapperRepository<UserRole, long> userroleDapperRepository
@@ -95,7 +98,7 @@ namespace Magicodes.Admin.Authorization.Users
             _passwordValidators = passwordValidators;
             _passwordHasher = passwordHasher;
             _organizationUnitRepository = organizationUnitRepository;
-
+            _organizationUnitDapperRepository = organizationUnitDapperRepository;
             _userOrganizationUnitRepository = userOrganizationUnitRepository;
             _departmentRepository = departmentRepository;
             _userroleDapperRepository = userroleDapperRepository;
@@ -116,19 +119,18 @@ namespace Magicodes.Admin.Authorization.Users
         {
 
             var query = from user in _userRepository.GetAll()
-                       .WhereIf(input.Role != null && input.Role.Count > 0, u => u.Roles.Any(r => input.Role.Contains(r.RoleId)))
-                       .WhereIf(input.Organization != null && input.Organization.Count > 0, u => input.Organization.Contains(u.DeptCode))
+                        .Where(u => u.UserNature == 2)
+                        .WhereIf(input.Role != null && input.Role.Count > 0, u => u.Roles.Any(r => input.Role.Contains(r.RoleId)))
+                        .WhereIf(input.Organization != null && input.Organization.Count > 0, u => input.Organization.Contains(u.DeptCode))
                         .WhereIf(!input.code.IsNullOrEmpty(), u => input.code == u.OrganizationCode)
-                       .WhereIf(
+                        .WhereIf(
                            !input.Filter.IsNullOrWhiteSpace(),
                            u =>
                                (u.Name.Contains(input.Filter) ||
                                u.Surname.Contains(input.Filter) ||
                                u.UserName.Contains(input.Filter) ||
                                u.EmailAddress.Contains(input.Filter))
-                               && u.UserNature==2
-
-                       )
+                        )
                         select new UserListExtionDto
                         {
                             Id = user.Id,
@@ -154,7 +156,9 @@ namespace Magicodes.Admin.Authorization.Users
 
 
             var roles = await _userRoleRepository.GetAll().ToListAsync();
-            var coms = _organizationUnitRepository.GetAll().ToList();
+            //var coms = _organizationUnitRepository.GetAll().ToList();
+            string sql = $" select * from AbpOrganizationUnits where  TenantId={AbpSession.TenantId} and IsDeleted=0 and CompanyType=1";
+            var coms = _organizationUnitDapperRepository.Query<MyOrganization>(sql).AsQueryable();
             var deps = _departmentRepository.GetAll().ToList();
             foreach (var user in users)
             {
@@ -172,9 +176,6 @@ namespace Magicodes.Admin.Authorization.Users
                 user.surname = string.Join(",", comlist);
             }
             return new PagedResultDto<UserListExtionDto>(userCount, users);
-
-
-
         }
 
         /// <summary>
@@ -185,6 +186,10 @@ namespace Magicodes.Admin.Authorization.Users
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
         {
             var query = UserManager.Users
+                .Where(u => u.IsVerify == input.IsVerify)
+                .Where(u => new List<int>() { 0, 1 }.Contains(u.UserNature))
+                .WhereIf(!input.code.IsNullOrEmpty(), u => input.code == u.OrganizationCode)
+                .WhereIf(input.IsAdmin.HasValue, u => u.IsAdmin == input.IsAdmin)
                 .WhereIf(
                     !input.Filter.IsNullOrWhiteSpace(),
                     u =>
@@ -192,7 +197,6 @@ namespace Magicodes.Admin.Authorization.Users
                         u.Surname.Contains(input.Filter) ||
                         u.UserName.Contains(input.Filter) ||
                         u.EmailAddress.Contains(input.Filter))
-                        && (u.UserNature==0 || u.UserNature==1)
                 );
 
             if (input.Permission != null && input.Permission.Count > 0)
@@ -562,7 +566,7 @@ namespace Magicodes.Admin.Authorization.Users
 
 
         #region 新前端方法
-        
+
         /// <summary>
         /// 创建或修改用户
         /// </summary>
@@ -589,7 +593,7 @@ namespace Magicodes.Admin.Authorization.Users
 
             //Update user properties
             user.UserName = input.User.UserName;
-            user.OrganizationCode= input.User.OrganizationCode;
+            user.OrganizationCode = input.User.OrganizationCode;
             user.DeptCode = input.User.DeptCode;
             user.TenantId = AbpSession.TenantId;
             user.EmailAddress = input.User.EmailAddress;
@@ -597,11 +601,13 @@ namespace Magicodes.Admin.Authorization.Users
             user.Surname = input.User.Name;
             user.PhoneNumber = input.User.PhoneNumber;
             user.TelNumber = input.User.TelNumber;
-            //user.IsLockoutEnabled = !input.User.IsActive;
+            user.IsLockoutEnabled = !input.User.IsActive;
+            user.IsVerify = input.User.IsVerify;
+            user.VerifyRem = input.User.VerifyRem;
             user.LastModifierUserId = AbpSession.UserId;
             user.LastModificationTime = Clock.Now;
             user.ShouldChangePasswordOnNextLogin = false;
-            user.Sex = input.User.Sex.IsNullOrEmpty()?0:int.Parse(input.User.Sex) ;
+            user.Sex = input.User.Sex.IsNullOrEmpty() ? 0 : int.Parse(input.User.Sex);
 
             if (!input.User.Password.IsNullOrEmpty())
             {
@@ -702,27 +708,27 @@ namespace Magicodes.Admin.Authorization.Users
         public async Task<NewGetUserForEditOutput> NewGetUserForEdit(NullableIdDto<long> input)
         {
             //取该人员的角色
-            var userRoleDtos = await _userRoleRepository.GetAll().Where(p => p.UserId == input.Id).ToArrayAsync();
+            var userRoleDtos = await _userRoleRepository.GetAll().Where(p => p.UserId == input.Id).FirstOrDefaultAsync();
 
             //var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
 
             var output = new NewGetUserForEditOutput
             {
-                Roles = userRoleDtos.Select(p => p.RoleId.ToString()).ToList(),
-                
+                Roles = new List<string>(),
+                roleId = userRoleDtos == null ? "" : userRoleDtos.RoleId.ToString()
             };
 
             if (input.Id.HasValue)
             {
                 //Editing an existing user
                 //var user = await UserManager.GetUserByIdAsync(input.Id.Value);
-                 var user =await _userRepository.GetAsync((long )input.Id);
+                var user = await _userRepository.GetAsync((long)input.Id);
                 output.User = ObjectMapper.Map<NewUserEditDto>(user);
                 output.User.TelNumber = user.TelNumber;
-               
+
                 //var organizationUnits = await UserManager.GetOrganizationUnitsAsync(user);
-                var  cominfo= _organizationUnitRepository.GetAll().Where(p=> ("," + user.OrganizationCode + ",").Contains(","+p.Code+",") )
-                    .Select(p=>new UnitList { Id=p.Id.ToString(), DisplayName=p.DisplayName }).ToList();
+                var cominfo = _organizationUnitRepository.GetAll().Where(p => ("," + user.OrganizationCode + ",").Contains("," + p.Code + ","))
+                    .Select(p => new UnitList { Id = p.Id.ToString(), DisplayName = p.DisplayName }).ToList();
                 output.Dpts = cominfo;
 
 

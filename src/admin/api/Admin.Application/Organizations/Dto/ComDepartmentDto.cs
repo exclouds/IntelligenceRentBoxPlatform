@@ -15,7 +15,11 @@ namespace Magicodes.Admin.Organizations.Dto
         /// 部门编码
         /// </summary>
         public string DepCode { get; set; }
-        
+
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string DepName { get; set; }
 
         /// <summary>
         ///部门归属

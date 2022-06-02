@@ -46,10 +46,10 @@ namespace Magicodes.Admin.Authorization.Roles
                 .WhereIf(
                     input.PermissionNames != null && input.PermissionNames.Count > 0,
                     r => r.Permissions.Any(rp => input.PermissionNames.Contains(rp.Name) && rp.IsGranted)
-                )
-                .WhereIf(AbpSession.UserId != 2, r => r.CreatorUserId == AbpSession.UserId);
-                //当前管理员增加角色
-                //.Where(r=>r.CreatorUserId==AbpSession.UserId );
+                );
+			//.WhereIf(AbpSession.UserId != 2, r => r.CreatorUserId == AbpSession.UserId);
+			//当前管理员增加角色
+			//.Where(r=>r.CreatorUserId==AbpSession.UserId );
 
 			var count = await query.CountAsync();
 

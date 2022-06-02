@@ -4,18 +4,16 @@ using System.Text;
 
 namespace Magicodes.Admin.Authorization.Users.Dto
 {
-  public  class NewUserEditDto
+    public class NewUserEditDto
     {
         public string Id { get; set; }
-
         public string Password { get; set; }
-
-        public  bool ShouldChangePasswordOnNextLogin { get; set; }
+        public bool ShouldChangePasswordOnNextLogin { get; set; }
         /// <summary>
         /// 真实姓名
         /// </summary>
         public string Name { get; set; }
-        
+
 
         /// <summary>
         /// 登陆名
@@ -66,6 +64,16 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         /// 是否激活（IsLockoutEnabled）
         /// </summary>
         public bool IsActive { get; set; }
+
+        /// <summary>
+        /// 是否审核
+        /// </summary>
+        public bool IsVerify { get; set; }
+
+        /// <summary>
+        /// 审核评语
+        /// </summary>
+        public string VerifyRem { get; set; }
 
         /// <summary>
         /// 添加时间

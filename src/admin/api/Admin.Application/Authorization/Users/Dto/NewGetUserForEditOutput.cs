@@ -17,8 +17,12 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         /// <summary>
         /// 角色
         /// </summary>
-        public List<string> Roles { get; set; }       
+        public List<string> Roles { get; set; }
 
+        /// <summary>
+        /// 用户角色Id
+        /// </summary>
+        public string roleId { get; set; }
 
         public NewGetUserForEditOutput()
         {

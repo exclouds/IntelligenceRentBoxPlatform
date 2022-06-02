@@ -47,6 +47,10 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         public virtual bool IsLockoutEnabled { get; set; }
 
         public string ProfilePictureId { get; set; }
+        /// <summary>
+        /// 用户性质（0：客户，1：平台管理员）
+        /// </summary>
+        public int UserNature { get; set; }
 
     }
 }

@@ -12,6 +12,9 @@ using System.Linq.Dynamic.Core;
 using Abp.Authorization;
 using Magicodes.Admin.Core.Custom.Basis;
 using System.Collections.Generic;
+using Magicodes.Admin.Authorization.Users;
+using Magicodes.Admin.Organizations;
+using Abp.Linq.Extensions;
 
 namespace Admin.Application.Custom.API.PublicArea.Combox
 {
@@ -30,6 +33,8 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
         private readonly IRepository<SiteTable, int> _SiteTableRepository;
         private readonly IRepository<LinSite, int> _LinSiteRepository;
         private readonly IRepository<Line, int> _LineRepository;
+        private readonly IRepository<User, long> _userRepository;
+        private readonly IRepository<MyOrganization, long> _organizationUnitRepository;
 
         /// <summary>
         /// 构造函数
@@ -39,8 +44,9 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
             IRepository<Country, int> CountryRepository,
             IRepository<SiteTable, int> SiteTableRepository,
             IRepository<LinSite, int> LinSiteRepository,
-            IRepository<Line, int> LineRepository
-
+            IRepository<Line, int> LineRepository,
+            IRepository<User, long> userRepository,
+            IRepository<MyOrganization, long> organizationUnitRepository
             ) : base()
         {
             _BaseKey_ValueRepository = BaseKey_ValueRepository;
@@ -48,6 +54,8 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
             _SiteTableRepository = SiteTableRepository;
             _LinSiteRepository = LinSiteRepository;
             _LineRepository = LineRepository;
+            _userRepository = userRepository;
+            _organizationUnitRepository = organizationUnitRepository;
         }
         #endregion
 
@@ -138,6 +146,31 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
             return output;
         }
 
+        #endregion
+
+        #region 客户端公司查询
+        /// <summary>
+        /// 客户端公司查询
+        /// </summary>
+        /// <param name="IsAdmin">是否管理账户</param>
+        /// <returns></returns>
+        public List<ComboxDto> GetCustCompanyList(bool? IsAdmin)
+        {
+            var query = from a in _userRepository.GetAll()
+                        .Where(u => new List<int>() { 0, 1 }.Contains(u.UserNature))
+                        .WhereIf(IsAdmin.HasValue, u => u.IsAdmin)
+                        join b in _organizationUnitRepository.GetAll() on a.OrganizationCode equals b.Code into o
+                        from org in o.DefaultIfEmpty()
+                        select new ComboxDto
+                        {
+                            Value = org.Code,
+                            DisplayText = org.DisplayName
+                        };
+
+            var output = query.ToList();
+
+            return output;
+        }
         #endregion
     }
 }

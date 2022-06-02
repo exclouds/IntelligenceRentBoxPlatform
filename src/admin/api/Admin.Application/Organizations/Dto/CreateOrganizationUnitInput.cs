@@ -24,7 +24,10 @@ namespace Magicodes.Admin.Organizations.Dto
         /// 公司简称
         /// </summary>
         public string ShortName { get; set; }
-        
+        /// <summary>
+        /// 公司类型(1:平台；2：箱东；3：租客)
+        /// </summary>
+        public int CompanyType { get; set; }
     }
 
     public class CreateDept

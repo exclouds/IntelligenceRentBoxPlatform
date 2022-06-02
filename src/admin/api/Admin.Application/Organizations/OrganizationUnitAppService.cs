@@ -186,7 +186,7 @@ namespace Magicodes.Admin.Organizations
             organizationDto.DisplayName = input.DisplayName;
             organizationDto.ParentCode = input.ParentCode;
             organizationDto.ShortName = input.ShortName;
-            
+            organizationDto.CompanyType = input.CompanyType;
             await _organizationUnitRepository.InsertAsync(organizationDto);
             return ObjectMapper.Map<OrganizationUnitDto>(organizationDto);
         }
@@ -279,7 +279,8 @@ namespace Magicodes.Admin.Organizations
                         {
                             Id = dou.Id,
                             AddedTime = dou.CreationTime,
-                            DepCode = dou.DepCode
+                            DepCode = dou.DepCode,
+                            DepName = dou.DepName
 
                         };
 
@@ -321,6 +322,7 @@ namespace Magicodes.Admin.Organizations
                             {
                                 Id = dep.Id,
                                 DepCode = dep.DepCode,
+                                DepName = dep.DepName,
                                 CreationTime = dep.CreationTime,
                                 DepNCCName = dep.DepName,
                                 Code = dep.Code,
@@ -503,31 +505,54 @@ namespace Magicodes.Admin.Organizations
             //非系统用户
             var user = await _userRepository.FirstOrDefaultAsync((long)AbpSession.UserId);
             string sql = null;
-            var units = await _organizationUnitRepository.GetAll().ToListAsync();
+            sql = $" select * from AbpOrganizationUnits where  TenantId={AbpSession.TenantId} and IsDeleted=0 and CompanyType=1";
+            var units = _organizationUnitDapperRepository.Query<MyOrganization>(sql).AsQueryable();
+            //var units = await _organizationUnitRepository.GetAll().Where(o => o.CompanyType == 1).ToListAsync();
+            sql = $" select * from Department where  TenantId={AbpSession.TenantId} and IsDeleted=0";
 
-            //sql =
-            //    $"select * from AbpUserOrganizationUnits where OrganizationUnitId in (select id from AbpOrganizationUnits where TenantId=" +
-            //    $"{AbpSession.TenantId} and IsDeleted=0) and TenantId={AbpSession.TenantId} and IsDeleted=0";
-            ////}
-            sql =
-               $" select * from Department where  TenantId={AbpSession.TenantId} and IsDeleted=0";
-            
             var query = _organizationUnitDapperRepository.Query<Department>(sql).AsQueryable();
             var depts = query.ToList();
             List<NewOrganizationUnitDto> unitlist = new List<NewOrganizationUnitDto>();
             //找到根节点
-            foreach (var item in units.FindAll(p => p.ParentCode.IsNullOrEmpty()))
+            foreach (var item in units)
             {
-                NewOrganizationUnitDto unit = new NewOrganizationUnitDto();
-                unit.nodeUUid =item.Code;
-                unit.nodeId = item.Id;
-                unit.nodeName = item.DisplayName;
-                unit.disabled = false;
-                unit.children = GetChildrenUnit(item.Code, units, depts);
-                unitlist.Add(unit);
+                if (item.ParentCode.IsNullOrEmpty())
+                {
+                    NewOrganizationUnitDto unit = new NewOrganizationUnitDto();
+                    unit.nodeUUid = item.Code;
+                    unit.nodeId = item.Id;
+                    unit.nodeName = item.DisplayName;
+                    unit.disabled = false;
+                    unit.children = GetChildrenUnit(item.Code, units.ToList(), depts);
+                    unitlist.Add(unit);
+                }
             }
 
 
+            return unitlist;
+        }
+        /// <summary>
+        /// 获取组织机构，树形显示
+        /// </summary>
+        /// <param name="CompanyType">公司类型(1:平台；2：箱东、租客)</param>
+        /// <returns></returns>
+        public async Task<List<NewOrganizationUnitDto>> GetNewOrganizationUnitsByType()
+        {
+            string sql = $" select * from AbpOrganizationUnits where  TenantId={AbpSession.TenantId} and IsDeleted=0 and CompanyType<>1";
+            var units = _organizationUnitDapperRepository.Query<MyOrganization>(sql).AsQueryable();
+
+            List<NewOrganizationUnitDto> unitlist = new List<NewOrganizationUnitDto>();
+            //找到根节点
+            foreach (var item in units)
+            {
+                NewOrganizationUnitDto unit = new NewOrganizationUnitDto();
+                unit.nodeUUid = item.Code;
+                unit.nodeId = item.Id;
+                unit.nodeName = item.DisplayName;
+                unit.disabled = false;
+                unit.children = null;
+                unitlist.Add(unit);
+            }
             return unitlist;
         }
         /// <summary>

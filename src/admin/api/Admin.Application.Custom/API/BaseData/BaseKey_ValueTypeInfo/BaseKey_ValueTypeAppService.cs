@@ -58,7 +58,7 @@ namespace Admin.Application.Custom.API.BaseData.BaseKey_ValueTypeInfo
             }
             else
             {
-                sql += " and parentcode is null or parentcode=''";
+                sql += " and (parentcode is null or parentcode='')";
             }
             var result = _baseKey_ValueTypeDapperRepository.Query<GetAllTypeListDto>(sql).AsQueryable().ToList();
 
