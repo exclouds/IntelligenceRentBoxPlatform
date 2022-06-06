@@ -16,6 +16,10 @@ namespace Magicodes.Admin.IMChat.Dto
         /// </summary>
         public string ClientChatName { get; set; }
         /// <summary>
+        /// 客服Id
+        /// </summary>
+        public long ServerChatId { get; set; }
+        /// <summary>
         /// 在线状态 ：on 在线；off离线
         /// </summary>
         public string State { get; set; }

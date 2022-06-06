@@ -31,7 +31,7 @@ namespace Magicodes.Admin.IMChat
             cmdParms[2].Value = input.State;
             cmdParms[3].Value = input.AccessTime;
             cmdParms[4].Value = DateTime.Now;
-            cmdParms[5].Value = AbpSession.UserId;
+            cmdParms[5].Value = input.ServerChatId;
             return DbHelperSQL.ExecuteSql(sql, cmdParms) > 0;
         }
         /// <summary>
@@ -41,9 +41,9 @@ namespace Magicodes.Admin.IMChat
         public bool AddClientChat(IMClientEnInputDto input)
         {
             string sql = "insert into IMClientEn(ClientChatId,ClientChatName,State,AccessTime,InputContent,NewMsgCount,IsFollow,"
-            + "LastMsgTime,LastMsgShowTime,CreationTime,CreatorUserId,IsDeleted,BillNO)"
+            + "LastMsgTime,LastMsgContent,LastMsgShowTime,CreationTime,CreatorUserId,IsDeleted,BillNO,ServerChatId)"
             + "values(@ClientChatId, @ClientChatName, @State, @AccessTime, @InputContent, @NewMsgCount, 0,"
-            + "@LastMsgTime, @LastMsgContent, @LastMsgShowTime, @CreationTime, @CreatorUserId, 0, @BillNO)";
+            + "@LastMsgTime, @LastMsgContent, @LastMsgShowTime, @CreationTime, @CreatorUserId, 0, @BillNO, @ServerChatId)";
             SqlParameter[] cmdParms = new SqlParameter[] { 
                 new SqlParameter("@ClientChatId", SqlDbType.Int),
                 new SqlParameter("@ClientChatName", SqlDbType.VarChar, 20),
@@ -56,7 +56,8 @@ namespace Magicodes.Admin.IMChat
                 new SqlParameter("@LastMsgShowTime", SqlDbType.DateTime),
                 new SqlParameter("@CreationTime", SqlDbType.DateTime),
                 new SqlParameter("@CreatorUserId", SqlDbType.Int),
-                new SqlParameter("@BillNO", SqlDbType.VarChar, 20)
+                new SqlParameter("@BillNO", SqlDbType.VarChar, 50),
+                new SqlParameter("@ServerChatId", SqlDbType.Int)
             };
             cmdParms[0].Value = input.ClientChatId;
             cmdParms[1].Value = input.ClientChatName;
@@ -68,32 +69,44 @@ namespace Magicodes.Admin.IMChat
             cmdParms[7].Value = input.LastMsgContent;
             cmdParms[8].Value = input.LastMsgShowTime;
             cmdParms[9].Value = DateTime.Now;
-            cmdParms[10].Value = AbpSession.UserId;
+            cmdParms[10].Value = input.ServerChatId;
             cmdParms[11].Value = input.BillNO;
+            cmdParms[12].Value = input.ServerChatId;
             return DbHelperSQL.ExecuteSql(sql, cmdParms) > 0;
         }
 
-        public bool UpdateClientChat(long clientChatId,string state,string column)
+        public bool UpdateClientChat(long clientChatId,string column,string value)
         {
             string sql = "";
             SqlParameter[] cmdParms = null;
             if (column == "state")
             {
-                sql = "update IMChatEn set State=@State where ClientChatId=@ClientChatId";
+                sql = "update IMChatEn set State=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
                 cmdParms = new SqlParameter[] {
+                    new SqlParameter("@Val", SqlDbType.VarChar, 10),
+                    new SqlParameter("@LastModificationTime", SqlDbType.DateTime),
+                    new SqlParameter("@LastModifierUserId", SqlDbType.Int),
                     new SqlParameter("@ClientChatId", SqlDbType.Int),
-                    new SqlParameter("@State", SqlDbType.VarChar, 10)
                 };
-                cmdParms[0].Value = clientChatId;
-                cmdParms[1].Value = state;
+                cmdParms[0].Value = value;
+                cmdParms[1].Value = DateTime.Now;
+                cmdParms[2].Value = clientChatId;
+                cmdParms[3].Value = clientChatId;
                 
             }
-            else if (column == "")
+            else if (column == "newMsgCount")
             {
-                sql = "update IMChatEn set State=@State where ClientChatId=@ClientChatId";
+                sql = "update IMChatEn set NewMsgCount=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
                 cmdParms = new SqlParameter[] {
-                new SqlParameter("@ClientChatId", SqlDbType.Int),
-                new SqlParameter("@State", SqlDbType.VarChar, 10) };
+                    new SqlParameter("@Val", SqlDbType.Int),
+                    new SqlParameter("@LastModificationTime", SqlDbType.DateTime),
+                    new SqlParameter("@LastModifierUserId", SqlDbType.Int),
+                    new SqlParameter("@ClientChatId", SqlDbType.Int),
+                };
+                cmdParms[0].Value = value;
+                cmdParms[1].Value = DateTime.Now;
+                cmdParms[2].Value = clientChatId;
+                cmdParms[3].Value = clientChatId;
             }
             return DbHelperSQL.ExecuteSql(sql, cmdParms) > 0;
         }
@@ -121,8 +134,21 @@ namespace Magicodes.Admin.IMChat
             cmdParms[2].Value = input.ContentType;
             cmdParms[3].Value = input.Content;
             cmdParms[4].Value = DateTime.Now;
-            cmdParms[5].Value = AbpSession.UserId;
+            cmdParms[5].Value = input.ClientChatId;
             return DbHelperSQL.ExecuteSql(sQLString, cmdParms) > 0;
+        }
+
+        public ClientCountListDto GetClientCount(int serverChatId)
+        {
+            ClientCountListDto dto = new ClientCountListDto();
+            string sql = "select count(*) clientCount from IMClientEn where [state]='on' and ServerChatId='" + serverChatId + "'";
+            DataSet ds = DbHelperSQL.Query(sql, null);
+            if (ds != null)
+            {
+                dto.ServerChatId = serverChatId;
+                dto.ClientCount = Convert.ToInt32(ds.Tables[0].Rows[0]["clientCount"]);
+            }
+            return dto;
         }
     }
 }
