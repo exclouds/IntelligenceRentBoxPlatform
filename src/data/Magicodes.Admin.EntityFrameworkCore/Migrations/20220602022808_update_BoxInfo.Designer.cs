@@ -4,14 +4,16 @@ using Magicodes.Admin.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Magicodes.Admin.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    partial class AdminDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220602022808_update_BoxInfo")]
+    partial class update_BoxInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1984,147 +1986,6 @@ namespace Magicodes.Admin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BaseKey_ValueType");
-                });
-
-            modelBuilder.Entity("Magicodes.Admin.Core.Custom.IMChat.IMChatMsg", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long?>("ClientChatId");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("ContentType")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<long?>("DeleterUserId");
-
-                    b.Property<DateTime?>("DeletionTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool?>("IsNewMsg");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Remarks")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Role")
-                        .HasMaxLength(20);
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IMChatMsgs");
-                });
-
-            modelBuilder.Entity("Magicodes.Admin.Core.Custom.IMChat.IMClientEn", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AccessTime");
-
-                    b.Property<string>("BillNO")
-                        .HasMaxLength(50);
-
-                    b.Property<long?>("ClientChatId");
-
-                    b.Property<string>("ClientChatName")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<long?>("DeleterUserId");
-
-                    b.Property<DateTime?>("DeletionTime");
-
-                    b.Property<string>("InputContent")
-                        .HasMaxLength(500);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool?>("IsFollow");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("LastMsgContent")
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime?>("LastMsgShowTime");
-
-                    b.Property<DateTime?>("LastMsgTime");
-
-                    b.Property<int?>("NewMsgCount");
-
-                    b.Property<string>("Remarks")
-                        .HasMaxLength(500);
-
-                    b.Property<long?>("ServerChatId");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(20);
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IMClientEns");
-                });
-
-            modelBuilder.Entity("Magicodes.Admin.Core.Custom.IMChat.IMServerEn", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("AccessTime");
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<long?>("DeleterUserId");
-
-                    b.Property<DateTime?>("DeletionTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Remarks")
-                        .HasMaxLength(500);
-
-                    b.Property<long?>("ServerChatId");
-
-                    b.Property<string>("ServerChatName")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("State");
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IMServerEns");
                 });
 
             modelBuilder.Entity("Magicodes.Admin.Friendships.Friendship", b =>

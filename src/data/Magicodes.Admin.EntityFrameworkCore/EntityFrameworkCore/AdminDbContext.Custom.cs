@@ -2,6 +2,7 @@
 using Magicodes.Admin.Core.Custom.Basis;
 using Magicodes.Admin.Core.Custom.Business;
 using Magicodes.Admin.Core.Custom.DataDictionary;
+using Magicodes.Admin.Core.Custom.IMChat;
 using Microsoft.EntityFrameworkCore;
 
 namespace Magicodes.Admin.EntityFrameworkCore
@@ -41,8 +42,9 @@ namespace Magicodes.Admin.EntityFrameworkCore
 
         public virtual DbSet<BusinessConfirm> BusinessConfirms { get; set; }
 
-        
-
+        public virtual DbSet<IMChatMsg> IMChatMsgs { get; set; }
+        public virtual DbSet<IMClientEn> IMClientEns { get; set; }
+        public virtual DbSet<IMServerEn> IMServerEns { get; set; }
         /// <summary>
         /// 部门信息
         /// </summary>

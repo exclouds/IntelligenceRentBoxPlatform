@@ -27,7 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Magicodes.Admin.Core\Magicodes.Admin.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LiveChat\" />
-  </ItemGroup>
 </Project>
