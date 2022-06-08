@@ -148,7 +148,7 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
 
                         join b in _LinSiteRepository.GetAll()
                          .WhereIf(!string.IsNullOrEmpty(line), p => line == p.LineId)
-                        on a.Id.ToString() equals b.LineId
+                        on a.Code equals b.Code
 
                         select new ComboxDto
                         {
@@ -196,7 +196,7 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
 
             query = query.WhereIf(!string.IsNullOrEmpty(Code), p => Code == p.Code);
 
-            var output = query.ToList();
+            var output = query.GroupBy(p=>p.Value).Select(p=> new ComboxDto { Value = p.FirstOrDefault().Value, DisplayText = p.FirstOrDefault().DisplayText }).ToList();
 
             return output;
         }
@@ -218,7 +218,7 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
             if (!string.IsNullOrEmpty(xxcc))
             {
                 string[] xxclist = xxcc.Split("|");
-                xxccs = xxclist[1] + xxclist[0];
+                xxccs = xxclist[0] + xxclist[1];
 
                 qyt = int.Parse(xxclist[2]);
             }

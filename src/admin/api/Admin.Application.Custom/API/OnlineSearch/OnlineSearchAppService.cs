@@ -28,6 +28,7 @@ using Magicodes.Admin.Attachments;
 using Microsoft.AspNetCore.Http;
 using Admin.Application.Custom.API.PublicArea.PubContactNO;
 using Admin.Application.Custom.API.OnlineSearch.Dto;
+using Admin.Application.Custom.API.BaseDto;
 
 namespace Admin.Application.Custom.API.OnlineSearch
 {
@@ -100,15 +101,26 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     .ToList();
 
                 //var allids = results.Select(p => p.BillNO).ToList();
-                //if (allids.Count > 0)
-                //{
-                //    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-                //    results.ForEach(item =>
-                //    {
-                //        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-                //        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
-                //    });
-                //}
+                if (results.Count > 0)
+                {
+                    //var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    //var alllinesite = _LinSiteRepository.GetAll().GroupBy(p => p.LineId).Select(p => new LineSiteDto { LineId = p.FirstOrDefault().LineId, site = string.Join(",", p.Select(x => x.Code).ToList()) }).ToList();
+                    var allsite = _SiteTableRepository.GetAll().ToList();
+                    results.ForEach(item =>
+                    {
+                        if (string.IsNullOrEmpty(item.EndStation))
+                        {
+                            item.EndStation = "全部路线站点";
+                        }
+                        else
+                        {
+                            var sitelis = allsite.Where(p => ("," + item.EndStation + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
+                            item.EndStation = string.Join(",", sitelis);
+                        }
+                        //var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                        //item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                    });
+                }
                 return new PagedResultDto<XDSearchList>(resultCount, results.MapTo<List<XDSearchList>>());
             }
             return await GetListFunc();
@@ -162,7 +174,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             INTO #XDBILLINFO
                             from BoxInfos a
                             left join BoxDetailses b on a.BillNO=b.BoxTenantInfoNO and b.isdeleted=0
-                            where a.isdeleted=0";
+                            where a.IsEnable=1 AND a.IsVerify=1 AND ISNULL(a.VerifyRem,'')='' and a.isdeleted=0";
             if (!string.IsNullOrEmpty(input.BillNO))
             {
                 sql += " and a.BillNO like '%"+ input.BillNO.Trim()+ "%' ";
@@ -171,9 +183,14 @@ namespace Admin.Application.Custom.API.OnlineSearch
             {
                 sql += " and a.StartStation = '" + input.StartStation + "' ";
             }
+            if (!string.IsNullOrEmpty(input.Line))
+            {
+                sql += " and a.Line = '" + input.Line + "' ";
+            }
             if (!string.IsNullOrEmpty(input.EndStation))
             {
-                sql += " and a.EndStation = '" + input.EndStation + "' ";
+                // sql += " and charindex(','+'" + input.EndStation + "'+',',','+a.EndStation+',') >0 ";
+                sql += " and   ( case when isnull(a.EndStation,'')='' then (select count(*) from LinSites  where LinSites.isdeleted=0 and LinSites.Lineid = a.Line  and LinSites.code='" + input.EndStation + "') else charindex(',' + '" + input.EndStation + "' + ',', ',' + a.EndStation + ',') end )  > 0  ";
             }
             if (!string.IsNullOrEmpty(input.ReturnStation))
             {
@@ -182,7 +199,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
             //用箱范围
             if (input.EffectiveSTime.HasValue)
             {
-                sql += " and !( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'"+ input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
+                sql += " and NOT( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'"+ input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
             }
             if (input.Finish.HasValue)
             {
@@ -213,7 +230,8 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
                             select  a.Id,a.BillNO,
                             (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
-                            (case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,
+                            --(case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,
+                             a.EndStation,
                             (case when isnull(reline.SiteName,'')='' then reline.SiteName else reline.SiteName end )ReturnStation,
                             a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,
                             ( SELECT RTRIM(typename) + ';'
@@ -230,7 +248,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             from  #XDBILLINFO1 b
                             join BoxInfos a on a.id=b.id
                             left join SiteTables startline on a.StartStation = startline.Code 
-                            left join SiteTables endline on a.EndStation = endline.Code 
+                           -- left join SiteTables endline on a.EndStation = endline.Code 
                             left join SiteTables reline on a.ReturnStation = reline.Code 
                             left join Lines xdline on a.Line = xdline.Id 
 
@@ -290,15 +308,27 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     .PageBy(input)
                     .ToList();
                 //var allids = results.Select(p => p.BillNO).ToList();
-                //if (allids.Count > 0)
-                //{
-                //    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-                //    results.ForEach(item =>
-                //    {
-                //        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-                //        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
-                //    });
-                //}
+                if (results.Count > 0)
+                {
+                    //var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    //先获取所有航线站点信息
+                   // var alllinesite = _LinSiteRepository.GetAll().GroupBy(p => p.LineId).Select(p => new LineSiteDto { LineId = p.FirstOrDefault().LineId, site = string.Join(",", p.Select(x => x.Code).ToList()) }).ToList();
+                    var allsite = _SiteTableRepository.GetAll().ToList();
+                    results.ForEach(item =>
+                    {
+                        if (string.IsNullOrEmpty(item.EndStation))
+                        {
+                            item.EndStation = "全部路线站点";
+                        }
+                        else
+                        {
+                            var sitelis = allsite.Where(p => ("," + item.EndStation + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
+                            item.EndStation = string.Join(",", sitelis);
+                        }
+                        //var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                        //item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                    });
+                }
                 return new PagedResultDto<ZKSearchList>(resultCount, results.MapTo<List<ZKSearchList>>());
             }
             return await GetListFunc();
@@ -344,7 +374,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             INTO #ZKDelInfo
                             from TenantInfos a
                             left join BoxDetailses b on a.BillNO=b.BoxTenantInfoNO and b.isdeleted=0
-                            where a.isdeleted=0";
+                            where a.IsEnable=1 AND a.IsVerify=1 AND ISNULL(a.VerifyRem,'')='' and a.isdeleted=0";
             if (!string.IsNullOrEmpty(input.BillNO))
             {
                 sql += " and a.BillNO like '%" + input.BillNO.Trim() + "%' ";
@@ -353,9 +383,14 @@ namespace Admin.Application.Custom.API.OnlineSearch
             {
                 sql += " and a.StartStation = '" + input.StartStation + "' ";
             }
+            if (!string.IsNullOrEmpty(input.Line))
+            {
+                sql += " and a.Line = '" + input.Line + "' ";
+            }
             if (!string.IsNullOrEmpty(input.EndStation))
             {
-                sql += " and a.EndStation = '" + input.EndStation + "' ";
+                //sql += " and a.EndStation = '" + input.EndStation + "' ";
+                sql += " and   ( case when isnull(a.EndStation,'')='' then (select count(*) from LinSites  where LinSites.isdeleted=0 and LinSites.Lineid = a.Line  and LinSites.code='" + input.EndStation + "') else charindex(',' + '" + input.EndStation + "' + ',', ',' + a.EndStation + ',') end )  > 0  ";
             }
             if (input.Finish.HasValue)
             {
@@ -367,7 +402,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
             //用箱范围
             if (input.EffectiveSTime.HasValue)
             {
-                sql += " and !( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
+                sql += " and NOT( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
             }
 
             //.WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
@@ -399,8 +434,8 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
                             select  a.Id,a.BillNO,
                             (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
-                            (case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,                           
-                            a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,a.InquiryNum,
+                            --(case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,                           
+                             a.EndStation,a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,a.InquiryNum,
                             ( SELECT RTRIM(typename) + ';'
                                                FROM
                                                (
@@ -415,7 +450,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             from  #ZKDelInfo1 b
                             join TenantInfos a on a.id=b.id
                             left join SiteTables startline on a.StartStation = startline.Code 
-                            left join SiteTables endline on a.EndStation = endline.Code                            
+                           -- left join SiteTables endline on a.EndStation = endline.Code                            
                             left join Lines xdline on a.Line = xdline.Id 
 
                             DROP TABLE #ZKDelInfo,#ZKDelInfo1";

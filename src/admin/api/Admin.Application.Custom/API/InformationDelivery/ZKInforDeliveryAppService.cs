@@ -29,6 +29,7 @@ using Magicodes.Admin.Attachments;
 using Microsoft.AspNetCore.Http;
 using Admin.Application.Custom.API.PublicArea.PubContactNO;
 using Admin.Application.Custom.API.InformationDelivery.XDDto;
+using Admin.Application.Custom.API.BaseDto;
 
 namespace Admin.Application.Custom.API.InformationDelivery
 {
@@ -84,7 +85,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<ZKDelInfoListDto>> GetZKDelInfoList(ZKDelInfoQueryDto input)
+        public async Task<PagedResultDto<ZKDelInfoListDto>> PostZKDelInfoList(ZKDelInfoQueryDto input)
         {
             async Task<PagedResultDto<ZKDelInfoListDto>> GetListFunc()
             {
@@ -101,10 +102,20 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 if (allids.Count > 0)
                 {
                     var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                    var allsite = _SiteTableRepository.GetAll().ToList();
                     results.ForEach(item =>
                     {
                         var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
                         item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                        if (string.IsNullOrEmpty(item.EndStation))
+                        {
+                            item.EndStation = "全部路线站点";
+                        }
+                        else
+                        {
+                            var sitelis = allsite.Where(p => ("," + item.EndStationCode + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
+                            item.EndStation = string.Join(",", sitelis);
+                        }
                     });
                 }
                 return new PagedResultDto<ZKDelInfoListDto>(resultCount, results.MapTo<List<ZKDelInfoListDto>>());
@@ -114,10 +125,13 @@ namespace Admin.Application.Custom.API.InformationDelivery
 
         private IQueryable<ZKDelInfoListDto> CreateZKDelInfoQuery(ZKDelInfoQueryDto input)
         {
+            //先获取所有航线站点信息
+            var alllinesite = _LinSiteRepository.GetAll().GroupBy(p => p.LineId).Select(p => new LineSiteDto { LineId = p.FirstOrDefault().LineId, site = string.Join(",", p.Select(x => x.Code).ToList()) }).ToList();
+
             var query = from ZKDelInfo in _TenantInfoRepository.GetAll().Where(p => p.CreatorUserId == AbpSession.UserId)
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
-                              .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation.Contains(input.EndStation) )
+                             // .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation.Contains(input.EndStation) )
                                .WhereIf(!input.line.IsNullOrEmpty(), p => p.Line.ToString() == input.line)
                               
                              .WhereIf(input.IsVerify.HasValue, p => p.IsVerify == input.IsVerify)
@@ -126,8 +140,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                         join site in _SiteTableRepository.GetAll() on ZKDelInfo.StartStation equals site.Code into startsite
                           from startline in startsite.DefaultIfEmpty()
 
-                        join site in _SiteTableRepository.GetAll() on ZKDelInfo.EndStation equals site.Code into endsite
-                        from endline in endsite.DefaultIfEmpty()
+                        //join site in _SiteTableRepository.GetAll() on ZKDelInfo.EndStation equals site.Code into endsite
+                        //from endline in endsite.DefaultIfEmpty()
 
                         join line in _LineRepository.GetAll() on ZKDelInfo.Line equals line.Id into lines
                         from zkline in lines.DefaultIfEmpty()
@@ -138,8 +152,10 @@ namespace Admin.Application.Custom.API.InformationDelivery
                             Id = ZKDelInfo.Id,
                             BillNO = ZKDelInfo.BillNO,
                             StartStation =string.IsNullOrEmpty(startline.SiteName)? ZKDelInfo.StartStation: startline.SiteName,
-                            EndStation = string.IsNullOrEmpty(endline.SiteName) ? ZKDelInfo.EndStation : endline.SiteName ,
-                          
+                            //  EndStation = string.IsNullOrEmpty(endline.SiteName) ? ZKDelInfo.EndStation : endline.SiteName ,
+                            EndStation = ZKDelInfo.EndStation,
+                            EndStationCode = string.IsNullOrEmpty(ZKDelInfo.EndStation) ? alllinesite.Where(x => x.LineId == (ZKDelInfo.Line.HasValue ? ZKDelInfo.Line.ToString() : "")).Select(p => p.site).FirstOrDefault() : ZKDelInfo.EndStation,
+
                             EffectiveSTime = ZKDelInfo.EffectiveSTime,
                             EffectiveETime = ZKDelInfo.EffectiveETime,
                             HopePrice = ZKDelInfo.HopePrice,
@@ -152,6 +168,8 @@ namespace Admin.Application.Custom.API.InformationDelivery
                             CreationTime = ZKDelInfo.CreationTime,
                             Remarks = ZKDelInfo.Remarks,
                         };
+
+            query = query.WhereIf(input.EndStation != null && input.EndStation.Count > 0, p => p.EndStation.Where(x => ("," + p.EndStationCode + ",").Contains("," + x + ",")).Count() > 0);
 
 
             return query;
@@ -242,7 +260,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
            
             //ZKDelInfo.BillNO = dto.BillNO.Trim().ToUpper();
             ZKDelInfo.StartStation = dto.StartStation;
-            ZKDelInfo.EndStation = dto.EndStation;
+            ZKDelInfo.EndStation = dto.EndStation.Count() > 0 ? string.Join(",", dto.EndStation) : "";
                           
             ZKDelInfo.EffectiveSTime = dto.EffectiveSTime;
             ZKDelInfo.EffectiveETime = dto.EffectiveETime;
@@ -288,7 +306,7 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 TenantId = AbpSession.TenantId,
                 BillNO = billno,
                 StartStation = dto.StartStation,
-                EndStation = dto.EndStation,
+                EndStation = dto.EndStation.Count() > 0 ? string.Join(",", dto.EndStation) : "",
 
                 EffectiveSTime = dto.EffectiveSTime,
                 EffectiveETime = dto.EffectiveETime,

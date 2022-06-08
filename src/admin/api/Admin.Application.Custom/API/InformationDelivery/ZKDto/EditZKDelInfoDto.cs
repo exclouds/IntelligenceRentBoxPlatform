@@ -24,7 +24,7 @@ namespace Admin.Application.Custom.API.InformationDelivery.ZKDto
         /// <summary>
         /// 目的站
         /// </summary>    
-        public string EndStation { get; set; }
+        public List<string> EndStation { get; set; }
 
         /// <summary>
         /// 所属路线（可根据站点自动关联，可选）

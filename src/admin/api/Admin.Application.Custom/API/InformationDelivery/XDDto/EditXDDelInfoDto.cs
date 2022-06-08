@@ -23,7 +23,7 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// <summary>
         /// 目的站
         /// </summary>   
-        public string EndStation { get; set; }
+        public List<string> EndStation { get; set; }
 
         /// <summary>
         /// 还箱地
