@@ -2,6 +2,7 @@
 using Abp.Authorization.Users;
 using Abp.Dapper.Repositories;
 using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
 using Abp.Extensions;
 using Abp.UI;
 using Admin.Application.Custom.API.CustRegist.Dto;
@@ -32,14 +33,16 @@ namespace Admin.Application.Custom.API.CustRegist
         private readonly IEnumerable<IPasswordValidator<User>> _passwordValidators;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IDapperRepository<MyOrganization, long> _sqlDapperRepository;
-       // private TokenAuthController
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        // private TokenAuthController
 
         public CustRegistAppService(IRepository<Department, int> departmentRepository                    
             , IRepository<MyOrganization, long> organizationUnitRepository
             , IRepository<User, long> userRepository,
              IEnumerable<IPasswordValidator<User>> passwordValidators,
             IPasswordHasher<User> passwordHasher,
-            IDapperRepository<MyOrganization, long> sqlDapperRepository)
+            IDapperRepository<MyOrganization, long> sqlDapperRepository,
+            IUnitOfWorkManager unitOfWorkManager)
         {
             _departmentRepository = departmentRepository;         
             _organizationUnitRepository = organizationUnitRepository;
@@ -47,6 +50,7 @@ namespace Admin.Application.Custom.API.CustRegist
             _passwordValidators = passwordValidators;
             _passwordHasher = passwordHasher;
             _sqlDapperRepository = sqlDapperRepository;
+            _unitOfWorkManager = unitOfWorkManager;
 
         }
         #endregion
@@ -54,6 +58,10 @@ namespace Admin.Application.Custom.API.CustRegist
         #region 个人注册
         public async Task PersonRegist(UserRegistDto dto)
         {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                _unitOfWorkManager.Current.SetTenantId(1);
+            }
             if (!dto.Id.IsNullOrEmpty())
             {
                 await NewUpdateUserAsync(dto);
@@ -170,6 +178,10 @@ namespace Admin.Application.Custom.API.CustRegist
         #region 公司注册
         public async Task CompanyRegist(UserRegistDto dto)
         {
+            if (!AbpSession.TenantId.HasValue)
+            {
+                _unitOfWorkManager.Current.SetTenantId(1);
+            }
 
             if (!dto.Id.IsNullOrEmpty())
             {

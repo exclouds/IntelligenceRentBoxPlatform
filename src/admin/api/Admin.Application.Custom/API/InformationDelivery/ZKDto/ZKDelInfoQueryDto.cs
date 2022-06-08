@@ -17,6 +17,10 @@ namespace Admin.Application.Custom.API.InformationDelivery.ZKDto
         /// 起运站
         /// </summary>    
         public string StartStation { get; set; }
+        /// <summary>
+        /// 航线
+        /// </summary>    
+        public string line { get; set; }
 
         /// <summary>
         /// 目的站

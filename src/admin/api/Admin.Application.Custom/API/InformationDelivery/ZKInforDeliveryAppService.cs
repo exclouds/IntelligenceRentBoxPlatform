@@ -117,7 +117,9 @@ namespace Admin.Application.Custom.API.InformationDelivery
             var query = from ZKDelInfo in _TenantInfoRepository.GetAll().Where(p => p.CreatorUserId == AbpSession.UserId)
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
-                              .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)
+                              .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation.Contains(input.EndStation) )
+                               .WhereIf(!input.line.IsNullOrEmpty(), p => p.Line.ToString() == input.line)
+                              
                              .WhereIf(input.IsVerify.HasValue, p => p.IsVerify == input.IsVerify)
                              .WhereIf(input.IsEnable.HasValue, p => p.IsEnable == input.IsEnable)
                               .WhereIf(input.Finish.HasValue, p => p.Finish == input.Finish)

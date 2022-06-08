@@ -99,16 +99,16 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     .PageBy(input)
                     .ToList();
 
-                var allids = results.Select(p => p.BillNO).ToList();
-                if (allids.Count > 0)
-                {
-                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-                    results.ForEach(item =>
-                    {
-                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-                        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
-                    });
-                }
+                //var allids = results.Select(p => p.BillNO).ToList();
+                //if (allids.Count > 0)
+                //{
+                //    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                //    results.ForEach(item =>
+                //    {
+                //        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                //        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                //    });
+                //}
                 return new PagedResultDto<XDSearchList>(resultCount, results.MapTo<List<XDSearchList>>());
             }
             return await GetListFunc();
@@ -116,7 +116,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
         private IQueryable<XDSearchList> CreateXDDelInfoQuery(XDSearchDto input)
         {
-
+            /*
             var query = from XDDelInfo in _BoxInfoRepository.GetAll().Where(p => p.IsEnable && p.IsVerify && string.IsNullOrEmpty(p.VerifyRem))
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
@@ -155,6 +155,87 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             Finish = XDDelInfo.Finish,
                             CreationTime = XDDelInfo.CreationTime,
                         };
+
+            */
+            string sql = @"--先获取符合条件的主表信息
+                            select a.id,a.BillNO,b.box,b.size ,isnull(sum(b.Quantity),0) as qty
+                            INTO #XDBILLINFO
+                            from BoxInfos a
+                            left join BoxDetailses b on a.BillNO=b.BoxTenantInfoNO and b.isdeleted=0
+                            where a.isdeleted=0";
+            if (!string.IsNullOrEmpty(input.BillNO))
+            {
+                sql += " and a.BillNO like '%"+ input.BillNO.Trim()+ "%' ";
+            }
+            if (!string.IsNullOrEmpty(input.StartStation))
+            {
+                sql += " and a.StartStation = '" + input.StartStation + "' ";
+            }
+            if (!string.IsNullOrEmpty(input.EndStation))
+            {
+                sql += " and a.EndStation = '" + input.EndStation + "' ";
+            }
+            if (!string.IsNullOrEmpty(input.ReturnStation))
+            {
+                sql += " and a.ReturnStation = '" + input.ReturnStation + "' ";
+            }
+            //用箱范围
+            if (input.EffectiveSTime.HasValue)
+            {
+                sql += " and !( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'"+ input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
+            }
+            if (input.Finish.HasValue)
+            {
+                if (input.Finish.Value)
+                    sql += " and a.Finish = 1 ";
+                else
+                    sql += " and (a.Finish = 0 or a.Finish is null) ";
+            }
+
+            sql += @"       
+                         group by a.id,a.BillNO,b.box,b.size
+
+                            --去重
+                            select id,BillNO  INTO #XDBILLINFO1
+                            from #XDBILLINFO ";
+
+            if (!string.IsNullOrEmpty(input.XXCC))
+            {
+                string[] data = input.XXCC.Split('|');
+                sql += " where box='"+ data[1] + "' and size='" + data[0] + "' ";
+                if (data[2] != "" && data[2] != "0")
+                {
+                    sql += " and qty>=" + data[2];
+                }
+            }
+            sql += @"
+                            group by id,BillNO
+
+                            select  a.Id,a.BillNO,
+                            (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
+                            (case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,
+                            (case when isnull(reline.SiteName,'')='' then reline.SiteName else reline.SiteName end )ReturnStation,
+                            a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,
+                            ( SELECT RTRIM(typename) + ';'
+                                               FROM
+                                               (
+                                                   SELECT Size + BOX + '×' + CONVERT(NVARCHAR(50), sum(b.qty)) AS typename
+                                                   FROM #XDBILLINFO b
+                                                   WHERE  a.BillNO=b.BillNO
+                              
+                                                   GROUP BY box,
+                                                            Size
+                                               ) a
+                                               FOR XML PATH('') )as xxcc
+                            from  #XDBILLINFO1 b
+                            join BoxInfos a on a.id=b.id
+                            left join SiteTables startline on a.StartStation = startline.Code 
+                            left join SiteTables endline on a.EndStation = endline.Code 
+                            left join SiteTables reline on a.ReturnStation = reline.Code 
+                            left join Lines xdline on a.Line = xdline.Id 
+
+                            DROP TABLE #XDBILLINFO,#XDBILLINFO1";
+            var query = _sqlDapperRepository.Query<XDSearchList>(sql).AsQueryable();
 
 
             return query;
@@ -202,22 +283,22 @@ namespace Admin.Application.Custom.API.OnlineSearch
             {
                 var query = CreateZKDelInfoQuery(input);
                 //获取行数
-                var resultCount = await query.CountAsync();
+                var resultCount = query.Count();
                 //排序，分页
                 var results = query
                     .OrderBy(input.Sorting)
                     .PageBy(input)
                     .ToList();
-                var allids = results.Select(p => p.BillNO).ToList();
-                if (allids.Count > 0)
-                {
-                    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-                    results.ForEach(item =>
-                    {
-                        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-                        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
-                    });
-                }
+                //var allids = results.Select(p => p.BillNO).ToList();
+                //if (allids.Count > 0)
+                //{
+                //    var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                //    results.ForEach(item =>
+                //    {
+                //        var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                //        item.xxcc = boxdetai.Count == 0 ? "" : string.Join(",", boxdetai.Select(p => p.Size + p.Box).Distinct().ToList());
+                //    });
+                //}
                 return new PagedResultDto<ZKSearchList>(resultCount, results.MapTo<List<ZKSearchList>>());
             }
             return await GetListFunc();
@@ -225,6 +306,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
 
         private IQueryable<ZKSearchList> CreateZKDelInfoQuery(ZKSearchDto input)
         {
+            /*
             var query = from ZKDelInfo in _TenantInfoRepository.GetAll().Where(p => p.IsEnable && p.IsVerify &&string.IsNullOrEmpty(p.VerifyRem))
                              .WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
                               .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
@@ -255,8 +337,89 @@ namespace Admin.Application.Custom.API.OnlineSearch
                             Finish = ZKDelInfo.Finish,
                             CreationTime = ZKDelInfo.CreationTime,
                         };
+                        */
+
+            string sql = @"--先获取符合条件的主表信息
+                            select a.id,a.BillNO,b.box,b.size ,isnull(sum(b.Quantity),0) as qty
+                            INTO #ZKDelInfo
+                            from TenantInfos a
+                            left join BoxDetailses b on a.BillNO=b.BoxTenantInfoNO and b.isdeleted=0
+                            where a.isdeleted=0";
+            if (!string.IsNullOrEmpty(input.BillNO))
+            {
+                sql += " and a.BillNO like '%" + input.BillNO.Trim() + "%' ";
+            }
+            if (!string.IsNullOrEmpty(input.StartStation))
+            {
+                sql += " and a.StartStation = '" + input.StartStation + "' ";
+            }
+            if (!string.IsNullOrEmpty(input.EndStation))
+            {
+                sql += " and a.EndStation = '" + input.EndStation + "' ";
+            }
+            if (input.Finish.HasValue)
+            {
+                if(input.Finish.Value)
+                  sql += " and a.Finish = 1 ";
+                else
+                  sql += " and (a.Finish = 0 or a.Finish is null) ";
+            }
+            //用箱范围
+            if (input.EffectiveSTime.HasValue)
+            {
+                sql += " and !( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
+            }
+
+            //.WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
+            //                 .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
+            //                 .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)
+            //                 .WhereIf(!input.ReturnStation.IsNullOrEmpty(), p => p.ReturnStation == input.ReturnStation)
+            //                 // .WhereIf(input.IsInStock.HasValue, p => p.IsInStock == input.IsInStock)
+            //                 .WhereIf(input.EffectiveTime.HasValue, p => p.EffectiveSTime <= input.EffectiveTime.Value && p.EffectiveETime >= input.EffectiveTime.Value)
 
 
+            sql += @"       
+                         group by a.id,a.BillNO,b.box,b.size
+
+                            --去重
+                            select id,BillNO  INTO #ZKDelInfo1
+                            from #ZKDelInfo ";
+
+            if (!string.IsNullOrEmpty(input.XXCC))
+            {
+                string[] data = input.XXCC.Split('|');
+                sql += " where box='" + data[1] + "' and size='" + data[0] + "' ";
+                if (data[2] != "" && data[2] != "0")
+                {
+                    sql += " and qty>=" + data[2];
+                }
+            }
+            sql += @"
+                            group by id,BillNO
+
+                            select  a.Id,a.BillNO,
+                            (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
+                            (case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,                           
+                            a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,a.InquiryNum,
+                            ( SELECT RTRIM(typename) + ';'
+                                               FROM
+                                               (
+                                                   SELECT Size + BOX + '×' + CONVERT(NVARCHAR(50), sum(b.qty)) AS typename
+                                                   FROM #ZKDelInfo b
+                                                   WHERE  a.BillNO=b.BillNO
+                              
+                                                   GROUP BY box,
+                                                            Size
+                                               ) a
+                                               FOR XML PATH('') )as xxcc
+                            from  #ZKDelInfo1 b
+                            join TenantInfos a on a.id=b.id
+                            left join SiteTables startline on a.StartStation = startline.Code 
+                            left join SiteTables endline on a.EndStation = endline.Code                            
+                            left join Lines xdline on a.Line = xdline.Id 
+
+                            DROP TABLE #ZKDelInfo,#ZKDelInfo1";
+            var query = _sqlDapperRepository.Query<ZKSearchList>(sql).AsQueryable();
             return query;
         }
         #endregion
