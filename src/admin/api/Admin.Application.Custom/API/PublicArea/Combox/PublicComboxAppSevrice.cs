@@ -121,7 +121,7 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
                 .WhereIf(!string.IsNullOrEmpty(CountryCode), p => CountryCode == p.CountryCode)
                 .Select(p => new ComboxDto {
                    Value= p.Code,
-                   DisplayText= p.SiteName
+                   DisplayText= p.Code+"/"+p.SiteName+"/" + p.ENSiteName
                 }).ToList();
 
             return output;
@@ -153,7 +153,7 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
                         select new ComboxDto
                         {
                             Value = a.Code,
-                            DisplayText = a.SiteName
+                            DisplayText = a.Code + "/" + a.SiteName + "/" + a.ENSiteName
                         };
 
 

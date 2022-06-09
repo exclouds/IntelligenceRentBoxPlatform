@@ -269,7 +269,7 @@ namespace Admin.Application.Custom.API.Recommend
                             join site in _SiteTableRepository.GetAll() on DelInfo.StartStation equals site.Code into startsite
                             from startline in startsite.DefaultIfEmpty()
 
-                            join site in _SiteTableRepository.GetAll() on DelInfo.EndStation equals site.Code into endsite
+                            join site in _SiteTableRepository.GetAll() on DelInfo.ReturnStation equals site.Code into endsite
                             from endline in endsite.DefaultIfEmpty()
 
                             join line in _LineRepository.GetAll() on DelInfo.Line equals line.Id into lines
@@ -280,8 +280,8 @@ namespace Admin.Application.Custom.API.Recommend
                                 BillNO = DelInfo.BillNO.Trim().ToUpper(),
                                 StartStation = string.IsNullOrEmpty(startline.SiteName) ? DelInfo.StartStation : startline.SiteName,
                                 //EndStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.EndStation : endline.SiteName,
-                                EndStation =DelInfo.EndStation ,
-                                ReturnStation = DelInfo.ReturnStation,
+                                ReturnStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.ReturnStation : endline.SiteName,
+                                EndStation = DelInfo.EndStation,
                                 EffectiveSTime = DelInfo.EffectiveSTime.ToString("yyyy-MM-dd"),
                                 EffectiveETime = DelInfo.EffectiveETime.ToString("yyyy-MM-dd"),
                                 Line = xdline.LineName,
