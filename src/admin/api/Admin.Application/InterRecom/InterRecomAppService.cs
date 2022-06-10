@@ -305,114 +305,147 @@ namespace Magicodes.Admin.InterRecom
             return results;
         }
 
-        //[HttpPost]
-        //public async Task<ShowResultPageList> GetInterRecomList(InteRcommenDto dto)
-        //{
-        //    ShowResultPageList returnresult = new ShowResultPageList
-        //    {
-        //        xdlist = new List<ShowPageList>(),
-        //        zklist = new List<ShowPageList>()
-        //    };
-        //    string belong = "";
-        //    if (dto.belong.IsNullOrEmpty())
-        //    {
-        //        if (!dto.billNo.IsNullOrEmpty())
-        //        {
-        //            dto.belong = dto.billNo.Substring(0, 2);
-        //        }
-        //    }
-        //    belong = dto.belong;
-        //    List<ShowPageList> results = new List<ShowPageList>();
+        /// <summary>
+        /// 搜索箱东订单匹配租客订单
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ShowResultPageList> GetInterRecomAllList(InteRcommenDto dto)
+        {
+            string sql = @"
+                       select distinct XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, 
+                      (case when isnull(startline.SiteName,'')= '' then XDDelInfo.StartStation else startline.SiteName end) as StartStation,
+                      (case when isnull(endline.SiteName,'') = '' then XDDelInfo.EndStation else endline.SiteName end) as EndStation,XDDelInfo.ReturnStation,
+                      convert(varchar(50), XDDelInfo.EffectiveSTime, 111) as EffectiveSTime,
+                      convert(varchar(50), XDDelInfo.EffectiveETime, 111) as EffectiveETime,
+                      XDDelInfo.SellingPrice Price, xdline.LineName Line, XDDelInfo.Finish,XDDelInfo.CreationTime,u.Name,XDDelInfo.Remarks
+                      
+                      from  BoxInfos XDDelInfo
+                      left join SiteTables startline on XDDelInfo.StartStation = startline.Code
+                      left join SiteTables endline on XDDelInfo.EndStation = endline.Code
+                      left join Lines xdline on XDDelInfo.Line = xdline.Id
+                      left join AbpUsers u on XDDelInfo.CreatorUserId=u.id
+                      left join BoxDetailses det on XDDelInfo.BillNO=det.BoxTenantInfoNO
+                      Where XDDelInfo.IsEnable = 1 AND XDDelInfo.IsVerify = 1 AND ISNULL(XDDelInfo.VerifyRem,'')= '' and XDDelInfo.IsDeleted = 0 ";
+            if (!dto.StartStation.IsNullOrEmpty())
+            {
+                sql += " and XDDelInfo.StartStation='"+dto.StartStation+"'";
+            }
+            if (!dto.EndStation.IsNullOrEmpty())
+            {
+                sql += " and XDDelInfo.EndStation='" + dto.EndStation + "'";
+            }
+            if (dto.Line.HasValue)
+            {
+                sql += " and Size='"+dto.Size+"'";
+            }
+            if (!dto.Box.IsNullOrEmpty())
+            {
+                sql += " and Box='" + dto.Box + "'";
+            }
+            if (dto.EffectiveSTime.HasValue)
+            {
+                sql += " and EffectiveSTime>='"+dto.EffectiveSTime+"'";
+            }
+            if (dto.EffectiveETime.HasValue)
+            {
+                sql += " and EffectiveETime<='" + dto.EffectiveETime + "'";
+            }
+            sql = string.Format(sql, dto.StartStation, dto.EndStation, dto.Line, dto.Size, dto.Box, dto.EffectiveSTime, dto.EffectiveETime);
+            var query = _sqlDapperRepository.Query<ShowPageList>(sql).AsQueryable();
 
-        //    if (belong == "XD")
-        //    {
-        //        string sql = @"
-        //               select XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, 
-        //               (case when isnull(startline.SiteName,'')= '' then XDDelInfo.StartStation else startline.SiteName end) as StartStation,
-        //               (case when isnull(endline.SiteName,'') = '' then XDDelInfo.EndStation else endline.SiteName end) as EndStation,
-        //               XDDelInfo.ReturnStation,XDDelInfo.IsInStock,XDDelInfo.PredictTime,
-        //               convert(varchar(50), XDDelInfo.EffectiveSTime, 120) as EffectiveSTime,
-        //               convert(varchar(50), XDDelInfo.EffectiveETime, 120) as EffectiveETime,
-        //               XDDelInfo.SellingPrice Price, xdline.LineName Line, XDDelInfo.Finish,XDDelInfo.CreationTime,XDDelInfo.Remarks
+            var resultCount = query.Count();
+            //排序，分页
+            var xdResults = query
+                .OrderBy(dto.Sorting)
+                .PageBy(dto)
+                .ToList();
+            var allids = xdResults.Select(p => p.BillNO).ToList();
 
-        //               from  BoxInfos XDDelInfo
-        //               left join   SiteTables startline on XDDelInfo.StartStation = startline.Code
-        //               left join  SiteTables endline on XDDelInfo.EndStation = endline.Code
-        //               left join  Lines xdline on XDDelInfo.Line = xdline.Id
+            if (allids.Count > 0)
+            {
+                //var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                string billnos = string.Join("','", allids);
+                string bosql = "select * from BoxDetailses where isdeleted=0 and BoxTenantInfoNO in('" + billnos + "')";
+                var query1 = _sqlDapperRepository.Query<BoxDetails>(bosql).AsQueryable();
+                var alldetail = query1.ToList();
+                xdResults.ForEach(item =>
+                {
+                    var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
+                    if (boxdetai.Count > 0)
+                    {
+                        item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
+                    }
+                });
+            }
 
-        //               Where XDDelInfo.IsEnable = 1 AND XDDelInfo.IsVerify = 1 AND ISNULL(XDDelInfo.VerifyRem,'')= '' and XDDelInfo.IsDeleted = 0";
+            List<ShowPageList> zklist = new List<ShowPageList>();
+            foreach (var item in xdResults)
+            {
+                var box = _BoxInfoRepository.Get(item.Id.Value);
+                var boxde = _BoxDetailsRepository.GetAll().Where(b => b.BoxTenantInfoNO == box.BillNO).ToList();
+                var cc = boxde.Select(b => b.Size).ToList().JoinAsString("','");
+                var xx = boxde.Select(b => b.Box).ToList().JoinAsString("','");
+                sql = @"select distinct ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, 
+                        (case when isnull(startline.SiteName,'')='' then  ZKDelInfo.StartStation else startline.SiteName end) as StartStation,
+                        (case when isnull(endline.SiteName,'') ='' then ZKDelInfo.EndStation else endline.SiteName end) as EndStation,'' AS ReturnStation,
+                        convert(varchar(50),ZKDelInfo.EffectiveSTime,111)    as EffectiveSTime,
+                        convert(varchar(50),ZKDelInfo.EffectiveETime,111)  as  EffectiveETime,
+                        ZKDelInfo.HopePrice Price,xdline.LineName Line, ZKDelInfo.Finish,ZKDelInfo.CreationTime,u.Name,ZKDelInfo.Remarks
+                      
+                        from TenantInfos ZKDelInfo
+                        left join SiteTables startline on ZKDelInfo.StartStation = startline.Code 
+                        left join SiteTables endline on ZKDelInfo.EndStation = endline.Code 
+                        left join Lines xdline on ZKDelInfo.Line = xdline.Id 
+                        left join AbpUsers u on ZKDelInfo.CreatorUserId=u.id
+                        left join BoxDetailses det on ZKDelInfo.BillNO=det.BoxTenantInfoNO
+                        Where ZKDelInfo.IsEnable=1 AND ZKDelInfo.IsVerify=1 AND ISNULL(ZKDelInfo.VerifyRem,'')='' and  ZKDelInfo.IsDeleted=0
+                        and (
+                        (ZKDelInfo.StartStation='{0}' and ZKDelInfo.EndStation='{1}' and Line='{2}' and Size in ('{3}') and Box in ('{4}') 
+                        and EffectiveSTime>='{5}' and EffectiveETime<='{6}')
+                        or ((ZKDelInfo.StartStation='{0}' or ZKDelInfo.EndStation='{1}') and Line='{2}' and Size in ('{3}') and Box in ('{4}') 
+                        and (EffectiveSTime>='{5}' or EffectiveETime<='{6}'))
+                        )";
+                sql = string.Format(sql, box.StartStation, box.EndStation, box.Line, cc, xx, box.EffectiveSTime, box.EffectiveETime);
+                var zkquery = _sqlDapperRepository.Query<ShowPageList>(sql).FirstOrDefault();
+                if (zkquery == null)
+                {
+                    Random rd = new Random();
+                    zklist.Add(new ShowPageList() { Id = rd.Next(1000000, 9999999) });
+                }
+                else
+                {
+                    zklist.Add(zkquery);
+                }
+            }
 
-        //        var query = _sqlDapperRepository.Query<ShowPageList>(sql).AsQueryable();
+            var allids2 = zklist.Select(p => p.BillNO).ToList();
 
-        //        var resultCount = query.Count();
-        //        //排序，分页
-        //        results = query
-        //            .OrderBy(dto.Sorting)
-        //            .PageBy(dto)
-        //            .ToList();
-        //        var allids = results.Select(p => p.BillNO).ToList();
+            if (allids2.Count > 0)
+            {
+                //var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
+                string billnos = string.Join("','", allids2);
+                string bosql = "select * from BoxDetailses where isdeleted=0 and BoxTenantInfoNO in('" + billnos + "')";
+                var query1 = _sqlDapperRepository.Query<BoxDetails>(bosql).AsQueryable();
+                var alldetail = query1.ToList();
+                zklist.ForEach(item =>
+                {
+                    var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
 
-        //        if (allids.Count > 0)
-        //        {
-        //            var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-        //            results.ForEach(item =>
-        //            {
-        //                var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-        //                if (boxdetai.Count > 0)
-        //                {
-        //                    item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
-        //                }
-        //            });
-        //        }
-        //        returnresult.xdlist = results;
-        //    }
+                    if (boxdetai.Count > 0)
+                    {
+                        item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
 
-        //    if (belong == "ZK")
-        //    {
-        //        string sql = @"   select  ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, 
-        //                     (case when isnull(startline.SiteName,'')='' then  ZKDelInfo.StartStation else startline.SiteName end) as StartStation,
-        //                     (case when isnull(endline.SiteName,'') ='' then ZKDelInfo.EndStation else endline.SiteName end) as EndStation,
-        //                     '' AS ReturnStation,1 AS  IsInStock,NULL AS PredictTime,
-        //                     convert(varchar(50),ZKDelInfo.EffectiveSTime,120)    as EffectiveSTime,
-        //                     convert(varchar(50),ZKDelInfo.EffectiveETime,120)  as  EffectiveETime,
-        //                     ZKDelInfo.HopePrice Price,xdline.LineName Line, ZKDelInfo.Finish,ZKDelInfo.CreationTime,ZKDelInfo.Remarks
+                    }
 
-        //                     from  TenantInfos ZKDelInfo
-        //                     left join   SiteTables startline on ZKDelInfo.StartStation = startline.Code 
-        //                     left join  SiteTables endline on ZKDelInfo.EndStation = endline.Code 
-        //                     left join  Lines xdline on ZKDelInfo.Line = xdline.Id 
-
-        //                     Where ZKDelInfo.IsEnable=1 AND ZKDelInfo.IsVerify=1 AND ISNULL(ZKDelInfo.VerifyRem,'')='' and  ZKDelInfo.IsDeleted=0  ";
-        //        var query = _sqlDapperRepository.Query<ShowPageList>(sql).AsQueryable();
-
-        //        var resultCount = query.Count();
-        //        //排序，分页
-        //        results = query
-        //            .OrderBy(dto.Sorting)
-        //            .PageBy(dto)
-        //            .ToList();
-
-        //        var allids = results.Select(p => p.BillNO).ToList();
-
-        //        if (allids.Count > 0)
-        //        {
-        //            var alldetail = _BoxDetailsRepository.GetAll().Where(p => allids.Contains(p.BoxTenantInfoNO)).ToList();
-        //            results.ForEach(item =>
-        //            {
-        //                var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
-        //                if (boxdetai.Count > 0)
-        //                {
-        //                    item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
-
-        //                }
-
-        //            });
-        //        }
-
-        //        returnresult.zklist = results;
-        //    }
-        //    return returnresult;
-        //}
+                });
+            }
+            ShowResultPageList srp = new ShowResultPageList();
+            srp.xdlist = xdResults;
+            srp.zklist = zklist;
+            return srp;
+        }
         #endregion
     }
 }
