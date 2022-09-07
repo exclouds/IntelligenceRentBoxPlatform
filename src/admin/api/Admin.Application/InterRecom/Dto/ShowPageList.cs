@@ -9,6 +9,7 @@ namespace Magicodes.Admin.InterRecom.Dto
     {
         public List<ShowPageList> xdlist;
         public List<ShowPageList> zklist;
+        public int TotalCount { get; set; }
     }
     public class ShowPageList
     {

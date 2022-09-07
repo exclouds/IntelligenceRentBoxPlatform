@@ -16,6 +16,10 @@ namespace Magicodes.Admin.SiteTab.Dto
         /// </summary>
         public string SiteName { get; set; }
         /// <summary>
+        /// 英文名称
+        /// </summary>
+        public string ENSiteName { get; set; }
+        /// <summary>
         /// 国家代码
         /// </summary>
         public string CountryCode { get; set; }

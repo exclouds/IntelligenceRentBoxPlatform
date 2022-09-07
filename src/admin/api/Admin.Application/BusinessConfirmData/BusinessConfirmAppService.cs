@@ -130,7 +130,7 @@ namespace Magicodes.Admin.BusinessConfirmData
                     boxInfoTenantInfoDto.TelNumber = usr.TelNumber;
                 }
             }
-            if (boxInfoTenantInfoDto.BoxInfo == null && boxInfoTenantInfoDto.TenantInfo == null)
+            if (boxInfoTenantInfoDto.BoxInfo == null || boxInfoTenantInfoDto.TenantInfo == null)
             {
                 boxInfoTenantInfoDto.Msg = "提单不存在或已完成";
             }
