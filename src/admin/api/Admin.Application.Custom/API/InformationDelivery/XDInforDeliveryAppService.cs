@@ -300,9 +300,12 @@ namespace Admin.Application.Custom.API.InformationDelivery
                 Size = input.Size,
                 Quantity = input.Quantity,
                 BoxNO = input.BoxNO,
-                BoxAge = input.BoxAge,
+                //BoxAge = input.BoxAge,
                 IsVerify = false,
-               
+                MaxWeight = input.MaxWeight,
+                BoxLabel = input.BoxLabel,
+                BoxTime = input.BoxTime,
+                FreezerModel = input.FreezerModel,
 
 
             };
@@ -321,8 +324,12 @@ namespace Admin.Application.Custom.API.InformationDelivery
             XDDetails.Size = input.Size;
             XDDetails.Quantity = input.Quantity;
             XDDetails.BoxNO = input.BoxNO;
-            XDDetails.BoxAge = input.BoxAge;
-           // XDDetails.IsVerify = input.IsVerify;
+            // XDDetails.BoxAge = input.BoxAge;
+            // XDDetails.IsVerify = input.IsVerify;
+            XDDetails.MaxWeight = input.MaxWeight;
+            XDDetails.BoxLabel = input.BoxLabel;
+            XDDetails.BoxTime = input.BoxTime;
+            XDDetails.FreezerModel = input.FreezerModel;
 
             XDDetails.Remarks = input.Remarks;
             XDDetails.LastModifierUserId = AbpSession.UserId;

@@ -97,7 +97,7 @@ namespace Admin.Application.Custom.API.Recommend
             if (UserNature != 1)
             {
                  sql = @"
-                     select XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, 
+                     select XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, XDDelInfo.Line as LineID,
                      (case when isnull(startline.SiteName,'')= '' then XDDelInfo.StartStation else startline.SiteName end) as StartStation,
                     --(case when isnull(endline.SiteName,'') = '' then XDDelInfo.EndStation else endline.SiteName end) as EndStation,
                     XDDelInfo.EndStation,XDDelInfo.ReturnStation,
@@ -122,7 +122,7 @@ namespace Admin.Application.Custom.API.Recommend
 
             if ( UserNature != 0)
             {
-                 sql += @"   select  ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, 
+                 sql += @"   select  ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, ZKDelInfo.Line as LineID,
                          (case when isnull(startline.SiteName,'')='' then  ZKDelInfo.StartStation else startline.SiteName end) as StartStation,
                         --(case when isnull(endline.SiteName,'') ='' then ZKDelInfo.EndStation else endline.SiteName end) as EndStation,
                         ZKDelInfo.EndStation,'' AS ReturnStation,
@@ -335,7 +335,7 @@ namespace Admin.Application.Custom.API.Recommend
                 var sitelis = _SiteTableRepository.GetAll().Where(p => ("," + info.EndStation + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
                 info.EndStation = string.Join(",", sitelis);
             }
-
+            var dtnow = DateTime.Now.Year;
             var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO.ToUpper() == info.BillNO.ToUpper())
                           .Select(p => new XDSeachDtailDto
                           {
@@ -343,8 +343,13 @@ namespace Admin.Application.Custom.API.Recommend
                               BoxNO = p.BoxNO,
                               Box = p.Box,
                               Size = p.Size,
-                              BoxAge = p.BoxAge,
+                              //BoxAge = p.BoxAge,
                               Quantity = p.Quantity,
+                              BoxAge = p.BoxTime.HasValue ? (dtnow - p.BoxTime.Value.Year).ToString() : "",
+                              MaxWeight = p.MaxWeight,
+                              BoxLabel = p.BoxLabel,
+                              BoxTime = p.BoxTime,
+                              FreezerModel = p.FreezerModel,
                           }).ToList();
             info.BoxDetails = allfeelis;
 

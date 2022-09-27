@@ -228,7 +228,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
             sql += @"
                             group by id,BillNO
 
-                            select  a.Id,a.BillNO,
+                            select  a.Id,a.BillNO,a.Line as LineID,
                             (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
                             --(case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,
                              a.EndStation,
@@ -269,7 +269,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
         /// <returns></returns>
         public async Task<List<XDSeachDtailDto>> GetXDBoxDetail(string billno)
         {
-           
+            var dtnow = DateTime.Now.Year;
             var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO == billno)
                 .Select(p=>new XDSeachDtailDto
                 {
@@ -277,8 +277,13 @@ namespace Admin.Application.Custom.API.OnlineSearch
                     BoxNO=p.BoxNO,
                     Box=p.Box,
                     Size=p.Size,
-                    BoxAge=p.BoxAge,
+                    //BoxAge=p.BoxAge,
                     Quantity= p.Quantity,
+                    BoxAge = p.BoxTime.HasValue ? (dtnow - p.BoxTime.Value.Year).ToString() : "",
+                    MaxWeight = p.MaxWeight,
+                    BoxLabel = p.BoxLabel,
+                    BoxTime = p.BoxTime,
+                    FreezerModel = p.FreezerModel,
                 }).ToList();
             ;
 
@@ -432,7 +437,7 @@ namespace Admin.Application.Custom.API.OnlineSearch
             sql += @"
                             group by id,BillNO
 
-                            select  a.Id,a.BillNO,
+                            select  a.Id,a.BillNO,a.Line as LineID,
                             (case when isnull(startline.SiteName,'')='' then startline.SiteName else startline.SiteName end )StartStation,
                             --(case when isnull(endline.SiteName,'')='' then endline.SiteName else endline.SiteName end )EndStation,                           
                              a.EndStation,a.EffectiveSTime,a.EffectiveETime, xdline.LineName as Line,a.Finish,a.CreationTime,a.InquiryNum,

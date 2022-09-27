@@ -37,6 +37,7 @@ namespace Magicodes.Admin.BoxDetailsReview
         [HttpPost]
         public async Task<PagedResultDto<BoxDetailsListDto>> GetAllBoxDetailsInfo(GetBoxDetailsInput input)
         {
+            var dtnow = DateTime.Now.Year;
             var query = from boxDetails in _boxDetailsRepository.GetAll()
                         .WhereIf(!input.BoxTenantNO.IsNullOrEmpty(), b => b.BoxTenantInfoNO == input.BoxTenantNO)
                         .WhereIf(input.IsVerify.HasValue, b => b.IsVerify == input.IsVerify)
@@ -52,10 +53,14 @@ namespace Magicodes.Admin.BoxDetailsReview
                             Size = boxDetails.Size,
                             Quantity = boxDetails.Quantity,
                             BoxNO = boxDetails.BoxNO,
-                            BoxAge = boxDetails.BoxAge,
+                            BoxAge = boxDetails.BoxTime.HasValue? (dtnow - boxDetails.BoxTime.Value.Year).ToString():"",
                             IsVerify = boxDetails.IsVerify,
                             CreatorUserId = boxDetails.CreatorUserId,
-                            CreationTime = boxDetails.CreationTime
+                            CreationTime = boxDetails.CreationTime,
+                            MaxWeight= boxDetails.MaxWeight,
+                            BoxLabel= boxDetails.BoxLabel,
+                            BoxTime = boxDetails.BoxTime,
+                            FreezerModel = boxDetails.FreezerModel,
                         };
             var totalCount = await query.CountAsync();
             var items = await query.OrderBy(input.Sorting).PageBy(input).ToListAsync();

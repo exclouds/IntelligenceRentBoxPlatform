@@ -30,6 +30,7 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         /// 所属路线（可根据站点自动关联，可选）
         /// </summary>
         public string Line { get; set; }
+        public int? LineID { get; set; }
 
         /// <summary>
         /// 有效时间起
