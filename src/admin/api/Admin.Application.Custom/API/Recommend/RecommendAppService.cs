@@ -97,17 +97,17 @@ namespace Admin.Application.Custom.API.Recommend
             if (UserNature != 1)
             {
                  sql = @"
-                     select XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, 
+                     select XDDelInfo.Id, 'XD' AS type, XDDelInfo.BillNO, XDDelInfo.Line as LineID,
                      (case when isnull(startline.SiteName,'')= '' then XDDelInfo.StartStation else startline.SiteName end) as StartStation,
-                    (case when isnull(endline.SiteName,'') = '' then XDDelInfo.EndStation else endline.SiteName end) as EndStation,
-                    XDDelInfo.ReturnStation,
+                    --(case when isnull(endline.SiteName,'') = '' then XDDelInfo.EndStation else endline.SiteName end) as EndStation,
+                    XDDelInfo.EndStation,XDDelInfo.ReturnStation,
                     convert(varchar(50), XDDelInfo.EffectiveSTime, 111) as EffectiveSTime,
                     convert(varchar(50), XDDelInfo.EffectiveETime, 111) as EffectiveETime,
                     XDDelInfo.SellingPrice Price, xdline.LineName Line, XDDelInfo.Finish,XDDelInfo.CreationTime,u.Name
 
                      from  BoxInfos XDDelInfo
                     left join   SiteTables startline on XDDelInfo.StartStation = startline.Code
-                    left join  SiteTables endline on XDDelInfo.EndStation = endline.Code
+                    --left join  SiteTables endline on XDDelInfo.EndStation = endline.Code
                     left join  Lines xdline on XDDelInfo.Line = xdline.Id
                     left join  AbpUsers u on XDDelInfo.CreatorUserId=u.id
 
@@ -115,17 +115,17 @@ namespace Admin.Application.Custom.API.Recommend
 
               
             }
-            if (UserNature != 0)
+            if (UserNature ==-1)
             {
                 sql += " union ";
             }
 
             if ( UserNature != 0)
             {
-                 sql += @"   select  ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, 
+                 sql += @"   select  ZKDelInfo.Id, 'ZK' AS type,ZKDelInfo.BillNO, ZKDelInfo.Line as LineID,
                          (case when isnull(startline.SiteName,'')='' then  ZKDelInfo.StartStation else startline.SiteName end) as StartStation,
-                        (case when isnull(endline.SiteName,'') ='' then ZKDelInfo.EndStation else endline.SiteName end) as EndStation,
-                        '' AS ReturnStation,
+                        --(case when isnull(endline.SiteName,'') ='' then ZKDelInfo.EndStation else endline.SiteName end) as EndStation,
+                        ZKDelInfo.EndStation,'' AS ReturnStation,
                         convert(varchar(50),ZKDelInfo.EffectiveSTime,111)    as EffectiveSTime,
                         convert(varchar(50),ZKDelInfo.EffectiveETime,111)  as  EffectiveETime,
                         ZKDelInfo.HopePrice Price,xdline.LineName Line, ZKDelInfo.Finish,ZKDelInfo.CreationTime,u.Name
@@ -133,7 +133,7 @@ namespace Admin.Application.Custom.API.Recommend
 
                         from  TenantInfos ZKDelInfo
                         left join   SiteTables startline on ZKDelInfo.StartStation = startline.Code 
-                        left join  SiteTables endline on ZKDelInfo.EndStation = endline.Code 
+                      --  left join  SiteTables endline on ZKDelInfo.EndStation = endline.Code 
                         left join  Lines xdline on ZKDelInfo.Line = xdline.Id 
                         left join  AbpUsers u on ZKDelInfo.CreatorUserId=u.id
                         Where ZKDelInfo.IsEnable=1 AND ZKDelInfo.IsVerify=1 AND ISNULL(ZKDelInfo.VerifyRem,'')='' and  ZKDelInfo.IsDeleted=0  ";             
@@ -156,6 +156,11 @@ namespace Admin.Application.Custom.API.Recommend
                 string bosql = "select * from BoxDetailses where isdeleted=0 and BoxTenantInfoNO in('" + billnos + "')";
                 var query1 = _sqlDapperRepository.Query<BoxDetails>(bosql).AsQueryable();
                 var alldetail = query1.ToList();
+
+                string sitesql = "select * from SiteTables where isdeleted=0 ";
+                var query2 = _sqlDapperRepository.Query<SiteTable>(sitesql).AsQueryable();
+                var allsites = query2.ToList();
+
                 results.ForEach(item =>
                 {
                     var boxdetai = alldetail.Where(p => p.BoxTenantInfoNO == item.BillNO).ToList();
@@ -164,6 +169,16 @@ namespace Admin.Application.Custom.API.Recommend
                     {
                         item.xxcc = string.Join(",", boxdetai.GroupBy(p => new { p.Size, p.Box }).Select(p => p.FirstOrDefault().Size + p.FirstOrDefault().Box + "X" + p.Sum(P => P.Quantity).ToString()).Distinct().ToList());
 
+                    }
+
+                    if (string.IsNullOrEmpty(item.EndStation))
+                    {
+                        item.EndStation = "全部路线站点";
+                    }
+                    else
+                    {
+                        var sitelis = allsites.Where(p => ("," + item.EndStation + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
+                        item.EndStation = string.Join(",", sitelis);
                     }
 
                 });
@@ -254,7 +269,7 @@ namespace Admin.Application.Custom.API.Recommend
                             join site in _SiteTableRepository.GetAll() on DelInfo.StartStation equals site.Code into startsite
                             from startline in startsite.DefaultIfEmpty()
 
-                            join site in _SiteTableRepository.GetAll() on DelInfo.EndStation equals site.Code into endsite
+                            join site in _SiteTableRepository.GetAll() on DelInfo.ReturnStation equals site.Code into endsite
                             from endline in endsite.DefaultIfEmpty()
 
                             join line in _LineRepository.GetAll() on DelInfo.Line equals line.Id into lines
@@ -264,8 +279,9 @@ namespace Admin.Application.Custom.API.Recommend
                                 Id = DelInfo.Id,
                                 BillNO = DelInfo.BillNO.Trim().ToUpper(),
                                 StartStation = string.IsNullOrEmpty(startline.SiteName) ? DelInfo.StartStation : startline.SiteName,
-                                EndStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.EndStation : endline.SiteName,
-                                ReturnStation = DelInfo.ReturnStation,
+                                //EndStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.EndStation : endline.SiteName,
+                                ReturnStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.ReturnStation : endline.SiteName,
+                                EndStation = DelInfo.EndStation,
                                 EffectiveSTime = DelInfo.EffectiveSTime.ToString("yyyy-MM-dd"),
                                 EffectiveETime = DelInfo.EffectiveETime.ToString("yyyy-MM-dd"),
                                 Line = xdline.LineName,
@@ -293,7 +309,8 @@ namespace Admin.Application.Custom.API.Recommend
                                 Id = DelInfo.Id,
                                 BillNO = DelInfo.BillNO.Trim().ToUpper(),
                                 StartStation = string.IsNullOrEmpty(startline.SiteName) ? DelInfo.StartStation : startline.SiteName,
-                                EndStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.EndStation : endline.SiteName,
+                                // EndStation = string.IsNullOrEmpty(endline.SiteName) ? DelInfo.EndStation : endline.SiteName,
+                                EndStation = DelInfo.EndStation,
                                 EffectiveSTime = DelInfo.EffectiveSTime.ToString("yyyy-MM-dd"),
                                 EffectiveETime = DelInfo.EffectiveETime.ToString("yyyy-MM-dd"),
                                 Line = xdline.LineName,
@@ -309,7 +326,16 @@ namespace Admin.Application.Custom.API.Recommend
             {
                 throw new UserFriendlyException($"未查找到相关信息!");
             }
-
+            if (string.IsNullOrEmpty(info.EndStation))
+            {
+                info.EndStation = "全部路线站点";
+            }
+            else
+            {
+                var sitelis = _SiteTableRepository.GetAll().Where(p => ("," + info.EndStation + ",").Contains("," + p.Code + ",")).Select(p => p.SiteName).ToList();
+                info.EndStation = string.Join(",", sitelis);
+            }
+            var dtnow = DateTime.Now.Year;
             var allfeelis = _BoxDetailsRepository.GetAll().Where(p => p.BoxTenantInfoNO.ToUpper() == info.BillNO.ToUpper())
                           .Select(p => new XDSeachDtailDto
                           {
@@ -317,8 +343,13 @@ namespace Admin.Application.Custom.API.Recommend
                               BoxNO = p.BoxNO,
                               Box = p.Box,
                               Size = p.Size,
-                              BoxAge = p.BoxAge,
+                              //BoxAge = p.BoxAge,
                               Quantity = p.Quantity,
+                              BoxAge = p.BoxTime.HasValue ? (dtnow - p.BoxTime.Value.Year).ToString() : "",
+                              MaxWeight = p.MaxWeight,
+                              BoxLabel = p.BoxLabel,
+                              BoxTime = p.BoxTime,
+                              FreezerModel = p.FreezerModel,
                           }).ToList();
             info.BoxDetails = allfeelis;
 

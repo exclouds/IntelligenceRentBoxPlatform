@@ -23,7 +23,7 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// <summary>
         /// 目的站
         /// </summary>   
-        public string EndStation { get; set; }
+        public List<string> EndStation { get; set; }
 
         /// <summary>
         /// 还箱地
@@ -99,9 +99,26 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// <summary>
         /// 箱龄
         /// </summary>
-        public double BoxAge { get; set; }
+        public string BoxAge { get; set; }
 
       
         public string Remarks { get; set; }
+        /// <summary>
+        /// 最大载重
+        /// </summary>
+        public double? MaxWeight { get; set; }
+        /// <summary>
+        /// 冻柜型号
+        /// </summary>
+        public string FreezerModel { get; set; }
+        /// <summary>
+        /// 箱标
+        /// </summary>
+        public string BoxLabel { get; set; }
+
+        /// <summary>
+        /// 生产年限
+        /// </summary>
+        public DateTime? BoxTime { get; set; }
     }
 }

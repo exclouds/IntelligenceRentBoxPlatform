@@ -24,11 +24,15 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// 目的站
         /// </summary>   
         public string EndStation { get; set; }
+        /// <summary>
+        /// 目的站code
+        /// </summary>   
+        public string EndStationCode { get; set; }
 
         /// <summary>
         /// 还箱地
         /// </summary>
-    
+
         public string ReturnStation { get; set; }
         /// <summary>
         /// 是否库存

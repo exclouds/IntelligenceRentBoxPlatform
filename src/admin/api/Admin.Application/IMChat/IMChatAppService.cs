@@ -1,4 +1,7 @@
-﻿using Magicodes.Admin.IMChat.Dto;
+﻿using Abp.Domain.Repositories;
+using Magicodes.Admin.Authorization.Users;
+using Magicodes.Admin.IMChat.Dto;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +13,25 @@ namespace Magicodes.Admin.IMChat
 {
     public class IMChatAppService : AdminAppServiceBase
     {
+        #region 依赖注入
+        private readonly IRepository<User, long> _userRepository;
+        
+        public IMChatAppService(IRepository<User, long> userRepository)
+        {
+            _userRepository = userRepository;
+        }
+        #endregion
+
+        /// <summary>
+        /// 获取客服id、名称
+        /// </summary>
+        /// <returns></returns>
+        public User GetIMUser()
+        {
+            var user = _userRepository.Get(AbpSession.UserId.Value);
+            return user;
+        }
+
         /// <summary>
         /// 新增客服会话
         /// </summary>
@@ -75,13 +97,21 @@ namespace Magicodes.Admin.IMChat
             return DbHelperSQL.ExecuteSql(sql, cmdParms) > 0;
         }
 
+        /// <summary>
+        /// 修改会话窗口信息
+        /// </summary>
+        /// <param name="clientChatId">会话窗口id（客户端用户id）</param>
+        /// <param name="column"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpGet]
         public bool UpdateClientChat(long clientChatId,string column,string value)
         {
             string sql = "";
             SqlParameter[] cmdParms = null;
             if (column == "state")
             {
-                sql = "update IMChatEn set State=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
+                sql = "update IMClientEn set State=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
                 cmdParms = new SqlParameter[] {
                     new SqlParameter("@Val", SqlDbType.VarChar, 10),
                     new SqlParameter("@LastModificationTime", SqlDbType.DateTime),
@@ -96,7 +126,7 @@ namespace Magicodes.Admin.IMChat
             }
             else if (column == "newMsgCount")
             {
-                sql = "update IMChatEn set NewMsgCount=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
+                sql = "update IMClientEn set NewMsgCount=@Val, LastModificationTime=@LastModificationTime, LastModifierUserId=@LastModifierUserId where ClientChatId=@ClientChatId";
                 cmdParms = new SqlParameter[] {
                     new SqlParameter("@Val", SqlDbType.Int),
                     new SqlParameter("@LastModificationTime", SqlDbType.DateTime),

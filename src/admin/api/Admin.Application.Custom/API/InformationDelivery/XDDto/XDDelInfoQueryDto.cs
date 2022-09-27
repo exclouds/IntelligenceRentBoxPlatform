@@ -17,11 +17,15 @@ namespace Admin.Application.Custom.API.InformationDelivery.XDDto
         /// 起运站
         /// </summary>    
         public string StartStation { get; set; }
-
+        /// <summary>
+        /// 航线
+        /// </summary>    
+        public string line { get; set; }
+        
         /// <summary>
         /// 目的站
         /// </summary>   
-        public string EndStation { get; set; }
+        public List<string> EndStation { get; set; }
 
         /// <summary>
         /// 还箱地

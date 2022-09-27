@@ -54,6 +54,8 @@ namespace Admin.Application.Custom.API.OnlineSearch.Dto
         /// </summary>
         public string Line { get; set; }
 
+        public int? LineID { get; set; }
+
         /// <summary>
         /// 单据是否完成（界面打完成标记）
         /// </summary>

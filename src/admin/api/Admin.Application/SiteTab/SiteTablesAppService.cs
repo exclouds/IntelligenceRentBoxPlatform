@@ -41,12 +41,13 @@ namespace Magicodes.Admin.SiteTab
             var query = from site in _siteTablesRepository.GetAll()
                         .WhereIf(!input.Code.IsNullOrEmpty(), s => s.Code == input.Code)
                         .WhereIf(!input.Filter.IsNullOrWhiteSpace(),
-                           s => s.SiteName.Contains(input.Filter))
-                        select new SiteTablesListDto
+                           s => s.SiteName.Contains(input.Filter) || s.ENSiteName.Contains(input.Filter))
+						select new SiteTablesListDto
                         {
                             Id = site.Id,
                             Code = site.Code,
                             SiteName = site.SiteName,
+							ENSiteName = site.ENSiteName,
 							CountryCode = site.CountryCode,
 							IsEnable = site.IsEnable,
 							Remarks = site.Remarks,
@@ -91,6 +92,7 @@ namespace Magicodes.Admin.SiteTab
 			SiteTable st = new SiteTable();
 			st.Code = input.Code;
 			st.SiteName = input.SiteName;
+			st.ENSiteName = input.ENSiteName;
 			st.CountryCode = input.CountryCode;
 			st.IsEnable = input.IsEnable;
 			st.Remarks = input.Remarks;
@@ -117,6 +119,7 @@ namespace Magicodes.Admin.SiteTab
 			}
 			st.Code = input.Code;
 			st.SiteName = input.SiteName;
+			st.ENSiteName = input.ENSiteName;
 			st.CountryCode = input.CountryCode;
 			st.IsEnable = input.IsEnable;
 			st.Remarks = input.Remarks;

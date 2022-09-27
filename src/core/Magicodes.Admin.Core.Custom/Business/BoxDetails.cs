@@ -58,12 +58,36 @@ namespace Magicodes.Admin.Core.Custom.Business
         /// 箱龄
         /// </summary>
         [Display(Name = "箱龄")]
-        public double BoxAge { get; set; }
+        public double? BoxAge { get; set; }
 
         /// <summary>
         /// 是否审核
         /// </summary>
         [Display(Name = "是否审核")]
         public bool IsVerify { get; set; }
+        /// <summary>
+        /// 最大载重
+        /// </summary>
+        [Display(Name = "最大载重")]
+        public double? MaxWeight { get; set; }
+        /// <summary>
+        /// 冻柜型号
+        /// </summary>
+        [Display(Name = "冻柜型号")]
+        [MaxLength(100)]
+        public string FreezerModel { get; set; }
+        /// <summary>
+        /// 箱标
+        /// </summary>
+        [Display(Name = "箱标")]
+        [MaxLength(100)]
+        public string BoxLabel { get; set; }
+       
+        /// <summary>
+        /// 生产年限
+        /// </summary>
+        [Display(Name = "生产年限")]
+        [MaxLength(50)]
+        public DateTime? BoxTime { get; set; }
     }
 }

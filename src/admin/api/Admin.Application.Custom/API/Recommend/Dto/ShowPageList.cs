@@ -67,7 +67,7 @@ namespace Admin.Application.Custom.API.Recommend.Dto
         /// 所属路线（可根据站点自动关联，可选）
         /// </summary>
         public string Line { get; set; }
-
+        public int? LineID { get; set; }
         /// <summary>
         /// 单据是否完成（界面打完成标记）
         /// </summary>
