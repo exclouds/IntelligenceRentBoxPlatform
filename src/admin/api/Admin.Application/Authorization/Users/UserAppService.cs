@@ -659,6 +659,8 @@ namespace Magicodes.Admin.Authorization.Users
             user.PhoneNumber = input.User.PhoneNumber;
             //座机
             user.TelNumber = input.User.TelNumber;
+            //用户性质 平台管理员
+            user.UserNature = 2;
             user.IsLockoutEnabled = false;
             user.CreatorUserId = AbpSession.UserId;
             user.CreationTime = Clock.Now;

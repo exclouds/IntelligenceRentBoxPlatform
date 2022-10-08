@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Magicodes.Admin.Authorization.Users;
+using Magicodes.Admin.Core.Custom.IMChat;
 using Magicodes.Admin.IMChat.Dto;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,7 @@ namespace Magicodes.Admin.IMChat
     {
         #region 依赖注入
         private readonly IRepository<User, long> _userRepository;
-        
+         
         public IMChatAppService(IRepository<User, long> userRepository)
         {
             _userRepository = userRepository;
@@ -121,8 +122,7 @@ namespace Magicodes.Admin.IMChat
                 cmdParms[0].Value = value;
                 cmdParms[1].Value = DateTime.Now;
                 cmdParms[2].Value = clientChatId;
-                cmdParms[3].Value = clientChatId;
-                
+                cmdParms[3].Value = clientChatId;   
             }
             else if (column == "newMsgCount")
             {
@@ -179,6 +179,45 @@ namespace Magicodes.Admin.IMChat
                 dto.ClientCount = Convert.ToInt32(ds.Tables[0].Rows[0]["clientCount"]);
             }
             return dto;
+        }
+
+        public List<KFListDto> GetIMServerList(string state="on")
+        {
+            List<KFListDto> list = new List<KFListDto>();
+            string sql = @"select distinct ServerChatId,ServerChatName,State 
+                           from IMServerEn
+                           where State='on'";
+            DataSet ds = DbHelperSQL.Query(sql, null);
+            if (ds != null)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    KFListDto dto = new KFListDto();
+                    dto.ServerChatId = Convert.ToInt32(ds.Tables[0].Rows[i]["ServerChatId"]);
+                    dto.ServerChatName = ds.Tables[0].Rows[i]["ServerChatName"].ToString();
+                    dto.State = ds.Tables[0].Rows[i]["State"].ToString();
+                    list.Add(dto);
+                }
+            }
+            return list;
+        }
+        /// <summary>
+        /// 修改服务信息
+        /// </summary>
+        /// <param name="serverChatId"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public bool UpdateServerChat(long serverChatId, string state)
+        {
+            string sql = "";
+            SqlParameter[] cmdParms = null;
+            sql = "update IMServerEn set State='off',LastModificationTime=getdate(),LastModifierUserId=serverchatId where ServerChatId=@ServerChatId";
+                cmdParms = new SqlParameter[] {
+                    new SqlParameter("@ServerChatId", SqlDbType.Int)
+                };
+                cmdParms[0].Value = serverChatId;
+            return DbHelperSQL.ExecuteSql(sql, cmdParms) > 0;
         }
     }
 }

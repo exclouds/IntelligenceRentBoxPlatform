@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using Magicodes.Admin.webscoket;
 
 namespace Magicodes.Admin.Web.Startup
 {
@@ -39,6 +40,6 @@ namespace Magicodes.Admin.Web.Startup
 					logging.AddDebug();
 				})
 				.UseStartup<Startup>();
-
+		
 	}
 }

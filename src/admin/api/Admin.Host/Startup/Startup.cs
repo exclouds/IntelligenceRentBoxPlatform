@@ -32,6 +32,7 @@ using Microsoft.EntityFrameworkCore;
 using Magicodes.Admin.Web.Extensions;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using Magicodes.Admin.Web.Controllers;
 
 namespace Magicodes.Admin.Web.Startup
 {
@@ -56,7 +57,6 @@ namespace Magicodes.Admin.Web.Startup
                                    $"HTTPS:HttpsRedirection:{_appConfiguration["App:HttpsRedirection"]}  UseHsts:{_appConfiguration["App:UseHsts"]}{Environment.NewLine}" +
                                    $"CorsOrigins:{_appConfiguration["App:CorsOrigins"]}{Environment.NewLine}" +
                                    $"RabbitMQ:{_appConfiguration["RabbitMQ:Default"]}{Environment.NewLine}");
-
         }
 
         /// <summary>
