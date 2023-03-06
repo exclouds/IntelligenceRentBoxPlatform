@@ -11,8 +11,8 @@
 
     public abstract class DbHelperSQL
     {
-        protected static string ConnectionString = 
-            "Data Source=47.103.117.243;Initial Catalog=RentBox; Persist Security Info=True;User ID=sa;Password=xander.li123";
+        protected static string ConnectionString =
+            "Data Source=192.168.10.80;Initial Catalog=RentBox; Persist Security Info=True;User ID=CMOS;Password=xgz@jZ2021#$%";
         protected static SqlConnection Connection;
 
         protected static void Close()
