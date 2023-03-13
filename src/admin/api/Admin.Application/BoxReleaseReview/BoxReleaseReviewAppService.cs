@@ -121,14 +121,14 @@ namespace Magicodes.Admin.BoxReleaseReview
         /// <returns></returns>
         [HttpPost]
         //[AbpAuthorize(AppPermissions.?)]
-        public async Task<BoxInfoDto> UpdateBoxReleaseInfo(UpdateBoxInfoInput input)
+        public async Task UpdateBoxReleaseInfo(UpdateBoxInfoInput input)
         {
             var box = await _boxInfoRepository.GetAsync(input.Id);
 
             box.IsVerify = input.IsVerify;
             box.VerifyRem = input.VerifyRem;
             box.IsEnable = input.IsEnable;
-            await _boxInfoRepository.UpdateAsync(box);
+           // await _boxInfoRepository.UpdateAsync(box);
 
             var details = await _boxDetailsRepository.GetAll().Where(b => b.BoxTenantInfoNO == box.BillNO).ToListAsync();
             foreach (var item in details)
@@ -136,8 +136,9 @@ namespace Magicodes.Admin.BoxReleaseReview
                 item.IsVerify = true;
                 _boxDetailsRepository.Update(item);
             }
-
-            return await CreateBoxReleaseInfoDto(box);
+            //BoxInfoDto model = new BoxInfoDto() { boxInfo=new BoxInfo ()};
+            //model.boxInfo=
+            //return await CreateBoxReleaseInfoDto(box);
         }
         private async Task<BoxInfoDto> CreateBoxReleaseInfoDto(BoxInfo boxInfo)
         {

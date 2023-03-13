@@ -34,7 +34,7 @@ namespace Magicodes.Admin.BoxReleaseReview.Dto
         /// <summary>
         /// 是否库存
         /// </summary>
-        public bool IsInStock { get; set; } = true;
+        public bool? IsInStock { get; set; } = true;
         /// <summary>
         /// 预计到站时间
         /// </summary>
@@ -43,16 +43,16 @@ namespace Magicodes.Admin.BoxReleaseReview.Dto
         /// <summary>
         /// 有效时间起
         /// </summary>
-        public DateTime EffectiveSTime { get; set; }
+        public DateTime? EffectiveSTime { get; set; }
 
         /// <summary>
         /// 有效时间止
         /// </summary>
-        public DateTime EffectiveETime { get; set; }
+        public DateTime? EffectiveETime { get; set; }
         /// <summary>
         /// 租金
         /// </summary>
-        public decimal SellingPrice { get; set; }
+        public decimal? SellingPrice { get; set; }
 
         /// <summary>
         /// 所属路线（可根据站点自动关联，可选）
@@ -81,6 +81,6 @@ namespace Magicodes.Admin.BoxReleaseReview.Dto
         /// <summary>
         /// 单据是否完成（界面打完成标记）
         /// </summary>
-        public bool Finish { get; set; }
+        public bool? Finish { get; set; }
     }
 }

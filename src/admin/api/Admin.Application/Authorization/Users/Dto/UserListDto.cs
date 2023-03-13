@@ -28,5 +28,6 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         
 
         public DateTime CreationTime { get; set; }
+        public bool IsLockoutEnabled { get; set; }
     }
 }

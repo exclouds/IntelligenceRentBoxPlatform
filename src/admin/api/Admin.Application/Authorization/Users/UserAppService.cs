@@ -752,5 +752,25 @@ namespace Magicodes.Admin.Authorization.Users
         }
 
         #endregion
+
+        #region 用户审核
+        public async Task CheckUsrInfo(CheckUsrInfoDto input)
+        {
+            if (string.IsNullOrEmpty(input.Id))
+            {
+                throw new UserFriendlyException($"请先选择审核用户!");
+            }
+            //获取用户
+            var user = await UserManager.GetUserByIdAsync(long.Parse(input.Id));
+            if (user==null)
+            {
+                throw new UserFriendlyException($"未找到相应用户信息！!");
+            }
+            user.IsVerify = input.IsVerify;
+            user.VerifyRem = input.VerifyRem;
+            user.IsActive = input.IsActive;
+            user.IsLockoutEnabled = !input.IsActive;
+        }
+        #endregion
     }
 }

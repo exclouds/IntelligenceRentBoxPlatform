@@ -141,14 +141,14 @@ namespace Magicodes.Admin.TenantReleaseReview
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<TenantInfoDto> UpdateTenantReleaseInfo(UpdateTenantInfoInput input)
+        public async Task UpdateTenantReleaseInfo(UpdateTenantInfoInput input)
         {
             var ten = await _tenantInfoRepository.GetAsync(input.Id);
 
             ten.IsVerify = input.IsVerify;
             ten.VerifyRem = input.VerifyRem;
             ten.IsEnable = input.IsEnable;
-            await _tenantInfoRepository.UpdateAsync(ten);
+           // await _tenantInfoRepository.UpdateAsync(ten);
 
             var details = await _boxDetailsRepository.GetAll().Where(t => t.BoxTenantInfoNO == ten.BillNO).ToListAsync();
             foreach (var item in details)
@@ -157,7 +157,7 @@ namespace Magicodes.Admin.TenantReleaseReview
                 _boxDetailsRepository.Update(item);
             }
 
-            return await CreateTenantReleaseInfoDto(ten);
+            //return await CreateTenantReleaseInfoDto(ten);
         }
         private async Task<TenantInfoDto> CreateTenantReleaseInfoDto(TenantInfo tenantInfo)
         {

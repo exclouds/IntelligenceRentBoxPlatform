@@ -151,7 +151,47 @@
 		public const string Customs_BaseKey_Value_Edit = "Customs.BaseKey_Value.Edit";
 		public const string Customs_BaseKey_Value_Delete = "Customs.BaseKey_Value.Delete";
 		public const string Customs_BaseKey_Value_BatchDelete = "Customs.BaseKey_Value.BatchDelete";
-		#endregion
+        #endregion
 
-	}
+        #region 基础信息
+        //国家资料
+        public const string Customs_BaseCountry = "Customs.BaseCountry";
+        //站点维护
+        public const string Customs_SiteTable = "Customs.SiteTable";
+        //路线维护
+        public const string Customs_CountryLine = "Customs.CountryLine";
+        //站点路线维护
+        public const string Customs_LinSite = "Customs.LinSite";
+
+        #endregion
+
+        #region 信息审核
+        //注册信息审核
+        public const string Customs_RegisterCheck = "Customs.RegisterCheck";
+        //注册信息审核
+        public const string Customs_XDBoxCheck = "Customs.XDBoxCheck";
+        //租客发布审核
+        public const string Customs_ZKTenantCheck = "Customs.ZKTenantCheck";
+
+        #endregion
+
+        #region 信息查询
+        //船东信息查询
+        public const string Customs_BoxRelease = "Customs.BoxRelease";
+        //租客信息查询
+        public const string Customs_TenantRelease = "Customs.TenantRelease";
+        //提单信息确认
+        public const string Customs_BoxTenantOrder = "Customs.BoxTenantOrder";
+        //智能推荐
+        public const string Customs_InterRecomQuery = "Customs.InterRecomQuery";
+
+        #endregion
+
+        #region 客服中心
+        //客服中心
+        public const string Customs_ImChatServer = "Customs.ImChatServer";
+       
+        #endregion
+
+    }
 }

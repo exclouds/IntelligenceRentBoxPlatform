@@ -33,16 +33,16 @@ namespace Magicodes.Admin.TenantReleaseReview.Dto
         /// <summary>
         /// 有效时间起
         /// </summary>
-        public DateTime EffectiveSTime { get; set; }
+        public DateTime? EffectiveSTime { get; set; }
 
         /// <summary>
         /// 有效时间止
         /// </summary>
-        public DateTime EffectiveETime { get; set; }
+        public DateTime? EffectiveETime { get; set; }
         /// <summary>
         /// 期望成交价
         /// </summary>
-        public decimal HopePrice { get; set; }
+        public decimal? HopePrice { get; set; }
 
         /// <summary>
         /// 是否启用
@@ -67,6 +67,6 @@ namespace Magicodes.Admin.TenantReleaseReview.Dto
         /// <summary>
         /// 单据是否完成（界面打完成标记）
         /// </summary>
-        public bool Finish { get; set; }
+        public bool? Finish { get; set; }
     }
 }
