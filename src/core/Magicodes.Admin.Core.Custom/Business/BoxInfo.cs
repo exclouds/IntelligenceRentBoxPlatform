@@ -38,13 +38,9 @@ namespace Magicodes.Admin.Core.Custom.Business
         /// 还箱地
         /// </summary>
         [Display(Name = "还箱地")]
-        [Required]
         [MaxLength(50)]
         public string ReturnStation { get; set; }
-        
-        
-        
-
+                      
         /// <summary>
         /// 有效时间起
         /// </summary>

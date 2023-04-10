@@ -116,15 +116,26 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
             {
                 _unitOfWorkManager.Current.SetTenantId(1);
             }
-            var output = _SiteTableRepository.GetAll()
-                .WhereIf(IsEnable.HasValue, p => p.IsEnable == IsEnable)
-                .WhereIf(!string.IsNullOrEmpty(CountryCode), p => CountryCode == p.CountryCode)
-                .Select(p => new ComboxDto {
-                   Value= p.Code,
-                   DisplayText= p.Code+"/"+p.SiteName+"/" + p.ENSiteName
-                }).ToList();
+            //var output = _SiteTableRepository.GetAll()
+            //    .WhereIf(IsEnable.HasValue, p => p.IsEnable == IsEnable)
+            //    .WhereIf(!string.IsNullOrEmpty(CountryCode), p => CountryCode == p.CountryCode)
+            //    .Select(p => new ComboxDto {
+            //       Value= p.Code,
+            //       DisplayText= p.Code+"/"+p.SiteName+"/" + p.ENSiteName
+            //    }).ToList();
 
-            return output;
+            var output = from a in _SiteTableRepository.GetAll()
+                        .WhereIf(IsEnable.HasValue, p => p.IsEnable == IsEnable)
+                        .WhereIf(!string.IsNullOrEmpty(CountryCode), p => CountryCode == p.CountryCode)
+
+                         join b in _CountryRepository.GetAll() on a.CountryCode equals b.Code into countrys from b in countrys.DefaultIfEmpty()
+                         select new ComboxDto
+                         {
+                             Value = a.Code,
+                             DisplayText = a.Code + "/" + a.SiteName + (b == null ? "" : ("/" + b.Name))
+                         };
+
+            return output.ToList();
         }
 
         #endregion
@@ -150,10 +161,14 @@ namespace Admin.Application.Custom.API.PublicArea.Combox
                          .WhereIf(!string.IsNullOrEmpty(line), p => line == p.LineId)
                         on a.Code equals b.Code
 
+                        join c in _CountryRepository.GetAll() on a.CountryCode equals c.Code into countrys
+                        from c in countrys.DefaultIfEmpty()
+
                         select new ComboxDto
                         {
                             Value = a.Code,
-                            DisplayText = a.Code + "/" + a.SiteName + "/" + a.ENSiteName
+                            //DisplayText = a.Code + "/" + a.SiteName + "/" + a.ENSiteName
+                            DisplayText = a.Code + "/" + a.SiteName + (c == null ? "" : ("/" + c.Name))
                         };
 
 

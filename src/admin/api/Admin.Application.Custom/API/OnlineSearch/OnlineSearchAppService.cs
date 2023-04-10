@@ -197,10 +197,26 @@ namespace Admin.Application.Custom.API.OnlineSearch
                 sql += " and a.ReturnStation = '" + input.ReturnStation + "' ";
             }
             //用箱范围
-            if (input.EffectiveSTime.HasValue)
+            if (input.EffectiveSTime.HasValue && input.EffectiveETime.HasValue)
             {
-                sql += " and NOT( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'"+ input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
+                sql += " and NOT( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
             }
+            else if (input.EffectiveSTime.HasValue)
+            {
+                sql += " and  a.EffectiveSTime > ='" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "'  ";
+            }
+            else if (input.EffectiveETime.HasValue)
+            {
+                sql += " and   a.EffectiveETime<'" + input.EffectiveETime.Value.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            }
+            //else if (input.EffectiveSTime.HasValue)
+            //{
+            //    sql += " and  a.EffectiveSTime > '" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "'   and    a.EffectiveETime>='" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "'"; ;
+            //}
+            //else if(input.EffectiveETime.HasValue)
+            //{
+            //    sql += " and  a.EffectiveSTime >= '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "'   and    a.EffectiveETime>='" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "'";
+            //}
             if (input.Finish.HasValue)
             {
                 if (input.Finish.Value)
@@ -405,11 +421,19 @@ namespace Admin.Application.Custom.API.OnlineSearch
                   sql += " and (a.Finish = 0 or a.Finish is null) ";
             }
             //用箱范围
-            if (input.EffectiveSTime.HasValue)
+            if (input.EffectiveSTime.HasValue && input.EffectiveETime.HasValue)
             {
                 sql += " and NOT( a.EffectiveSTime > '" + input.EffectiveETime.Value.ToString("yyyy-MM-dd") + "' or  a.EffectiveETime<'" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "')";
             }
 
+            else if (input.EffectiveSTime.HasValue)
+            {
+                sql += " and  a.EffectiveSTime > ='" + input.EffectiveSTime.Value.ToString("yyyy-MM-dd") + "'  ";
+            }
+            else if (input.EffectiveETime.HasValue)
+            {
+                sql += " and   a.EffectiveETime<'" + input.EffectiveETime.Value.AddDays(1).ToString("yyyy-MM-dd") + "'";
+            }
             //.WhereIf(!input.BillNO.IsNullOrEmpty(), p => p.BillNO.Contains(input.BillNO.Trim().ToUpper()))
             //                 .WhereIf(!input.StartStation.IsNullOrEmpty(), p => p.StartStation == input.StartStation)
             //                 .WhereIf(!input.EndStation.IsNullOrEmpty(), p => p.EndStation == input.EndStation)

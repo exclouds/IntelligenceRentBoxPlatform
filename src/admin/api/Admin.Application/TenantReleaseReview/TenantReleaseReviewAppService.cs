@@ -109,7 +109,7 @@ namespace Magicodes.Admin.TenantReleaseReview
                         Id = q.Id,
                         BillNO = q.BillNO,
                         StartStation = q.StartStation,
-                        EndStation = q.StartStation,
+                        EndStation = q.EndStation,
                         Line = q.Line,
                         LineName = q.LineName,
                         EffectiveSTime = q.EffectiveSTime,
