@@ -13,6 +13,8 @@ namespace Magicodes.Admin.Authorization.Users.Dto
         public string Surname { get; set; }
 
         public string UserName { get; set; }
+        public string Sex { get; set; }
+
 
         public string EmailAddress { get; set; }
 
